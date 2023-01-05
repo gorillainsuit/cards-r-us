@@ -1,0 +1,20 @@
+{
+  "name": "scratch-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorillainsuit/tmpname.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gorillainsuit/tmpname/issues"
+  },
+  "homepage": "https://github.com/gorillainsuit/tmpname#readme"
+}
