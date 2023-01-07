@@ -1,11 +1,40 @@
-import React from "react";
+import React from 'react';
 // const React = require("react");
-import { createRoot } from "react-dom/client";
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const App = () => <h1>Hello World</h1>;
+import Landing from './pages/Landing.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 
-createRoot(document.querySelector("#App")).render(
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Landing />,
+  },
+  {
+    path: '/customize',
+    element: <h1>Customize</h1>,
+  },
+  {
+    path: '/login',
+    element: <h1>Login</h1>,
+  },
+  {
+    path: '/signup',
+    element: <h1>Sign Up</h1>,
+  },
+  {
+    path: '/cards',
+    element: <h1>Cards</h1>,
+  },
+  {
+    path: '/*',
+    element: <ErrorPage />,
+  },
+]);
+
+createRoot(document.querySelector('#App')).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
