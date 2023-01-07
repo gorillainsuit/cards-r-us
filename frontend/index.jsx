@@ -1,10 +1,16 @@
+// React imports
 import React from 'react';
-// const React = require("react");
 import { createRoot } from 'react-dom/client';
+
+// React router imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+// Page imports
 import Landing from './pages/Landing.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
+
+// Style import
+import './styles/index.scss';
 
 const router = createBrowserRouter([
   {
@@ -12,7 +18,7 @@ const router = createBrowserRouter([
     element: <Landing />,
   },
   {
-    path: '/customize',
+    path: '/customize/:cardId',
     element: <h1>Customize</h1>,
   },
   {
