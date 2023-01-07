@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env.TARGET,
-  entry: path.resolve('./frontend/index.js'),
+  entry: path.resolve('./frontend/index.jsx'),
 
   module: {
     rules: [
