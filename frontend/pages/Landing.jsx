@@ -1,5 +1,10 @@
 import React from 'react';
+import Card from '../components/CardDisplayComponent';
 
-const Landing = () => <h1>Hello World</h1>;
+const Landing = () => (
+  <div className='LandingPage'>
+    <h1>Landing</h1>
+  </div>
+);
 
 export default Landing;
