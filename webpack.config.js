@@ -9,7 +9,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -38,6 +38,7 @@ module.exports = {
     watchFiles: {
       paths: ['./frontend/**/*'],
     },
+    historyApiFallback: true,
     // proxy: {
     //   "/api": "http://localhost:3000",
     // },
