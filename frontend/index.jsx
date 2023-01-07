@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // Page imports
 import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
+import Login from './pages/Login';
 
 // Style import
 import './styles/index.scss';
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <h1>Login</h1>,
+    element: <Login/>
   },
   {
     path: '/signup',
