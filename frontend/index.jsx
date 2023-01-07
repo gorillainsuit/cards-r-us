@@ -6,8 +6,8 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Page imports
-import Landing from './pages/Landing.jsx';
-import ErrorPage from './pages/ErrorPage.jsx';
+import Landing from './pages/Landing';
+import ErrorPage from './pages/ErrorPage';
 
 // Style import
 import './styles/index.scss';
