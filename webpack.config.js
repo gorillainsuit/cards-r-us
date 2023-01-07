@@ -37,6 +37,10 @@ module.exports = {
     ],
   },
 
+  resolve: {
+    extensions: ['.jsx', '.js'],
+  },
+
   devServer: {
     port: 8080,
     static: { directory: './dist' },
