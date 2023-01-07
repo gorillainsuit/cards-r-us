@@ -3,7 +3,7 @@ import Card from '../components/CardDisplayComponent';
 
 const Landing = () => (
   <div className='LandingPage'>
-    <Card cardId='test' />
+    <h1>Landing</h1>
   </div>
 );
 
