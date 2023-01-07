@@ -26,7 +26,6 @@ const Card = ({ cardId }) => {
         <img
           src={Placeholder}
           alt='This should be the prompt used to generate the image.'
-          className='PreviewImage'
         />
       </div>
 
