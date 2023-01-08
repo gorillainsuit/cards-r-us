@@ -1,15 +1,14 @@
 @import './_colors.scss';
 @import '../components/CardComponent.scss';
-<<<<<<< HEAD
 @import './login.scss';
-=======
 @import './ErrorPage.scss';
->>>>>>> 2c79a055758b9394693dd4cfd28fd31ffa0371e2
 
 html,
 body {
+  // border: solid cyan 2px;
   margin: 0px;
   padding: 0px;
+  width: 100vw;
 }
 
 .MainContent {
@@ -21,16 +20,63 @@ body {
   .SideBar {
     background-color: red;
     width: 15em;
+
+    .PopDown {
+      display: none;
+    }
   }
 
   .Content {
     flex-grow: 1;
     background-color: blue;
+    height: fit-content;
 
     .Gallary {
       display: flex;
       .Card {
         margin: 8px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    // width: 17em;
+
+    .SideBar {
+      width: 100%;
+
+      ul:first-of-type {
+        display: none;
+      }
+
+      .PopDown {
+        display: flex;
+
+        svg {
+          width: 2em;
+        }
+
+        ul {
+          display: block;
+        }
+      }
+    }
+
+    .Content {
+      // border: solid yellow 2px;
+      // max-width: 80%;
+      .Gallary {
+        flex-direction: column;
+        // max-width: 60%;
+        // border: solid green 2px;
+
+        .Card {
+          margin: 8px auto;
+          // width: 10em;
+          // height: 13em;
+          border: solid white 1px;
+        }
       }
     }
   }
