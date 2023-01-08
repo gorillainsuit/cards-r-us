@@ -1,6 +1,10 @@
-@import './colors.scss';
+@import './_colors.scss';
 @import '../components/CardComponent.scss';
+<<<<<<< HEAD
+@import './login.scss';
+=======
 @import './ErrorPage.scss';
+>>>>>>> 2c79a055758b9394693dd4cfd28fd31ffa0371e2
 
 html,
 body {
