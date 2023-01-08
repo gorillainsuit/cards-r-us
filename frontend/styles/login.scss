@@ -1,0 +1,78 @@
+//   background-color:hsla(263,100%,87%,1);
+// background-image:
+// radial-gradient(at 43% 0%, hsla(215,45%,54%,1) 0px, transparent 50%),
+// radial-gradient(at 33% 30%, hsla(196,100%,97%,1) 0px, transparent 50%),
+// radial-gradient(at 49% 83%, hsla(41,100%,85%,1) 0px, transparent 50%),
+// radial-gradient(at 83% 48%, hsla(127,100%,91%,1) 0px, transparent 50%);
+
+.LoginPage {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  // background-color: hsla(263, 100%, 87%, 1);
+  // background-image: radial-gradient(
+  //     at 43% 0%,
+  //     hsla(215, 45%, 54%, 1) 0px,
+  //     transparent 50%
+  //   ),
+  //   radial-gradient(at 33% 30%, hsla(196, 100%, 97%, 1) 0px, transparent 50%),
+  //   radial-gradient(at 49% 83%, hsla(41, 100%, 85%, 1) 0px, transparent 50%),
+  //   radial-gradient(at 83% 48%, hsla(127, 100%, 91%, 1) 0px, transparent 50%);
+  //   animation: gradient 15s ease infinite;
+
+  background: linear-gradient(-45deg, #8bb4ee, #d7bdff, #ffe8b5, #82db8c);
+  background-size: 400% 400%;
+  animation: gradient 30s ease infinite;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  form {
+    width: 40vw;
+    height: 55vh;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px #f0fbffd0 solid;
+    border-radius: 10px;
+    background-color: #f0fbff89;
+    box-shadow: 3px 5px 5px rgb(205, 199, 199);
+    .Inputs {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .buttons {
+      width: 8em;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .Icons {
+    display: flex;
+    margin: 1.5em;
+    border: 2px green solid;
+
+    .icon {
+      height: 80px;
+    }
+  }
+}
