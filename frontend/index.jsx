@@ -8,18 +8,31 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // Page imports
 import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
+import NotFound from './pages/NotFoundPage';
 
 // Style import
 import './styles/index.scss';
+import App from './containers/App';
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: '/',
     element: <Landing />,
   },
   {
-    path: '/customize/:cardId',
-    element: <h1>Customize</h1>,
+    path: 'cards',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'customize/:cardId',
+        element: <h1>Customize</h1>,
+      },
+    ],
+  },
+  {
+    path: '/card',
+    element: <h1>Single card view</h1>,
   },
   {
     path: '/login',
@@ -30,17 +43,13 @@ const router = createBrowserRouter([
     element: <h1>Sign Up</h1>,
   },
   {
-    path: '/cards',
-    element: <h1>Cards</h1>,
-  },
-  {
     path: '/*',
-    element: <ErrorPage />,
+    element: <NotFound />,
   },
-]);
+];
 
 createRoot(document.querySelector('#App')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={createBrowserRouter(routes)} />
   </React.StrictMode>
 );
