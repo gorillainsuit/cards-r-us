@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
+import Login from './pages/Login';
 
 // Style import
 import './styles/index.scss';
@@ -36,7 +37,7 @@ const routes = [
   },
   {
     path: '/login',
-    element: <h1>Login</h1>,
+    element: <Login />,
   },
   {
     path: '/signup',

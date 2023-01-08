@@ -1,11 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 require('dotenv').config();
 const { DB_URI } = process.env;
 
 const PORT = 3000;
 
 const app = express();
+
+// Routes
+const loginRouter = require('./routes/login');
 
 app.use(express.json());
 
@@ -18,8 +22,10 @@ mongoose
 
 app.get('/', (req, res) => {});
 
+app.use('/login', loginRouter);
+
 app.use((req, res) =>
-  res.status(404).send("This is not the page you're looking for..."),
+  res.status(404).send("This is not the page you're looking for...")
 );
 
 app.use((err, req, res, next) => {

@@ -1,3 +1,4 @@
+// parent 
 .Card {
   width: 12em;
   height: 15em;
@@ -6,18 +7,21 @@
   background-color: $secondary;
   border-radius: 4px;
 
+  // child of .Card (parent of img)
   .Preview {
+    // child of .Preview, parent of none
     img {
       width: 12em;
       border-radius: 4px;
     }
   }
 
+  // cihld of .Card
   .Buttons {
     height: 100%;
     width: 100%;
     display: flex;
-
+// child of .Buttons, parent of svg
     a {
       margin: auto;
       transition: 300ms ease-in-out;
