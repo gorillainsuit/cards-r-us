@@ -18,7 +18,8 @@ const Login = () => {
           <button>sign in</button>
           <button>sign up</button>
         </div>
-          <Link to="findPw"> Forget password?</Link>
+        <br />
+          <Link to="findPw" className='link'> Forget password?</Link>
         <div className='Icons'>
           <a className='icon' href='#' >
           <i class="fa-brands fa-google"></i> 
