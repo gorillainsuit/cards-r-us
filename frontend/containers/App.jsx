@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import Card from '../components/CardDisplayComponent';
 
+import MobileExpandIcon from '../images/icons/list.svg';
 // TODO: add preview image based on S3 url instead of placeholder
 import Placeholder from '../images/placeholder.jpg';
 
@@ -48,7 +49,7 @@ const App = ({ children }) => {
   };
 
   return (
-    <div className='MainContent' hidden={!displaySideBar}>
+    <div className='MainContent'>
       <div className='SideBar'>
         <nav>
           <ul>
@@ -59,6 +60,27 @@ const App = ({ children }) => {
               <Link to='/cards'>Gallary</Link>
             </li>
           </ul>
+          <div className='PopDown'>
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                setDispalySideBar(!displaySideBar);
+              }}>
+              <MobileExpandIcon />
+            </a>
+            <div
+              className='PopDownContent'
+              style={{ display: !displaySideBar ? 'flex' : 'none' }}>
+              <ul>
+                <li>
+                  <Link to='/'>Home</Link>
+                </li>
+                <li>
+                  <Link to='/cards'>Gallary</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
       </div>
       <div className='Content'>
