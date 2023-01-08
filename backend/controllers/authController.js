@@ -3,21 +3,32 @@ const User = require('/models/UserModels');
 const authController = {
   async getUser(req, res, next) {
     try {
-      const data = await User.findOne({ firstName });
+      const userData = await User.findOne({ username });
+      res.locals.userData = userData;
+      console.log(`User '${username}' found`);
+      return next;
     } catch (e) {
-      console.log(`Error: ${e}`);
+      return next({
+        log: 'Middleware error caught in authController - getUser failed',
+        status: 500,
+        message: { err: e.message },
+      });
     }
-    console.log(`Here is the data: ${data}`);
   },
 
   async signUp(req, res, next) {
     try {
       const { username } = req.body;
       const newUser = User.create({ username });
+      console.log(`User '${newUser}' created`);
+      res.locals.newUser = newUser;
     } catch (e) {
-      console.log(`Error: ${e}`);
+      return next({
+        log: 'Middleware error caught in authController - signUp failed',
+        status: 500,
+        message: { err: e.message },
+      });
     }
-    console.log(`Here is the new user: ${newUser}`);
   },
 };
 
