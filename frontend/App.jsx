@@ -4,7 +4,7 @@ import Login from './pages/Login.jsx';
 const App = () => {
   return (
     <div>
-      <Login classn />
+      <Login />
     </div>
   );
 };
