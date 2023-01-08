@@ -6,3 +6,27 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
+.MainContent {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+
+  .SideBar {
+    background-color: red;
+    width: 15em;
+  }
+
+  .Content {
+    flex-grow: 1;
+    background-color: blue;
+
+    .Gallary {
+      display: flex;
+      .Card {
+        margin: 8px;
+      }
+    }
+  }
+}
