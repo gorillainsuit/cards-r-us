@@ -10,6 +10,7 @@ const app = express();
 
 // Routes
 const loginRouter = require('./routes/login');
+const cardsRouter = require('./routes/cards');
 
 app.use(express.json());
 
@@ -23,6 +24,7 @@ mongoose
 app.get('/', (req, res) => {});
 
 app.use('/login', loginRouter);
+app.use('/cards', cardsRouter);
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
