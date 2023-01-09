@@ -3,9 +3,13 @@
 @import './login.scss';
 @import './ErrorPage.scss';
 @import './imgCreatePg.scss';
+@import './Gallery.scss';
 
 html,
 body {
+  // border: solid cyan 2px;
   margin: 0px;
   padding: 0px;
+  width: 100vw;
+  background-color: $primary;
 }
