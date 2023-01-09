@@ -35,7 +35,7 @@ const router = createBrowserRouter([
   //is this route to image creation page ok?
 
   {
-    path: '/createImage',
+    path: '/create',
     element: <CreateImg/>,
 
   },
