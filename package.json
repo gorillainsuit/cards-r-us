@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/gorillainsuit/tmpname#readme",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/public-sans": "^4.5.11",
+    "@mui/joy": "^5.0.0-alpha.61",
     "aws-sdk": "^2.1289.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
