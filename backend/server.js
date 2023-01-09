@@ -25,7 +25,15 @@ mongoose
   .then(() => console.log('connected to DB'))
   .catch(console.error);
 
-app.get('/', (req, res) => {});
+app.get('/', (req, res) => {
+    res.sendFile('../frontend/index.html', function (err) {
+      if (err) {
+        next(err);
+      } else {
+        console.log('Sent:', 'index.html');
+      }
+    });
+});
 
 //loginRoute
 app.use('/login', loginRouter);
