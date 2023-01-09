@@ -139,6 +139,10 @@
         margin: 8px;
         border: solid white 1px;
       }
+
+      .Card:first-of-type {
+        margin-left: 16px;
+      }
     }
   }
 
@@ -171,6 +175,7 @@
 
         .Card:first-of-type {
           margin-top: 16px;
+          margin-left: auto;
         }
 
         .Card {
