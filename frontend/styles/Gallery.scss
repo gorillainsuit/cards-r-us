@@ -1,4 +1,4 @@
-.MainContent {
+.GalleryPage {
   display: flex;
   flex-direction: row;
   width: 100vw;
@@ -7,7 +7,6 @@
   background-color: $primary;
 
   .SideBar {
-    // background-color: red;
     width: 18em;
     height: 100vh;
     border-right: solid $secondary 1px;
@@ -23,7 +22,7 @@
       display: flex;
       height: 5em;
       width: 100%;
-      // margin: auto;
+
       * {
         margin: auto;
       }
@@ -65,7 +64,6 @@
   }
 
   .SideBarMobile {
-    // background-color: red;
     width: 100vw;
     height: 4em;
     border-right: solid $secondary 1px;
@@ -81,7 +79,7 @@
       display: flex;
       height: 4em;
       width: 100%;
-      // margin: auto;
+
       * {
         margin: auto;
       }
@@ -123,8 +121,6 @@
   }
 
   .Content {
-    // flex-grow: 1;
-    // background-color: blue;
     height: fit-content;
     width: 98%;
 
@@ -133,11 +129,12 @@
       flex-wrap: wrap;
       margin: auto;
       height: fit-content;
-      // min-height: 100vh;
       width: 100%;
+
       * {
         margin: auto;
       }
+
       .Card {
         margin: 8px;
         border: solid white 1px;
@@ -147,7 +144,6 @@
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    // width: 17em;
 
     .SideBar {
       width: 100%;
@@ -170,12 +166,8 @@
     }
 
     .Content {
-      // border: solid yellow 2px;
-      // max-width: 80%;
       .Gallary {
         flex-direction: column;
-        // max-width: 60%;
-        // border: solid green 2px;
 
         .Card:first-of-type {
           margin-top: 16px;
@@ -183,8 +175,6 @@
 
         .Card {
           margin: 8px auto;
-          // width: 10em;
-          // height: 13em;
         }
       }
     }

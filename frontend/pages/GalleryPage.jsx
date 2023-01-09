@@ -1,217 +1,32 @@
+// React import
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+
+// Card import
 import Card from '../components/CardDisplayComponent';
+
+// mui component imports
 import Avatar from '@mui/joy/Avatar';
 import Button from '@mui/joy/Button';
 import IconButton from '@mui/joy/IconButton';
-import FilterList from '@mui/icons-material/FilterList';
 import Divider from '@mui/joy/Divider';
 import CircularProgress from '@mui/joy/CircularProgress';
+
+// mui icon imports
+import FilterList from '@mui/icons-material/FilterList';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import Menu from '@mui/icons-material/Menu';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import Logout from '@mui/icons-material/Logout';
+
+// Hook imports
 import useIsMobile from '../hooks/isMobileHook';
 
-import MobileExpandIcon from '../images/icons/list.svg';
 // TODO: add preview image based on S3 url instead of placeholder
 import Placeholder from '../images/placeholder.jpg';
 
 // TODO: have this data be fetched from backend
 let testData = [
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
   {
     id: '1',
     image: Placeholder,
@@ -255,6 +70,7 @@ const GalleryPage = () => {
     }, 600);
   });
 
+  // This will be used to delete cards
   const handleCardDelete = (e, id) => {
     e.preventDefault();
     // TODO: have delete card in database as well
@@ -263,9 +79,8 @@ const GalleryPage = () => {
   };
 
   // TODO: Refactor the jank responsiveness
-
   return (
-    <div className='MainContent'>
+    <div className='GalleryPage'>
       {/* Desktop Sidebar */}
       <div
         className='SideBar'
@@ -376,7 +191,7 @@ const GalleryPage = () => {
         </div>
       </div>
 
-      {/* Page content or gallary view */}
+      {/* Gallary view */}
       <div className='Content'>
         <div className='Gallary'>
           {(cards ?? false) && cards.length ? (
