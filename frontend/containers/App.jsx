@@ -10,6 +10,7 @@ import Divider from '@mui/joy/Divider';
 import CircularProgress from '@mui/joy/CircularProgress';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import Logout from '@mui/icons-material/Logout';
 
 import MobileExpandIcon from '../images/icons/list.svg';
 // TODO: add preview image based on S3 url instead of placeholder
@@ -267,7 +268,9 @@ const App = ({ children }) => {
 
   return (
     <div className='MainContent'>
+      {/* Sidebar */}
       <div className='SideBar' style={{ width: displaySideBar ? '' : '5em' }}>
+        {/* User/expand and minify sidebar */}
         <div className='User'>
           <Avatar
             style={{ display: displaySideBar ? '' : 'none' }}
@@ -281,29 +284,46 @@ const App = ({ children }) => {
             {displaySideBar ? <ChevronLeft /> : <ChevronRight />}
           </IconButton>
         </div>
-        <div
-          className='SideBarContent'
-          style={{ display: displaySideBar ? '' : 'none' }}>
+
+        {/* Expanded sidebar view */}
+        <div className='SideBarContent'>
           <Divider orientation='horizontal' />
           <div className='MainControls'>
             <ul>
               <li>
-                <Button
-                  onClick={() => setFilterCardsByAuthor(!filterCardsByAuthor)}
-                  startDecorator={<FilterList />}
-                  variant='soft'>
-                  {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
-                </Button>
+                {displaySideBar ? (
+                  <Button
+                    onClick={() => setFilterCardsByAuthor(!filterCardsByAuthor)}
+                    startDecorator={<FilterList />}
+                    variant='soft'>
+                    {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
+                  </Button>
+                ) : (
+                  <IconButton
+                    onClick={() =>
+                      setFilterCardsByAuthor(!filterCardsByAuthor)
+                    }>
+                    <FilterList />
+                  </IconButton>
+                )}
               </li>
             </ul>
           </div>
           <div className='SecondaryControls'>
-            <Button onClick={() => {}} variant='soft'>
-              Logout
-            </Button>
+            {displaySideBar ? (
+              <Button onClick={() => {}} variant='soft'>
+                Logout
+              </Button>
+            ) : (
+              <IconButton variant='soft'>
+                <Logout />
+              </IconButton>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Page content or gallary view */}
       <div className='Content'>
         {location === '/customize' ? (
           <Outlet />
