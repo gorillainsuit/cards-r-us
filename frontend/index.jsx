@@ -1,6 +1,7 @@
 // React imports
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { CssVarsProvider } from '@mui/joy/styles';
 
 // React router imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -51,6 +52,8 @@ const routes = [
 
 createRoot(document.querySelector('#App')).render(
   <React.StrictMode>
-    <RouterProvider router={createBrowserRouter(routes)} />
+    <CssVarsProvider>
+      <RouterProvider router={createBrowserRouter(routes)} />
+    </CssVarsProvider>
   </React.StrictMode>
 );
