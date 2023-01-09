@@ -64,6 +64,64 @@
     }
   }
 
+  .SideBarMobile {
+    // background-color: red;
+    width: 100vw;
+    height: 4em;
+    border-right: solid $secondary 1px;
+    border-radius: 4px;
+    background-color: $secondary;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    transition: 300ms ease-in-out;
+
+    .User {
+      display: flex;
+      height: 4em;
+      width: 100%;
+      // margin: auto;
+      * {
+        margin: auto;
+      }
+    }
+
+    .SideBarContent {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+
+      .MainControls {
+        flex-grow: 1;
+        display: flex;
+        width: 100%;
+
+        ul,
+        li {
+          margin: 5px auto;
+          padding: 0px;
+          list-style: none;
+        }
+      }
+
+      .SecondaryControls {
+        display: flex;
+        position: relative;
+        padding: 8px 0px;
+        width: 100%;
+
+        * {
+          margin: auto;
+        }
+      }
+    }
+
+    .PopDown {
+      display: none;
+    }
+  }
+
   .Content {
     // flex-grow: 1;
     // background-color: blue;
@@ -118,6 +176,10 @@
         flex-direction: column;
         // max-width: 60%;
         // border: solid green 2px;
+
+        .Card:first-of-type {
+          margin-top: 16px;
+        }
 
         .Card {
           margin: 8px auto;
