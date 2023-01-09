@@ -9,9 +9,10 @@ import Divider from '@mui/joy/Divider';
 import CircularProgress from '@mui/joy/CircularProgress';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import Menu from '@mui/icons-material/Menu';
+import ExpandLess from '@mui/icons-material/ExpandLess';
 import Logout from '@mui/icons-material/Logout';
 import useIsMobile from '../hooks/isMobileHook';
-import Menu from '@mui/icons-material/Menu';
 
 import MobileExpandIcon from '../images/icons/list.svg';
 // TODO: add preview image based on S3 url instead of placeholder
@@ -270,6 +271,7 @@ const GalleryPage = () => {
         className='SideBar'
         style={{
           width: displaySideBar ? '' : '5em',
+          display: isMobile ? 'none' : '',
         }}>
         {/* User/expand and minify sidebar */}
         <div className='User'>
@@ -326,60 +328,50 @@ const GalleryPage = () => {
 
       {/* Mobile sidebar */}
       <div
-        className='MobileSideBar'
+        className='SideBarMobile'
         style={{
           display: isMobile ? '' : 'none',
-          height: displaySideBar ? '' : '5em',
+          height: !displaySideBar ? '100vh' : '',
         }}>
         {/* User/expand and minify sidebar */}
         <div className='User'>
-          <Avatar
-            style={{ display: displaySideBar ? '' : 'none' }}
-            alt='Placeholder'
-            src={Placeholder}
-          />
-          <h2 style={{ display: displaySideBar ? '' : 'none' }}>Placeholder</h2>
+          <Avatar alt='Placeholder' src={Placeholder} />
+          <h2>Placeholder</h2>
           <IconButton
             variant='plain'
             onClick={() => setDisplaySideBar(!displaySideBar)}>
-            {displaySideBar ? <ChevronLeft /> : <ChevronRight />}
+            {!displaySideBar ? <ExpandLess /> : <Menu />}
           </IconButton>
         </div>
 
         {/* Expanded sidebar view */}
-        <div className='SideBarContent'>
+        <div
+          className='SideBarContent'
+          style={{ display: !displaySideBar ? '' : 'none' }}>
           <Divider orientation='horizontal' />
           <div className='MainControls'>
             <ul>
               <li>
-                {displaySideBar ? (
+                {!displaySideBar ? (
                   <Button
-                    onClick={() => setFilterCardsByAuthor(!filterCardsByAuthor)}
+                    onClick={() => {
+                      setFilterCardsByAuthor(!filterCardsByAuthor);
+                      setTimeout(() => setDisplaySideBar(!displaySideBar), 200);
+                    }}
                     startDecorator={<FilterList />}
                     variant='soft'>
                     {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
                   </Button>
-                ) : (
-                  <IconButton
-                    onClick={() =>
-                      setFilterCardsByAuthor(!filterCardsByAuthor)
-                    }>
-                    <FilterList />
-                  </IconButton>
-                )}
+                ) : null}
               </li>
             </ul>
           </div>
           <div className='SecondaryControls'>
-            {displaySideBar ? (
+            {!displaySideBar ? (
               <Button onClick={() => {}} variant='soft'>
                 Logout
               </Button>
-            ) : (
-              <IconButton variant='soft'>
-                <Logout />
-              </IconButton>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
