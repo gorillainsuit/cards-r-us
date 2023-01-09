@@ -1,11 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 require('dotenv').config();
 const { DB_URI } = process.env;
 
 const PORT = 3000;
-
 const app = express();
+
+// LoginRouter
+const loginRouter = require('./routes/login');
+
+// signUpRouter
+const signUpRouter = require('./routes/signup');
+
+//cardsRouter
+const cardsRouter = require('./routes/cards.js')
 
 app.use(express.json());
 
@@ -17,6 +26,16 @@ mongoose
   .catch(console.error);
 
 app.get('/', (req, res) => {});
+
+//loginRoute
+app.use('/login', loginRouter);
+
+//signUpRoute
+app.use('/signup', signUpRouter);
+
+//cardsRoute
+app.use('/cards', cardsRouter)
+
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for..."),
