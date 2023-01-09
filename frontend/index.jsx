@@ -11,6 +11,7 @@ import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
 import Login from './pages/Login';
+import CreateImg from './pages/ImgCreatePage'; 
 
 // Style import
 import './styles/index.scss';
@@ -43,6 +44,14 @@ const routes = [
   {
     path: '/signup',
     element: <h1>Sign Up</h1>,
+  },
+
+  //is this route to image creation page ok?
+
+  {
+    path: '/create',
+    element: <CreateImg/>,
+
   },
   {
     path: '/*',
