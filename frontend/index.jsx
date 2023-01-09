@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
 import Login from './pages/Login';
+import CreateImg from './pages/ImgCreatePage'; 
 
 // Style import
 import './styles/index.scss';
@@ -29,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <h1>Sign Up</h1>,
+  },
+
+  //is this route to image creation page ok?
+
+  {
+    path: '/createImage',
+    element: <CreateImg/>,
+
   },
   {
     path: '/cards',
