@@ -11,11 +11,11 @@ import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
 import Login from './pages/Login';
-import CreateImg from './pages/ImgCreatePage'; 
+import CreateImg from './pages/ImgCreatePage';
 
 // Style import
 import './styles/index.scss';
-import App from './containers/App';
+import GalleryPage from './pages/GalleryPage';
 
 const routes = [
   {
@@ -23,18 +23,12 @@ const routes = [
     element: <Landing />,
   },
   {
-    path: 'cards',
-    element: <App />,
+    path: '/cards',
+    element: <GalleryPage />,
     errorElement: <ErrorPage />,
-    children: [
-      {
-        path: 'customize/:cardId',
-        element: <h1>Customize</h1>,
-      },
-    ],
   },
   {
-    path: '/card',
+    path: '/card/:id',
     element: <h1>Single card view</h1>,
   },
   {
@@ -45,13 +39,9 @@ const routes = [
     path: '/signup',
     element: <h1>Sign Up</h1>,
   },
-
-  //is this route to image creation page ok?
-
   {
     path: '/create',
-    element: <CreateImg/>,
-
+    element: <CreateImg />,
   },
   {
     path: '/*',

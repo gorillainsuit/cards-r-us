@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import Card from '../components/CardDisplayComponent';
 import Avatar from '@mui/joy/Avatar';
@@ -11,6 +10,8 @@ import CircularProgress from '@mui/joy/CircularProgress';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import Logout from '@mui/icons-material/Logout';
+import useIsMobile from '../hooks/isMobileHook';
+import Menu from '@mui/icons-material/Menu';
 
 import MobileExpandIcon from '../images/icons/list.svg';
 // TODO: add preview image based on S3 url instead of placeholder
@@ -236,25 +237,21 @@ let testData = [
   },
 ];
 
-const App = ({ children }) => {
+const GalleryPage = () => {
   const [displaySideBar, setDisplaySideBar] = useState(true);
   const [filterCardsByAuthor, setFilterCardsByAuthor] = useState(false);
   const [cards, setCards] = useState(null);
-  const location = useLocation();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // TODO: Replace this with a fetch to backend
     // TODO: fix bug where "fetch" occurs on every filter
 
-    setTimeout(
-      () =>
-        setCards(
-          testData.filter((card) =>
-            filterCardsByAuthor ? card.authored : true
-          )
-        ),
-      600
-    );
+    setTimeout(() => {
+      setCards(
+        testData.filter((card) => (filterCardsByAuthor ? card.authored : true))
+      );
+    }, 600);
   });
 
   const handleCardDelete = (e, id) => {
@@ -268,8 +265,72 @@ const App = ({ children }) => {
 
   return (
     <div className='MainContent'>
-      {/* Sidebar */}
-      <div className='SideBar' style={{ width: displaySideBar ? '' : '5em' }}>
+      {/* Desktop Sidebar */}
+      <div
+        className='SideBar'
+        style={{
+          width: displaySideBar ? '' : '5em',
+        }}>
+        {/* User/expand and minify sidebar */}
+        <div className='User'>
+          <Avatar
+            style={{ display: displaySideBar ? '' : 'none' }}
+            alt='Placeholder'
+            src={Placeholder}
+          />
+          <h2 style={{ display: displaySideBar ? '' : 'none' }}>Placeholder</h2>
+          <IconButton
+            variant='plain'
+            onClick={() => setDisplaySideBar(!displaySideBar)}>
+            {displaySideBar ? <ChevronLeft /> : <ChevronRight />}
+          </IconButton>
+        </div>
+
+        {/* Expanded sidebar view */}
+        <div className='SideBarContent'>
+          <Divider orientation='horizontal' />
+          <div className='MainControls'>
+            <ul>
+              <li>
+                {displaySideBar ? (
+                  <Button
+                    onClick={() => setFilterCardsByAuthor(!filterCardsByAuthor)}
+                    startDecorator={<FilterList />}
+                    variant='soft'>
+                    {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
+                  </Button>
+                ) : (
+                  <IconButton
+                    onClick={() =>
+                      setFilterCardsByAuthor(!filterCardsByAuthor)
+                    }>
+                    <FilterList />
+                  </IconButton>
+                )}
+              </li>
+            </ul>
+          </div>
+          <div className='SecondaryControls'>
+            {displaySideBar ? (
+              <Button onClick={() => {}} variant='soft'>
+                Logout
+              </Button>
+            ) : (
+              <IconButton variant='soft'>
+                <Logout />
+              </IconButton>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile sidebar */}
+      <div
+        className='MobileSideBar'
+        style={{
+          display: isMobile ? '' : 'none',
+          height: displaySideBar ? '' : '5em',
+        }}>
         {/* User/expand and minify sidebar */}
         <div className='User'>
           <Avatar
@@ -325,30 +386,26 @@ const App = ({ children }) => {
 
       {/* Page content or gallary view */}
       <div className='Content'>
-        {location === '/customize' ? (
-          <Outlet />
-        ) : (
-          <div className='Gallary'>
-            {(cards ?? false) && cards.length ? (
-              cards.map((card, i) => (
-                <Card
-                  key={i}
-                  cardId={card.id}
-                  image={card.image}
-                  prompt={card.prompt}
-                  deleteFunction={handleCardDelete}
-                />
-              ))
-            ) : cards === null ? (
-              <CircularProgress color='primary' value={25} variant='soft' />
-            ) : (
-              <h1>No Cards.</h1>
-            )}
-          </div>
-        )}
+        <div className='Gallary'>
+          {(cards ?? false) && cards.length ? (
+            cards.map((card, i) => (
+              <Card
+                key={i}
+                cardId={card.id}
+                image={card.image}
+                prompt={card.prompt}
+                deleteFunction={handleCardDelete}
+              />
+            ))
+          ) : cards === null ? (
+            <CircularProgress color='primary' value={25} variant='soft' />
+          ) : (
+            <h1>No Cards.</h1>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default App;
+export default GalleryPage;
