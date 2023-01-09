@@ -38,7 +38,7 @@ app.use('/cards', cardsRouter)
 
 
 app.use((req, res) =>
-  res.status(404).send("This is not the page you're looking for..."),
+  res.status(404).send("This is not the page you're looking for...")
 );
 
 app.use((err, req, res, next) => {

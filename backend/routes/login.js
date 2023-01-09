@@ -11,11 +11,8 @@ router.get('/', (req, res) => {
 });
 
 //POST when user tries to log in
-router.post('/', authController.getUser, (req, res) => {
-  res.status(200).json('JWStoken');
+router.post('/', authController.getUser, authController.signUp, (req, res) => {
+  res.status(200).json(req.user);
 });
-
-
-
 
 module.exports = router;
