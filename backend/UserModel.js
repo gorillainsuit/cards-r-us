@@ -10,8 +10,16 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
+  gallery: {
+    type: Array(String),
+    require: false,
+    default: [],
+  },
 });
 
 const User = mongoose.model('User', userSchema);
+
+// use it for hashing password before saving to database
+userSchema.pre('save', () => {});
 
 module.exports = User;
