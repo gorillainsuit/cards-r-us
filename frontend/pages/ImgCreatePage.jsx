@@ -10,34 +10,36 @@ const CreateImg = ({ imageState }) => {
   //once user select on img, click next,
   const [selectedImage, setSelectedImage] = imageState;
 
-  const [keywords, setKeywords] = useState('')
-  const [imgList, setImgList] = useState('')
-  // const handleSubmit = (e) => {
-    
-  //   const keywords = { q };
+  const [imgPrompt, setImgPrompt] = useState('');
+  const [imgList, setImgList] = useState('');
+  const handleSubmit = (e) => {
+    const imgPrompt = { prompt, n:8, size:'1024x1024'};
 
-  //   fetch('#', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type' : 'application/json',
-  //     },
-  //     body:
-  //   // }).then(() => {
-  //   //   setImgList(data)
-  // })
-  // .then
-  // }
+    fetch('#', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(imgPrompt),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setImgList(data);
+      });
+  };
 
   return (
     <div className='CreateImg'>
       <div className='search-part'>
-        <form className='askAi-img'>
+        <form className='askAi-img' onClick={handleSubmit}>
           {/* is the type of this input box 'search'?? */}
           <input
             type='search'
             id='ai-img-bar'
             name='q'
+            value={prompt}
             placeholder=' generate an image for your card... '
+            onChange={(e) => setImgPrompt(e.target.value)}
           />
           <button>
             <svg
@@ -50,6 +52,10 @@ const CreateImg = ({ imageState }) => {
           </button>
         </form>
       </div>
+      <ImgDisplay 
+      imgListState={imgList} 
+      imageState={{selectedImage, setSelectedImage}}
+      />
     </div>
   );
 };
@@ -57,20 +63,24 @@ const CreateImg = ({ imageState }) => {
 // Step 2
 const CreatePrompt = ({ promptState }) => {
   const [selectedMessage, setSelectedMessage] = promptState;
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const message = e.target.querySelector('input');
     setSelectedMessage(message);
-  }
+  };
 
   return (
     <div className='CreatePropmpt'>
       <div className='MessageInput'>
         <form onSubmit={handleSubmit}>
-          <input placeholder='Say something nice...' type='text' aria-label='Message input, Say something nice'/>
+          <input
+            placeholder='Say something nice...'
+            type='text'
+            aria-label='Message input, Say something nice'
+          />
           <input type='submit'>Submit</input>
-                </form>
+        </form>
       </div>
     </div>
   );
@@ -83,11 +93,11 @@ const CreateCard = () => {
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
-    c            });
+    c,
+  });
 
   return (
     <div className='CreateCard'>
-
       {/* Displays the current step */}
       <div className='StepDisplay'>
         {React.cloneElement(createCardState.stepDisplayed, {
@@ -105,8 +115,14 @@ const CreateCard = () => {
           onClick={() =>
             setCreateCardState({
               ...createCardState,
-              stepDisplayed: createCardState.currentStep < steps.length ? steps[++createCardState.currentStep] : steps[createCardState.currentStep] ,
-              currentStep: createCardState.currentStep < steps.length ? ++createCardState.currentStep : createCardState.currentStep,
+              stepDisplayed:
+                createCardState.currentStep < steps.length
+                  ? steps[++createCardState.currentStep]
+                  : steps[createCardState.currentStep],
+              currentStep:
+                createCardState.currentStep < steps.length
+                  ? ++createCardState.currentStep
+                  : createCardState.currentStep,
             })
           }>
           Next
