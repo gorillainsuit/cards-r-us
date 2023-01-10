@@ -12,14 +12,15 @@ const ImgDisplay = (props) => {
   return ( 
 
     <div className="img-result">
-      {imgList.data.map((el.url, i) => 
+      {/* {imgList.data.map((el.url, i) => 
         <div>   
           <img 
           src={el.url} 
           key={i}
           />
         </div>
-      )}
+      )} */}
+      image display 
     </div>
    );
 }

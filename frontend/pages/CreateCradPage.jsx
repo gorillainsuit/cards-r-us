@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import ImgDisplay from '../components/ImgDisplay';
 
 // Step 1
 const CreateImg = ({ imageState }) => {
