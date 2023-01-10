@@ -35,7 +35,7 @@ const Landing = () => (
     </div>
     <div className='landingBody'>
       <div className='slogan noSelect'>
-        <h1>Make Cards That Pop.</h1>
+        <h1>Make Cards That Pop</h1>
       </div>
     </div>
     <Sponsers />
