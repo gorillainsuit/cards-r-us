@@ -43,8 +43,7 @@
         height: 30%;
         width: 80%;
         padding: 6px 10px;
-        animation: typewriter 4s steps(44) 1s 1 normal both,
-          blinkTextCursor 500ms steps(44) infinite normal;
+        animation: typewriter 4s steps(44) 1s 1 normal both;
       }
 
       @keyframes typewriter {
@@ -55,18 +54,11 @@
           width: 24em;
         }
       }
-
-      @keyframes blinkTextCursor {
-        from {
-          border-right-color: rgba(24, 123, 228, 0.75);
-        }
-        to {
-          border-right-color: transparent;
-        }
-      }
     }
 
     button {
+      background-color: transparent;
+      border: none;
     }
   }
 }
