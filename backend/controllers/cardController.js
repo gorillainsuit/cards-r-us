@@ -5,7 +5,9 @@ const cardsController = {
   async getCards(req, res, next) {
     // res.send('Getting cards...');
     try {
-      const cards = await Card.find();
+      // need to confirm we're quering gallery
+
+      const cards = await User.gallery.find();
       console.log(Card);
       res.status(200).json(cards);
     } catch (e) {
@@ -19,8 +21,9 @@ const cardsController = {
 
   async createCard(req, res, next) {
     // res.send('Creating card...');
-    const body = req.body;
-    const newCard = new Card(body);
+    const { id: _id, author, image, prompt } = req.body;
+
+    const newCard = new Card({ id, author, image, prompt });
 
     try {
       await newCard.save();
@@ -35,26 +38,31 @@ const cardsController = {
     }
   },
 
-  deleteCard(req, res, next) {
-    res.send('Deleting card...');
+  async deleteCard(req, res, next) {
+    // res.send('Deleting card...');
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next({
+        log: 'Error deleting card in cardController',
+        status: 404,
+        message: { err: 'No card found with id' + id },
+      });
+    }
+    try {
+      await Card.findOneAndRemove({ _id: id });
+      res.status(204).json('Card deleted');
+    } catch (e) {
+      return next({
+        log: 'Error deleting card in cardController',
+        status: 500,
+        message: { err: e.message },
+      });
+    }
+
+    await Card.findByIdAndRemove(id);
+    res.json({ message: 'Deleted card' });
   },
 };
 
-// cardsController.getCards = async (req, res, next) => {
-//   //retrieve cards collection data from DB
-//   const cards = await User.findOne({ username });
-//   //pass cards collection data into res.locals
-//   res.locals.cards = cards;
-//   return next();
-// };
-
-// cardsController.deleteCard = async (req, res, next) => {
-//   //delete card specific to a user from DB
-//   await User.findOneAndDelete({ username, cardID });
-//   //retrieve updated cards collection data from DB
-//   const cards = await User.findOne({ username });
-//   //pass updated cards collection data into res.locals
-//   res.locals.cards = cards;
-//   return next();
-// };
 module.exports = cardsController;

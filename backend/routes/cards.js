@@ -15,9 +15,12 @@ router.get('/', cardsController.getCards, (req, res) => {
 });
 
 // CREATE
-
+router.get('/', cardsController.createCard, (req, res) => {
+  console.log('CREATE REQUEST for cardsController.createCard');
+  return res.status(200).json(res.locals.newCard);
+});
 //DELETE
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
   //respond to client with cards collection data retrieved from DB
   console.log('DELETE REQUEST for cardsController.deleteCard');
   return res.status(200).json(res.locals.cards);

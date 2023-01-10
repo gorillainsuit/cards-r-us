@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const cardSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
   author: { type: String, required: true },
   image: {},
   prompt: { type: String, required: true },

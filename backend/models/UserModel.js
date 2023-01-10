@@ -10,7 +10,7 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
-  gallery: {},
+  gallery: [],
 });
 
 const User = mongoose.model('User', userSchema);
