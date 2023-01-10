@@ -7,8 +7,8 @@ const cardsController = {
     try {
       // need to confirm we're quering gallery
 
-      const cards = await User.gallery.find();
-      console.log(Card);
+      const cards = await User.find({}).select('gallery');
+      console.log(cards);
       res.status(200).json(cards);
     } catch (e) {
       return next({
