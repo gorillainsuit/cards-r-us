@@ -5,20 +5,13 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  background: linear-gradient(-45deg, #8bb4ee, #d7bdff, #ffe8b5, #82db8c);
-  background-size: 400% 400%;
-  animation: gradient 60s ease infinite;
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 100%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  .background {
+    z-index: -1;
+    scale: 1.2;
+    position: fixed;
+    animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
   }
 
   form {
