@@ -24,7 +24,6 @@ const userSchema = new Schema({
 
 // // use it for hashing password before saving to database
 userSchema.pre('save', function (next) {
-  console.log('hi hasher');
   bcrypt.hash(this.password, SALT_WORK_FACTOR, (err, hash) => {
     // Store hash in your password DB.
     console.log('this.password: ', this.password);
