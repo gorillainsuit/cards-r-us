@@ -34,9 +34,7 @@ const CreateImg = ({
   const [imgList, setImgList] = useState([]);
 
   //--DALL-E API fetch request--
-  // const handleSubmit = (e) => {
 
-  //   const keywords = { q };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const prompt = { imgPrompt, n: 4, size: '1024x1024' };
