@@ -113,13 +113,16 @@
     }
 
     .slogan {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       h1 {
         color: #ffffff;
         filter: drop-shadow(0px 0px 9px #b4ffffd0);
         border-radius: 0.25em;
         background: #2b44673e;
         margin-bottom: 3em;
-        padding: 1em 0 1em 1.5em;
+        padding: 1em 1.5em 1em 1.5em;
         border: 5px solid;
         font-size: 4.25em;
         font-weight: bold;
