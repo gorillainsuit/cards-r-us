@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import { Form } from 'react-router-dom';
 
 // Step 1
 const CreateImg = ({ imageState }) => {
@@ -10,10 +11,10 @@ const CreateImg = ({ imageState }) => {
   //once user select on img, click next,
   const [selectedImage, setSelectedImage] = imageState;
 
-  const [keywords, setKeywords] = useState('')
-  const [imgList, setImgList] = useState('')
+  const [keywords, setKeywords] = useState('');
+  const [imgList, setImgList] = useState('');
   // const handleSubmit = (e) => {
-    
+
   //   const keywords = { q };
 
   //   fetch('#', {
@@ -43,7 +44,7 @@ const CreateImg = ({ imageState }) => {
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'
-              class='bi bi-search'
+              className='bi bi-search'
               viewBox='0 0 16 16'>
               <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' />
             </svg>
@@ -57,20 +58,23 @@ const CreateImg = ({ imageState }) => {
 // Step 2
 const CreatePrompt = ({ promptState }) => {
   const [selectedMessage, setSelectedMessage] = promptState;
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const message = e.target.querySelector('input');
-    setSelectedMessage(message);
-  }
+  const [currentMessage, setCurrentMessage] = useState('');
 
   return (
     <div className='CreatePropmpt'>
       <div className='MessageInput'>
-        <form onSubmit={handleSubmit}>
-          <input placeholder='Say something nice...' type='text' aria-label='Message input, Say something nice'/>
-          <input type='submit'>Submit</input>
-                </form>
+        <input
+          type='text'
+          placeholder='Say something nice...'
+          id='message'
+          onChange={(e) => setCurrentMessage(e.target.value)}
+          value={currentMessage}
+        />
+        <Button
+          color='neutral'
+          onClick={() => setSelectedMessage(currentMessage)}
+          variant='soft'
+        />
       </div>
     </div>
   );
@@ -83,11 +87,20 @@ const CreateCard = () => {
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
-    c            });
+    canContinue: false,
+  });
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+
+  if ((selectedImage || selectedMessage) && !createCardState.canContinue)
+    setCreateCardState({ ...createCardState, canContinue: true });
+
+  console.log(createCardState);
+  console.log(selectedMessage);
 
   return (
     <div className='CreateCard'>
-
       {/* Displays the current step */}
       <div className='StepDisplay'>
         {React.cloneElement(createCardState.stepDisplayed, {
@@ -105,8 +118,14 @@ const CreateCard = () => {
           onClick={() =>
             setCreateCardState({
               ...createCardState,
-              stepDisplayed: createCardState.currentStep < steps.length ? steps[++createCardState.currentStep] : steps[createCardState.currentStep] ,
-              currentStep: createCardState.currentStep < steps.length ? ++createCardState.currentStep : createCardState.currentStep,
+              stepDisplayed:
+                createCardState.currentStep < steps.length - 1
+                  ? steps[++createCardState.currentStep]
+                  : steps[createCardState.currentStep],
+              currentStep:
+                createCardState.currentStep < steps.length - 1
+                  ? ++createCardState.currentStep
+                  : createCardState.currentStep,
             })
           }>
           Next
