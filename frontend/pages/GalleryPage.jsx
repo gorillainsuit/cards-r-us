@@ -67,7 +67,7 @@ const GalleryPage = () => {
       setCards(
         testData.filter((card) => (filterCardsByAuthor ? card.authored : true))
       );
-    }, 600);
+    }, 3000);
   });
 
   // This will be used to delete cards

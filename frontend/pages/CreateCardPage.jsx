@@ -1,34 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import { redirect } from 'react-router-dom';
 import Placeholder from '../images/placeholder.jpg';
 
 let testData = {
-data: [
-  {
-   url: Placeholder,
-  },
-  {
-    url: Placeholder,
-  },
-  {
-    url: Placeholder,
-  },
-  {
-    url: Placeholder,
-  },
-]
+  data: [
+    {
+      url: Placeholder,
+    },
+    {
+      url: Placeholder,
+    },
+    {
+      url: Placeholder,
+    },
+    {
+      url: Placeholder,
+    },
+  ],
 };
 
 // Step 1
-const CreateImg = ({ imageState }) => {
-
+const CreateImg = ({
+  imageState,
+  canContinue,
+  currentStep,
+  nextFunction,
+  steps,
+}) => {
   const [selectedImage, setSelectedImage] = imageState;
   const [imgPrompt, setImgPrompt] = useState('');
+
+  //--DALL-E API fetch request--
+
+  const [keywords, setKeywords] = useState('');
   const [imgList, setImgList] = useState([]);
+  // const handleSubmit = (e) => {
 
-//--DALL-E API fetch request--
-
+  //   const keywords = { q };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const prompt = { imgPrompt, n: 4, size: '1024x1024' };
@@ -46,28 +56,24 @@ const CreateImg = ({ imageState }) => {
   //     });
   // };
 
-//--DUMMY DB Test--
+  //--DUMMY DB Test--
   useEffect(() => {
-
     setTimeout(() => {
-      setImgList(
-        testData.data
-      );
+      setImgList(testData.data);
     }, 600);
   });
 
- 
-  const ImgResult = imgList.map((el, i) => 
-    (
-      <div><img src={el.url}/></div>
-    )
-  );
+  const ImgResult = imgList.map((el, i) => (
+    <div className='image' key={i}>
+      <img onClick={(e) => setSelectedImage(e.target.src)} src={el.url} />
+    </div>
+  ));
 
   return (
     <div className='CreateImg'>
       <div className='search-part'>
-      {/* <form className='askAi-img' onChange={handleSubmit}> */}
-        <form className='askAi-img' >
+        <form className='askAi-img'>
+          {/* is the type of this input box 'search'?? */}
           <input
             type='search'
             id='ai-img-bar'
@@ -80,7 +86,7 @@ const CreateImg = ({ imageState }) => {
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'
-              class='bi bi-search'
+              className='bi bi-search'
               viewBox='0 0 16 16'>
               <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' />
             </svg>
@@ -88,35 +94,61 @@ const CreateImg = ({ imageState }) => {
         </form>
       </div>
       <div className='imgDisplay'>
-        <div className='img-result'>
-      {ImgResult}
-        </div>
+        <div className='img-result'>{ImgResult}</div>
+      </div>
+      <div className='Next'>
+        {/* The button to continue */}
+        <Button
+          variant='soft'
+          endDecorator={<ChevronRight />}
+          disabled={!canContinue}
+          onClick={nextFunction}>
+          {currentStep >= steps - 1 ? 'Create' : 'Next'}
+        </Button>
       </div>
     </div>
   );
 };
 
 // Step 2
-const CreatePrompt = ({ promptState }) => {
+const CreatePrompt = ({
+  promptState,
+  imageState,
+  canContinue,
+  currentStep,
+  nextFunction,
+  steps,
+}) => {
   const [selectedMessage, setSelectedMessage] = promptState;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const message = e.target.querySelector('input');
-    setSelectedMessage(message);
-  };
+  const image = imageState[0];
 
   return (
-    <div className='CreatePropmpt'>
-      <div className='MessageInput'>
-        <form onSubmit={handleSubmit}>
+    <div className='CreatePrompt'>
+      <div className='funStuff'>
+        <div className='MessageInput'>
           <input
-            placeholder='Say something nice...'
             type='text'
-            aria-label='Message input, Say something nice'
+            placeholder='Say something nice...'
+            id='message'
+            onChange={(e) => setSelectedMessage(e.target.value)}
+            value={selectedMessage ?? ''}
           />
-          <input type='submit'>Submit</input>
-        </form>
+        </div>
+        <div
+          className='Preview'
+          style={{ backgroundImage: `url(${image ?? Placeholder})` }}>
+          <h2>{selectedMessage || 'Say something nice...'}</h2>
+        </div>
+        <div className='Next'>
+          {/* The button to continue */}
+          <Button
+            variant='soft'
+            endDecorator={<ChevronRight />}
+            disabled={!canContinue}
+            onClick={nextFunction}>
+            {currentStep >= steps - 1 ? 'Create' : 'Next'}
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -129,9 +161,39 @@ const CreateCard = () => {
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
+    canContinue: false,
   });
-  const [selectedImage, setSelectedImage] = useState(false);
-  const [selectedMessage, setSelectedMessage] = useState(false);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+
+  const handleNext = () => {
+    if (createCardState.currentStep >= steps.length - 1) {
+      // TODO: POST to backend with the data
+
+      // post to backend then reedirect to the cards gallery
+      setTimeout(() => (window.location.href = '/cards'), 600);
+    }
+
+    setCreateCardState({
+      ...createCardState,
+      stepDisplayed:
+        createCardState.currentStep < steps.length - 1
+          ? steps[++createCardState.currentStep]
+          : steps[createCardState.currentStep],
+      currentStep:
+        createCardState.currentStep < steps.length - 1
+          ? ++createCardState.currentStep
+          : createCardState.currentStep,
+    });
+  };
+
+  if ((selectedImage || selectedMessage) && !createCardState.canContinue)
+    setCreateCardState({ ...createCardState, canContinue: true });
+
+  console.log(createCardState);
+  console.log(selectedMessage);
+  console.log(selectedImage);
 
   return (
     <div className='CreateCard'>
@@ -140,30 +202,11 @@ const CreateCard = () => {
         {React.cloneElement(createCardState.stepDisplayed, {
           imageState: [selectedImage, setSelectedImage],
           promptState: [selectedMessage, setSelectedMessage],
+          currentStep: createCardState.currentStep,
+          canContinue: createCardState.canContinue,
+          nextFunction: handleNext,
+          steps: steps.length,
         })}
-      </div>
-
-      {/* The button to continue */}
-      <div className='NextButton'>
-        <Button
-          variant='soft'
-          endDecorator={<ChevronRight />}
-          disabled={!createCardState.canContinue}
-          onClick={() =>
-            setCreateCardState({
-              ...createCardState,
-              stepDisplayed:
-                createCardState.currentStep < steps.length
-                  ? steps[++createCardState.currentStep]
-                  : steps[createCardState.currentStep],
-              currentStep:
-                createCardState.currentStep < steps.length
-                  ? ++createCardState.currentStep
-                  : createCardState.currentStep,
-            })
-          }>
-          Next
-        </Button>
       </div>
     </div>
   );
