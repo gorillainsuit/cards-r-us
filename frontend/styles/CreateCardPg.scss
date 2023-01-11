@@ -1,8 +1,6 @@
 .CreateImg {
-  display: flex;
-  width: 100vw;
-  height: 100vw;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(-45deg, #8bb4ee, #d7bdff, #ffe8b5, #82db8c);
   background-size: 400% 400%;
   animation: gradient 60s ease infinite;
@@ -20,9 +18,10 @@
   }
 
   .search-part {
-    margin-top: 2%;
-    display: flex;
-
+    padding-top: 2%;
+    width: 40vw;
+    height: 10vh;
+    margin: auto;
     .askAi-img {
       display: flex;
       flex-direction: row;
@@ -30,7 +29,7 @@
       align-items: center;
       background-color: rgba(255, 255, 255, 0.501);
       width: 40vw;
-      height: 5vw;
+      height: 7vh;
       border-radius: 5px;
       border: 2px solid $secondary;
 
@@ -61,4 +60,31 @@
       border: none;
     }
   }
+  .imgDisplay {
+    display: flex;
+    justify-content: center;
+    .img-result {
+      display: inline-grid;
+      grid-template-columns: auto auto;
+      width: fit-content;
+      padding: 1.2%;
+      border: 4px solid $secondary;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.501);
+      img {
+        margin: 10px;
+        width:30vw;
+        transition: 1s ease;
+        &:hover {
+          -webkit-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2);
+          transition: 1s ease;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+
 }
