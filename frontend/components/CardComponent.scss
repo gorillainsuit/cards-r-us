@@ -1,0 +1,40 @@
+// parent
+.Card {
+  width: 12em;
+  height: 15em;
+  display: flex;
+  flex-direction: column;
+  background-color: $secondary;
+  border-radius: 4px;
+
+  // child of .Card (parent of img)
+  .Preview {
+    // child of .Preview, parent of none
+    img {
+      width: 100%;
+      border-radius: 4px;
+    }
+  }
+
+  // cihld of .Card
+  .Buttons {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    // child of .Buttons, parent of svg
+    a {
+      margin: auto;
+      transition: 300ms ease-in-out;
+
+      svg {
+        color: $primary;
+        width: 1.3em !important;
+      }
+    }
+
+    a:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+}
