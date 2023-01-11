@@ -11,6 +11,7 @@ import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import CreateImg from './pages/ImgCreatePage';
 
 // Style import
@@ -37,7 +38,7 @@ const routes = [
   },
   {
     path: '/signup',
-    element: <h1>Sign Up</h1>,
+    element: <SignUp />,
   },
   {
     path: '/create',

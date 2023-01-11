@@ -10,10 +10,10 @@ const CreateImg = ({ imageState }) => {
   //once user select on img, click next,
   const [selectedImage, setSelectedImage] = imageState;
 
-  const [keywords, setKeywords] = useState('')
-  const [imgList, setImgList] = useState('')
+  const [keywords, setKeywords] = useState('');
+  const [imgList, setImgList] = useState('');
   // const handleSubmit = (e) => {
-    
+
   //   const keywords = { q };
 
   //   fetch('#', {
@@ -57,20 +57,24 @@ const CreateImg = ({ imageState }) => {
 // Step 2
 const CreatePrompt = ({ promptState }) => {
   const [selectedMessage, setSelectedMessage] = promptState;
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const message = e.target.querySelector('input');
     setSelectedMessage(message);
-  }
+  };
 
   return (
     <div className='CreatePropmpt'>
       <div className='MessageInput'>
         <form onSubmit={handleSubmit}>
-          <input placeholder='Say something nice...' type='text' aria-label='Message input, Say something nice'/>
+          <input
+            placeholder='Say something nice...'
+            type='text'
+            aria-label='Message input, Say something nice'
+          />
           <input type='submit'>Submit</input>
-                </form>
+        </form>
       </div>
     </div>
   );
@@ -83,11 +87,11 @@ const CreateCard = () => {
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
-    c            });
+    c,
+  });
 
   return (
     <div className='CreateCard'>
-
       {/* Displays the current step */}
       <div className='StepDisplay'>
         {React.cloneElement(createCardState.stepDisplayed, {
@@ -105,8 +109,14 @@ const CreateCard = () => {
           onClick={() =>
             setCreateCardState({
               ...createCardState,
-              stepDisplayed: createCardState.currentStep < steps.length ? steps[++createCardState.currentStep] : steps[createCardState.currentStep] ,
-              currentStep: createCardState.currentStep < steps.length ? ++createCardState.currentStep : createCardState.currentStep,
+              stepDisplayed:
+                createCardState.currentStep < steps.length
+                  ? steps[++createCardState.currentStep]
+                  : steps[createCardState.currentStep],
+              currentStep:
+                createCardState.currentStep < steps.length
+                  ? ++createCardState.currentStep
+                  : createCardState.currentStep,
             })
           }>
           Next
