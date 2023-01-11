@@ -66,12 +66,11 @@ const CreateImg = ({ imageState }) => {
   return (
     <div className='CreateImg'>
       <div className='search-part'>
+      {/* <form className='askAi-img' onChange={handleSubmit}> */}
         <form className='askAi-img' >
-          {/* is the type of this input box 'search'?? */}
           <input
             type='search'
             id='ai-img-bar'
-            // name='q'
             value={imgPrompt}
             placeholder=' generate an image for your card... '
             onChange={(e) => setImgPrompt(e.target.value)}
