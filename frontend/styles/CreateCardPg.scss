@@ -1,6 +1,18 @@
+.CreateCard {
+  width: 100vw;
+  height: 100vh;
+  .Next {
+    display: flex;
+    margin-top: 20px;
+    * {
+      margin: auto;
+    }
+  }
+}
+
 .CreateImg {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: linear-gradient(-45deg, #8bb4ee, #d7bdff, #ffe8b5, #82db8c);
   background-size: 400% 400%;
   animation: gradient 60s ease infinite;
@@ -73,7 +85,8 @@
       background-color: rgba(255, 255, 255, 0.501);
       img {
         margin: 10px;
-        width:30vw;
+        width: 256px;
+        height: 256px;
         transition: 1s ease;
         &:hover {
           -webkit-transform: scale(1.2);
@@ -85,6 +98,61 @@
       }
     }
   }
+}
 
+.CreatePrompt {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $primary;
 
+  .funStuff {
+    height: fit-content;
+    width: 100%;
+    margin: auto;
+
+    .MessageInput {
+      margin: auto auto 10px;
+      width: 30em;
+      height: 10em;
+      display: flex;
+
+      input {
+        border: solid rgba(255, 255, 255, 0.6) 2px;
+        color: $text-color;
+        width: 100%;
+        height: 4em;
+        margin: auto;
+        border-radius: 40px;
+        background: none;
+      }
+
+      input::placeholder {
+        color: $text-color;
+        position: relative;
+        left: 10px;
+        opacity: 1;
+      }
+    }
+
+    .Preview {
+      height: 512px;
+      width: 512px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: red;
+      display: flex;
+      border-radius: 5px;
+      margin: auto auto 10px;
+
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+      h2 {
+        margin: auto;
+        color: $text-color;
+      }
+    }
+  }
 }
