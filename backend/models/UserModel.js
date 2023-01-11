@@ -34,12 +34,16 @@ userSchema.pre('save', function (next) {
   });
 });
 
-const User = mongoose.model('User', userSchema);
 
 // userSchema.methods.comparePassword = function (candidatePassword, callback) {
 // 	bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+//     console.log('this.password: ', this.password)
+//     console.log('candPass', candidatePassword)
 // 		if (err) return callback(err);
 // 		callback(null, isMatch);
 // 	});
 // };
+
+const User = mongoose.model('User', userSchema);
+
 module.exports = User;
