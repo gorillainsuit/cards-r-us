@@ -1,8 +1,11 @@
 import React from 'react';
+import Background from '../images/bg.svg';
+
 
 const CreateImg = () => {
   return (
     <div className='CreateImg'>
+      <Background className='background' />
       <div className='search-part'>
         <form className='askAi-img'>
           {/* is the type of this input box 'search'?? */}
