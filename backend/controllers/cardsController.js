@@ -1,4 +1,4 @@
-const User = require('../UserModel');
+const User = require('../models/UserModel');
 const cardsController = {};
 
 cardsController.getCards = async (req, res, next) => {
