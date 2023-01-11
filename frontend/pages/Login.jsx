@@ -1,9 +1,11 @@
 import React from 'react';
 import { Form, Link } from 'react-router-dom';
+import Background from '../images/bg.svg';
 
 const Login = () => {
   return (
     <div className='LoginPage'>
+      <Background className='background' />
       <Form action='/' method='post'>
         <div className='Inputs'>
           <label>Email:</label>
@@ -13,22 +15,22 @@ const Login = () => {
           <input type='password' name='password' />
           <br />
         </div>
-       
+
         <div className='buttons'>
           <button>sign in</button>
           <button>sign up</button>
         </div>
         <br />
-          <Link to="findPw"> Forget password?</Link>
+        <Link to='findPw'> Forget password?</Link>
         <div className='Icons'>
-          <a className='icon' href='#' >
-          <i class="fa-brands fa-google"></i> 
+          <a className='icon' href='#'>
+            <i class='fa-brands fa-google'></i>
           </a>
-          <a className='icon' href='#' >
-          <i class="fa-brands fa-github"></i> 
+          <a className='icon' href='#'>
+            <i class='fa-brands fa-github'></i>
           </a>
-          <a className='icon' href='#' >
-          <i class="fa-brands fa-apple"></i>
+          <a className='icon' href='#'>
+            <i class='fa-brands fa-apple'></i>
           </a>
         </div>
       </Form>
