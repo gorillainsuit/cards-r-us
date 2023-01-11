@@ -1,11 +1,11 @@
 @keyframes pan {
   0% {
-    transform: translate(2em, 5em);
+    transform: translate(1em, 3em);
   }
   50% {
   }
   100% {
-    transform: translate(5em, 2em);
+    transform: translate(3em, 1em);
   }
 }
 
@@ -13,10 +13,12 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  
   .background {
     scale: 1.2;
     position: fixed;
     animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
   }
 
   .head {
@@ -25,6 +27,9 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    box-shadow: 1px -74px 93px -20px rgba(28, 76, 143, 0.75) inset;
+    -webkit-box-shadow: 1px -74px 93px -20px rgba(28, 76, 143, 0.75) inset;
+    -moz-box-shadow: 1px -74px 93px -20px rgba(28, 76, 143, 0.75) inset;
     padding: 0 2em;
     .LogNReg {
       position: absolute;
@@ -50,7 +55,7 @@
           left: 0;
           bottom: -0.25em;
           fill: none;
-          stroke: var(--stroke, $text-color);
+          stroke: var(--stroke);
           stroke-linecap: round;
           stroke-width: 1px;
           stroke-dasharray: var(--offset, 69px) 278px;
@@ -100,7 +105,6 @@
 
     @keyframes glow {
       0% {
-        font-size: 4em;
         color: $text-color;
         border: 2px solid;
       }
@@ -111,7 +115,6 @@
     .slogan {
       h1 {
         color: #ffffff;
-
         filter: drop-shadow(0px 0px 9px #b4ffffd0);
         border-radius: 0.25em;
         background: #2b44673e;
@@ -123,7 +126,6 @@
         font-family: $main-font;
         overflow: hidden;
         white-space: nowrap;
-        transition: 250ms;
         animation: glow 3s linear, typing 1.5s forwards;
         box-shadow: -1px 1px 35px -2px rgba(0, 38, 87, 0.63);
         -webkit-box-shadow: -1px 1px 35px -2px rgba(0, 38, 87, 0.63);
@@ -145,10 +147,55 @@
       transition: 300ms ease-in-out;
     }
     img:hover {
-      rotate: -3deg;
       filter: drop-shadow(0px 0px 9px #b4ffffd0);
       opacity: 1;
       width: 15%;
+    }
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+  .LandingPage {
+    overflow: hidden;
+    .background {
+      scale: 1.6;
+      overflow: hidden;
+      animation: pan 10s infinite alternate ease-in-out;
+    }
+    .head {
+      img {
+        width: 3.25em;
+      }
+      .LogNReg {
+        margin: 0;
+        width: 100%;
+        justify-content: space-between;
+
+        a {
+          margin: 0;
+          svg {
+            &:hover {
+              filter: drop-shadow(0px 0px 9px #944dff00);
+              --stroke: #d7bdff00;
+            }
+          }
+        }
+      }
+    }
+    .landingBody {
+      .slogan {
+        font-size: 5px;
+        h1 {
+          padding: 3px, 5px, 3px, 0;
+          animation: typing 1.5s forwards;
+        }
+      }
+    }
+  }
+  .sponsers {
+    img{
+      opacity: 1;
     }
   }
 }
