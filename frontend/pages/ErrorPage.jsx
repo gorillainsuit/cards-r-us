@@ -5,9 +5,11 @@ import errLoad from '../assets/404err.gif';
 const ErrorPage = () => (
   <div className='ErrorPage'>
     <h1>
-      An error occured.{' '}
+      An Unknown Error Occured.{' '}
+    </h1>
+    <img src={errLoad} alt='' />
       <span>
-        <Link to='/'>
+        <Link to='/' draggable='false'>
           Let's go home
           <svg viewBox='0 0 70 36'>
             <path
@@ -18,8 +20,6 @@ const ErrorPage = () => (
           </svg>
         </Link>
       </span>
-    </h1>
-    <img src={errLoad} alt='' />
   </div>
 );
 
