@@ -1,48 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
-import ImgDisplay from '../components/ImgDisplay';
+import Placeholder from '../images/placeholder.jpg';
+
+let testData = {
+data: [
+  {
+   url: Placeholder,
+  },
+  {
+    url: Placeholder,
+  },
+  {
+    url: Placeholder,
+  },
+  {
+    url: Placeholder,
+  },
+]
+};
 
 // Step 1
 const CreateImg = ({ imageState }) => {
-  //use setState to decide which div to show on the screen
-  //sending a post request to  AI API, once imgResult is true, display the imgResult div
 
-  //once user select on img, click next,
   const [selectedImage, setSelectedImage] = imageState;
-
   const [imgPrompt, setImgPrompt] = useState('');
-  const [imgList, setImgList] = useState('');
-  const handleSubmit = (e) => {
-    const imgPrompt = { prompt, n:8, size:'1024x1024'};
+  const [imgList, setImgList] = useState([]);
 
-    fetch('#', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(imgPrompt),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setImgList(data);
-      });
-  };
+//--DALL-E API fetch request--
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const prompt = { imgPrompt, n: 4, size: '1024x1024' };
+
+  //   fetch('#', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(prompt),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setImgList(data.data);
+  //     });
+  // };
+
+//--DUMMY DB Test--
+  useEffect(() => {
+
+    setTimeout(() => {
+      setImgList(
+        testData.data
+      );
+    }, 600);
+  });
+
+ 
+  const ImgResult = imgList.map((el, i) => 
+    (
+      <div><img src={el.url}/></div>
+    )
+  );
 
   return (
     <div className='CreateImg'>
       <div className='search-part'>
-        <form className='askAi-img' onClick={handleSubmit}>
+        <form className='askAi-img' >
           {/* is the type of this input box 'search'?? */}
           <input
             type='search'
             id='ai-img-bar'
-            name='q'
-            value={prompt}
+            // name='q'
+            value={imgPrompt}
             placeholder=' generate an image for your card... '
             onChange={(e) => setImgPrompt(e.target.value)}
           />
           <button>
+            search
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'
@@ -53,10 +88,11 @@ const CreateImg = ({ imageState }) => {
           </button>
         </form>
       </div>
-      <ImgDisplay 
-      imgListState={imgList} 
-      imageState={{selectedImage, setSelectedImage}}
-      />
+      <div className='imgDisplay'>
+        <div className='img-result'>
+      {ImgResult}
+        </div>
+      </div>
     </div>
   );
 };
@@ -94,8 +130,9 @@ const CreateCard = () => {
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
-    c,
   });
+  const [selectedImage, setSelectedImage] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState(false);
 
   return (
     <div className='CreateCard'>
