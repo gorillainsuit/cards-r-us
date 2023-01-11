@@ -12,6 +12,7 @@ import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
 import Login from './pages/Login';
 import CreateCard from './pages/CreateCardPage';
+import SignUp from './pages/SignUp';
 
 // Style import
 import './styles/index.scss';
@@ -37,11 +38,11 @@ const routes = [
   },
   {
     path: '/signup',
-    element: <h1>Sign Up</h1>,
+    element: <SignUp />,
   },
   {
     path: '/create',
-    element: <CreateCard/>,
+    element: <CreateCard />,
   },
   {
     path: '/*',
