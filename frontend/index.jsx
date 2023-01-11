@@ -11,8 +11,8 @@ import Landing from './pages/Landing';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
 import Login from './pages/Login';
+import CreateCard from './pages/CreateCardPage';
 import SignUp from './pages/SignUp';
-import CreateImg from './pages/ImgCreatePage';
 
 // Style import
 import './styles/index.scss';
@@ -42,7 +42,7 @@ const routes = [
   },
   {
     path: '/create',
-    element: <CreateImg />,
+    element: <CreateCard />,
   },
   {
     path: '/*',
