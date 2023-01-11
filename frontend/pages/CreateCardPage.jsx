@@ -2,32 +2,66 @@ import React, { useEffect, useRef, useState } from 'react';
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { Form } from 'react-router-dom';
+import Placeholder from '../images/placeholder.jpg';
+
+let testData = {
+  data: [
+    {
+      url: Placeholder,
+    },
+    {
+      url: Placeholder,
+    },
+    {
+      url: Placeholder,
+    },
+    {
+      url: Placeholder,
+    },
+  ],
+};
 
 // Step 1
 const CreateImg = ({ imageState }) => {
-  //use setState to decide which div to show on the screen
-  //sending a post request to  AI API, once imgResult is true, display the imgResult div
-
-  //once user select on img, click next,
   const [selectedImage, setSelectedImage] = imageState;
+  const [imgPrompt, setImgPrompt] = useState('');
+
+  //--DALL-E API fetch request--
 
   const [keywords, setKeywords] = useState('');
   const [imgList, setImgList] = useState('');
   // const handleSubmit = (e) => {
 
   //   const keywords = { q };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const prompt = { imgPrompt, n: 4, size: '1024x1024' };
 
   //   fetch('#', {
   //     method: 'POST',
   //     headers: {
-  //       'Content-Type' : 'application/json',
+  //       'Content-Type': 'application/json',
   //     },
-  //     body:
-  //   // }).then(() => {
-  //   //   setImgList(data)
-  // })
-  // .then
-  // }
+  //     body: JSON.stringify(prompt),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setImgList(data.data);
+  //     });
+  // };
+
+  //--DUMMY DB Test--
+  useEffect(() => {
+    setTimeout(() => {
+      setImgList(testData.data);
+    }, 600);
+  });
+
+  const ImgResult = imgList.map((el, i) => (
+    <div>
+      <img src={el.url} />
+    </div>
+  ));
 
   return (
     <div className='CreateImg'>
@@ -37,10 +71,13 @@ const CreateImg = ({ imageState }) => {
           <input
             type='search'
             id='ai-img-bar'
-            name='q'
+            // name='q'
+            value={imgPrompt}
             placeholder=' generate an image for your card... '
+            onChange={(e) => setImgPrompt(e.target.value)}
           />
           <button>
+            search
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'
@@ -50,6 +87,9 @@ const CreateImg = ({ imageState }) => {
             </svg>
           </button>
         </form>
+      </div>
+      <div className='imgDisplay'>
+        <div className='img-result'>{ImgResult}</div>
       </div>
     </div>
   );
