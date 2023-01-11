@@ -31,11 +31,9 @@ const CreateImg = ({
 }) => {
   const [selectedImage, setSelectedImage] = imageState;
   const [imgPrompt, setImgPrompt] = useState('');
+  const [imgList, setImgList] = useState([]);
 
   //--DALL-E API fetch request--
-
-  const [keywords, setKeywords] = useState('');
-  const [imgList, setImgList] = useState([]);
   // const handleSubmit = (e) => {
 
   //   const keywords = { q };
