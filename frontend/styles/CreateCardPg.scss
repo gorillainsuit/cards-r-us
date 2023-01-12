@@ -1,6 +1,15 @@
 .CreateCard {
   width: 100vw;
   height: 100vh;
+  position: relative;
+
+  .background {
+    z-index: -1;
+    scale: 1.2;
+    position: fixed;
+    animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
+  }
   .Next {
     display: flex;
     margin-top: 20px;
@@ -13,27 +22,13 @@
 .CreateImg {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(-45deg, #8bb4ee, #d7bdff, #ffe8b5, #82db8c);
-  background-size: 400% 400%;
-  animation: gradient 60s ease infinite;
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 100%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
 
   .search-part {
     padding-top: 2%;
     width: 40vw;
     height: 10vh;
     margin: auto;
+    z-index: 1;
     .askAi-img {
       display: flex;
       flex-direction: row;
@@ -44,6 +39,13 @@
       height: 7vh;
       border-radius: 5px;
       border: 2px solid $secondary;
+
+      button {
+        .fa-magnifying-glass {
+          font-size: 2em;
+          color: $primary;
+        }
+      }
 
       input {
         all: unset;
@@ -73,6 +75,7 @@
     }
   }
   .imgDisplay {
+    z-index: 1;
     display: flex;
     justify-content: center;
     .img-result {
@@ -105,7 +108,13 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: $primary;
+  .background {
+    z-index: -1;
+    scale: 1.2;
+    position: fixed;
+    animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
+  }
 
   .funStuff {
     height: fit-content;
