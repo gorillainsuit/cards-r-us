@@ -13,6 +13,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  background: $primary;
   
   .background {
     scale: 1.2;
@@ -27,9 +28,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    box-shadow: 1px -74px 93px -20px rgba(28, 76, 143, 0.75) inset;
-    -webkit-box-shadow: 1px -74px 93px -20px rgba(28, 76, 143, 0.75) inset;
-    -moz-box-shadow: 1px -74px 93px -20px rgba(28, 76, 143, 0.75) inset;
     padding: 0 2em;
     .LogNReg {
       position: absolute;
