@@ -14,7 +14,7 @@ const signUpRouter = require('./routes/signup');
 //cardsRouter
 const cardsRouter = require('./routes/cards.js')
 //createImageRouter
-// const createImageRouter = require('./routes/createImage.js');
+const createImageRouter = require('./routes/createImage.js');
 
 app.use(express.json());
 
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
       }
     });
 });
-
+ 
 //loginRoute
 app.use('/api/login', loginRouter);
 //signUpRoute
@@ -42,7 +42,7 @@ app.use('/api/signup', signUpRouter);
 //cardsRoute
 app.use('/api/cards', cardsRouter)
 //createRoute
-app.use('api/createImage', createImageRouter);
+app.use('/api/createImage', createImageRouter);
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")

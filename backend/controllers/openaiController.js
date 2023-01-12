@@ -1,8 +1,10 @@
 const { Configuration, OpenAIApi } = require('openai');
-const openai = new OpenAIApi(configuration);
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAPI_KEY,
 });
+
+const openai = new OpenAIApi(configuration);
 
 const openaiController = {
   async createImage(req,res,next) {
@@ -15,5 +17,7 @@ const openaiController = {
     res.locals.image = response;
   },
 };
+
+
 
 module.exports = openaiController;
