@@ -1,5 +1,5 @@
-const Session = require('../models/sessionModel');
-const User = require('../models/UserModel');
+const Session = require('../models/sessionsModel.js');
+const User = require('../models/UserModel.js');
 
 const sessionController = {};
 
