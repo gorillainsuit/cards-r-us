@@ -1,28 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+
 import { redirect } from 'react-router-dom';
-import Placeholder from '../images/placeholder.jpg';
+import img0 from '../images/testImg/img0.jpg';
+import img1 from '../images/testImg/img1.png';
+import img2 from '../images/testImg/img2.png';
+import img3 from '../images/testImg/img3.png';
+
+//import bg svg
+import BG from '../images/bg.svg';
 
 let testData = {
   data: [
     {
-      url: Placeholder,
+      url: img0,
     },
     {
-      url: Placeholder,
+      url: img1,
     },
     {
-      url: Placeholder,
+      url: img2,
     },
     {
-      url: Placeholder,
+      url: img3,
     },
   ],
 };
 
 // Step 1
 const CreateImg = ({
+  allImages,
   imageState,
   canContinue,
   currentStep,
@@ -31,7 +40,7 @@ const CreateImg = ({
 }) => {
   const [selectedImage, setSelectedImage] = imageState;
   const [imgPrompt, setImgPrompt] = useState('');
-  const [imgList, setImgList] = useState([]);
+  const [imgList, setImgList] = allImages;
 
   //--DALL-E API fetch request--
 
@@ -60,8 +69,17 @@ const CreateImg = ({
   });
 
   const ImgResult = imgList.map((el, i) => (
-    <div className='image' key={i}>
-      <img onClick={(e) => setSelectedImage(e.target.src)} src={el.url} />
+    <div
+      className='image
+    noSelect'
+      key={i}>
+      <img
+        className='noDrag'
+        onClick={(e) => {
+          setSelectedImage(e.target.src);
+        }}
+        src={el.url}
+      />
     </div>
   ));
 
@@ -78,14 +96,7 @@ const CreateImg = ({
             onChange={(e) => setImgPrompt(e.target.value)}
           />
           <button>
-            search
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='currentColor'
-              className='bi bi-search'
-              viewBox='0 0 16 16'>
-              <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' />
-            </svg>
+            <i className='fa-solid fa-magnifying-glass'></i>
           </button>
         </form>
       </div>
@@ -106,8 +117,9 @@ const CreateImg = ({
   );
 };
 
-// Step 2
+// Step 2  create prompt and confirm card
 const CreatePrompt = ({
+  allImages,
   promptState,
   imageState,
   canContinue,
@@ -115,8 +127,22 @@ const CreatePrompt = ({
   nextFunction,
   steps,
 }) => {
+  const [imgList, setImgList] = allImages;
+  const [selectedImage, setSelectedImage] = imageState;
   const [selectedMessage, setSelectedMessage] = promptState;
   const image = imageState[0];
+
+  const ImgResult = imgList.map((el, i) => (
+    <div className='image' key={i}>
+      <img
+        className='noDrag'
+        onClick={(e) => {
+          setSelectedImage(e.target.src);
+        }}
+        src={el.url}
+      />
+    </div>
+  ));
 
   return (
     <div className='CreatePrompt'>
@@ -132,11 +158,13 @@ const CreatePrompt = ({
         </div>
         <div
           className='Preview'
-          style={{ backgroundImage: `url(${image ?? Placeholder})` }}>
+          style={{
+            backgroundImage: `url(${image ?? Placeholder})`,
+            borderRadius: '1em',
+          }}>
           <h2>{selectedMessage || 'Say something nice...'}</h2>
         </div>
         <div className='Next'>
-          {/* The button to continue */}
           <Button
             variant='soft'
             endDecorator={<ChevronRight />}
@@ -146,6 +174,7 @@ const CreatePrompt = ({
           </Button>
         </div>
       </div>
+      <div className='img-result'>{ImgResult}</div>
     </div>
   );
 };
@@ -153,7 +182,6 @@ const CreatePrompt = ({
 // The main page component that will handle state for prompt and image generation and it will control whether the user can continue to the next step
 const CreateCard = () => {
   const steps = [<CreateImg />, <CreatePrompt />];
-
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
@@ -162,6 +190,7 @@ const CreateCard = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [allImages, setAllImages] = useState([]);
 
   const handleNext = () => {
     if (createCardState.currentStep >= steps.length - 1) {
@@ -187,15 +216,13 @@ const CreateCard = () => {
   if ((selectedImage || selectedMessage) && !createCardState.canContinue)
     setCreateCardState({ ...createCardState, canContinue: true });
 
-  console.log(createCardState);
-  console.log(selectedMessage);
-  console.log(selectedImage);
-
   return (
     <div className='CreateCard'>
+      <BG className='background' />
       {/* Displays the current step */}
       <div className='StepDisplay'>
         {React.cloneElement(createCardState.stepDisplayed, {
+          allImages: [allImages, setAllImages],
           imageState: [selectedImage, setSelectedImage],
           promptState: [selectedMessage, setSelectedMessage],
           currentStep: createCardState.currentStep,
