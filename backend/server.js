@@ -5,12 +5,17 @@ require('dotenv').config();
 const { DB_URI } = process.env;
 
 const PORT = 3000;
-
 const app = express();
 
-// Routes
+// LoginRouter
 const loginRouter = require('./routes/login');
 const cardsRouter = require('./routes/cards');
+// signUpRouter
+const signUpRouter = require('./routes/signup');
+//cardsRouter
+const cardsRouter = require('./routes/cards.js')
+//createImageRouter
+// const createImageRouter = require('./routes/createImage.js');
 
 app.use(express.json());
 
@@ -21,10 +26,24 @@ mongoose
   .then(() => console.log('connected to DB'))
   .catch(console.error);
 
-app.get('/', (req, res) => {});
+app.get('/', (req, res) => {
+    res.sendFile('../frontend/index.html', function (err) {
+      if (err) {
+        next(err);
+      } else {
+        console.log('Sent:', 'index.html');
+      }
+    });
+});
 
-app.use('/login', loginRouter);
-app.use('/cards', cardsRouter);
+//loginRoute
+app.use('/api/login', loginRouter);
+//signUpRoute
+app.use('/api/signup', signUpRouter);
+//cardsRoute
+app.use('/api/cards', cardsRouter)
+//createRoute
+// app.use('api/createImage', createImageRouter);
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")

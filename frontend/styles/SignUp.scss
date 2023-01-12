@@ -1,11 +1,11 @@
-.LoginPage {
+.SignUpPage {
   display: flex;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
   position: absolute;
-  
+
   .logoContainer {
     position: absolute;
     top: 0;
@@ -122,16 +122,17 @@
       border-radius: 50%;
     }
   }
+
   @media screen and (max-width: 930px) {
     form {
       width: 97vw;
       box-shadow: 3px 5px 5px rgba(205, 199, 199, 0);
     }
-    a {
-      color: rgba(54, 54, 54, 0.801);
-    }
     .background {
       scale: 1.6;
+    }
+    .icon {
+      color: rgba(54, 54, 54, 0.801);
     }
   }
 }
