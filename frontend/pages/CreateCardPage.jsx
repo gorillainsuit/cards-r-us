@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+
 import { redirect } from 'react-router-dom';
-import Placeholder from '../images/placeholder.jpg';
+import img0 from '../images/testImg/img0.jpg';
+import img1 from '../images/testImg/img1.png';
+import img2 from '../images/testImg/img2.png';
+import img3 from '../images/testImg/img3.png';
 
 //import bg svg
 import BG from '../images/bg.svg';
@@ -10,16 +15,16 @@ import BG from '../images/bg.svg';
 let testData = {
   data: [
     {
-      url: Placeholder,
+      url: img0,
     },
     {
-      url: Placeholder,
+      url: img1,
     },
     {
-      url: Placeholder,
+      url: img2,
     },
     {
-      url: Placeholder,
+      url: img3,
     },
   ],
 };
@@ -64,11 +69,14 @@ const CreateImg = ({
   });
 
   const ImgResult = imgList.map((el, i) => (
-    <div className='image' key={i}>
+    <div
+      className='image
+    noSelect'
+      key={i}>
       <img
+        className='noDrag'
         onClick={(e) => {
           setSelectedImage(e.target.src);
-          e.style.transform = scale(1.06);
         }}
         src={el.url}
       />
@@ -88,7 +96,7 @@ const CreateImg = ({
             onChange={(e) => setImgPrompt(e.target.value)}
           />
           <button>
-            <i class='fa-solid fa-magnifying-glass'></i>
+            <i className='fa-solid fa-magnifying-glass'></i>
           </button>
         </form>
       </div>
@@ -109,8 +117,9 @@ const CreateImg = ({
   );
 };
 
-// Step 2
+// Step 2  create prompt and confirm card
 const CreatePrompt = ({
+  allImages,
   promptState,
   imageState,
   canContinue,
@@ -118,8 +127,22 @@ const CreatePrompt = ({
   nextFunction,
   steps,
 }) => {
+  const [imgList, setImgList] = allImages;
+  const [selectedImage, setSelectedImage] = imageState;
   const [selectedMessage, setSelectedMessage] = promptState;
   const image = imageState[0];
+
+  const ImgResult = imgList.map((el, i) => (
+    <div className='image' key={i}>
+      <img
+        className='noDrag'
+        onClick={(e) => {
+          setSelectedImage(e.target.src);
+        }}
+        src={el.url}
+      />
+    </div>
+  ));
 
   return (
     <div className='CreatePrompt'>
@@ -135,54 +158,30 @@ const CreatePrompt = ({
         </div>
         <div
           className='Preview'
-          style={{ backgroundImage: `url(${image ?? Placeholder})` }}>
+          style={{
+            backgroundImage: `url(${image ?? Placeholder})`,
+            borderRadius: '1em',
+          }}>
           <h2>{selectedMessage || 'Say something nice...'}</h2>
         </div>
         <div className='Next'>
-          {/* The button to continue */}
           <Button
             variant='soft'
             endDecorator={<ChevronRight />}
-            // disabled={!canContinue}
+            disabled={!canContinue}
             onClick={nextFunction}>
             {currentStep >= steps - 1 ? 'Create' : 'Next'}
           </Button>
         </div>
       </div>
-    </div>
-  );
-};
-
-//step 3: confirm card
-const ConfirmCard = ({
-  allImages,
-  imageState,
-  promptState,
-  confirmState,
-  canContinue,
-  currentStep,
-  nextFunction,
-  steps,
-}) => {
-  const [confirmedCard, setConfirmedCard] = confirmState;
-
-  return (
-    <div className='apple'>
-      Hello World
-      <Button
-        variant='soft'
-        endDecorator={<ChevronRight />}
-        disabled={!canContinue}
-        onClick={nextFunction}>
-        {currentStep >= steps - 1 ? 'Create' : 'Next'}
-      </Button>
+      <div className='img-result'>{ImgResult}</div>
     </div>
   );
 };
 
 // The main page component that will handle state for prompt and image generation and it will control whether the user can continue to the next step
 const CreateCard = () => {
-  const steps = [<CreateImg />, <CreatePrompt />, <ConfirmCard />];
+  const steps = [<CreateImg />, <CreatePrompt />];
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
@@ -191,7 +190,6 @@ const CreateCard = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
-  const [confirmedCard, setConfirmedCard] = useState(null);
   const [allImages, setAllImages] = useState([]);
 
   const handleNext = () => {
@@ -215,10 +213,7 @@ const CreateCard = () => {
     });
   };
 
-  if (
-    (selectedImage || selectedMessage || confirmedCard) &&
-    !createCardState.canContinue
-  )
+  if ((selectedImage || selectedMessage) && !createCardState.canContinue)
     setCreateCardState({ ...createCardState, canContinue: true });
 
   return (
@@ -230,7 +225,6 @@ const CreateCard = () => {
           allImages: [allImages, setAllImages],
           imageState: [selectedImage, setSelectedImage],
           promptState: [selectedMessage, setSelectedMessage],
-          confirmState: [confirmedCard, setConfirmedCard],
           currentStep: createCardState.currentStep,
           canContinue: createCardState.canContinue,
           nextFunction: handleNext,

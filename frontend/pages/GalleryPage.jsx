@@ -22,8 +22,8 @@ import Logout from '@mui/icons-material/Logout';
 // Hook imports
 import useIsMobile from '../hooks/isMobileHook';
 
-// TODO: add preview image based on S3 url instead of placeholder
-import Placeholder from '../images/placeholder.jpg';
+// TODO: add preview image based on S3 url instead of img0
+import Placeholder from '../images/testImg/img0.jpg';
 
 import logo from '../images/logo.png';
 import BG from '../images/BG2.svg';
@@ -482,7 +482,7 @@ const GalleryPage = () => {
     <div className='GalleryPage'>
       <BG className='background' />
       <div className='logoContainer'>
-        <img className='logo' src={logo} alt='CardsRUs' />
+        <img className='logo noDrag' src={logo} alt='CardsRUs' />
       </div>
       {/* Desktop Sidebar */}
       <div
