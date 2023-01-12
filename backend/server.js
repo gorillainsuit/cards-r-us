@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const { DB_URI } = process.env;
 
@@ -12,11 +13,12 @@ const loginRouter = require('./routes/login');
 // signUpRouter
 const signUpRouter = require('./routes/signup');
 //cardsRouter
-const cardsRouter = require('./routes/cards.js')
+const cardsRouter = require('./routes/cards.js');
 //createImageRouter
 const createImageRouter = require('./routes/createImage.js');
 
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.set('strictQuery', false);
 
@@ -26,13 +28,13 @@ mongoose
   .catch(console.error);
 
 app.get('/', (req, res) => {
-    res.sendFile('../frontend/index.html', function (err) {
-      if (err) {
-        next(err);
-      } else {
-        console.log('Sent:', 'index.html');
-      }
-    });
+  res.sendFile('../frontend/index.html', function (err) {
+    if (err) {
+      next(err);
+    } else {
+      console.log('Sent:', 'index.html');
+    }
+  });
 });
 
 //loginRoute
@@ -40,7 +42,7 @@ app.use('api/login', loginRouter);
 //signUpRoute
 app.use('api/signup', signUpRouter);
 //cardsRoute
-app.use('api/cards', cardsRouter)
+app.use('api/cards', cardsRouter);
 //createRoute
 app.use('api/createImage', createImageRouter);
 
