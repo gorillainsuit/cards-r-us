@@ -19,10 +19,11 @@
     transition: 300ms ease-in-out;
 
     .User {
+      font-family: $main-font;
       display: flex;
       height: 5em;
       width: 100%;
-
+      color: $text-color;
       * {
         margin: auto;
       }

@@ -70,11 +70,10 @@ const GalleryPage = () => {
     // TODO: fix bug where "fetch" occurs on every filter
     if (cards) return;
     setTimeout(() => {
-      // Create a copy of the cards.
-      tmpCards = [...testData];
-      // Set the card state
-      setCards(testData);
-    }, 3000);
+      setCards(
+        testData.filter((card) => (filterCardsByAuthor ? card.authored : true))
+      );
+    }, 200);
   });
 
   // This will be used to delete cards
