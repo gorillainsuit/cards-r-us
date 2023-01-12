@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import EditIcon from '../images/icons/pencil.svg';
 import DeleteIcon from '../images/icons/trash.svg';
 import ShareIcon from '../images/icons/box-arrow-up.svg';
 import CopyIcon from '../images/icons/clipboard.svg';
@@ -13,14 +12,9 @@ const Card = ({ cardId, image, prompt, deleteFunction }) => {
   return (
     <div className='Card'>
       <div className='Preview'>
-        <img src={image} alt={prompt ?? 'Card Preview'} />
+        <img className='noDrag' src={image} alt={prompt ?? 'Card Preview'} />
       </div>
-
       <div className='Buttons'>
-        <Link to={`/customize/${cardId}`}>
-          <EditIcon />
-        </Link>
-
         <a onClick={(e) => deleteFunction(e, cardId)}>
           <DeleteIcon />
         </a>
