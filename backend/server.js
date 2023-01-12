@@ -42,7 +42,7 @@ app.use('/api/signup', signUpRouter);
 //cardsRoute
 app.use('/api/cards', cardsRouter)
 //createRoute
-// app.use('api/createImage', createImageRouter);
+app.use('api/createImage', createImageRouter);
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
