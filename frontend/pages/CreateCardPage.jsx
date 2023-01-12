@@ -31,14 +31,10 @@ const CreateImg = ({
 }) => {
   const [selectedImage, setSelectedImage] = imageState;
   const [imgPrompt, setImgPrompt] = useState('');
+  const [imgList, setImgList] = useState([]);
 
   //--DALL-E API fetch request--
 
-  const [keywords, setKeywords] = useState('');
-  const [imgList, setImgList] = useState([]);
-  // const handleSubmit = (e) => {
-
-  //   const keywords = { q };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const prompt = { imgPrompt, n: 4, size: '1024x1024' };
@@ -77,7 +73,6 @@ const CreateImg = ({
           <input
             type='search'
             id='ai-img-bar'
-            // name='q'
             value={imgPrompt}
             placeholder=' generate an image for your card... '
             onChange={(e) => setImgPrompt(e.target.value)}
