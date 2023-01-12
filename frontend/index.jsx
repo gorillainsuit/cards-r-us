@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: '/*',
-    element: <NotFound />,
+    element: <ErrorPage />,
   },
 ];
 
