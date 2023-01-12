@@ -1,17 +1,45 @@
 .GalleryPage {
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 100vw;
   height: fit-content;
   min-height: 100vh;
-  background-color: $primary;
+  background-color: #021220;
+
+  .background {
+    scale: 1.4;
+    position: fixed;
+    animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
+  }
+
+  .logoContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    .logo {
+      width: 6em;
+      padding: 1.5em;
+      aspect-ratio: 3/2;
+      object-fit: contain;
+      transition: 250ms;
+      cursor: pointer;
+    }
+  }
+  .logo:hover {
+    rotate: 15deg;
+    filter: drop-shadow(-2px -5px 20px #abe7ff);
+  }
 
   .SideBar {
+    z-index: 4;
     width: 18em;
     height: 100vh;
-    border-right: solid $secondary 1px;
+    border-right: solid #1a1a1a9e 3px;
     border-radius: 4px;
-    background-color: $secondary;
+    background-color: #3a3a3ae1;
     position: sticky;
     top: 0;
     display: flex;
@@ -27,7 +55,6 @@
         margin: auto;
       }
     }
-
     .SideBarContent {
       flex-grow: 1;
       display: flex;
@@ -51,6 +78,7 @@
         position: relative;
         padding: 8px 0px;
         width: 100%;
+        margin-bottom: 2em;
 
         * {
           margin: auto;
@@ -130,6 +158,7 @@
       margin: auto;
       height: fit-content;
       width: 100%;
+      margin-top: 7em;
 
       * {
         margin: auto;
@@ -141,17 +170,27 @@
       }
 
       .Card:first-of-type {
-        margin-left: 16px;
+        margin-left: 8px;
       }
     }
   }
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
+    overflow: hidden;
+    .SideBarMobile {
+      z-index: 2;
+    }
+    .logo {
+      margin-top: 4em;
+    }
 
     .SideBar {
       width: 100%;
 
+      .SideBarContent {
+        border: 2px solid red;
+      }
       ul:first-of-type {
         display: none;
       }
