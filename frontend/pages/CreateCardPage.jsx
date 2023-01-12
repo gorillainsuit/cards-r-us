@@ -26,6 +26,7 @@ let testData = {
 
 // Step 1
 const CreateImg = ({
+  allImages,
   imageState,
   canContinue,
   currentStep,
@@ -34,7 +35,7 @@ const CreateImg = ({
 }) => {
   const [selectedImage, setSelectedImage] = imageState;
   const [imgPrompt, setImgPrompt] = useState('');
-  const [imgList, setImgList] = useState([]);
+  const [imgList, setImgList] = allImages;
 
   //--DALL-E API fetch request--
 
@@ -64,7 +65,13 @@ const CreateImg = ({
 
   const ImgResult = imgList.map((el, i) => (
     <div className='image' key={i}>
-      <img onClick={(e) => setSelectedImage(e.target.src)} src={el.url} />
+      <img
+        onClick={(e) => {
+          setSelectedImage(e.target.src);
+          e.style.transform = scale(1.06);
+        }}
+        src={el.url}
+      />
     </div>
   ));
 
@@ -136,7 +143,7 @@ const CreatePrompt = ({
           <Button
             variant='soft'
             endDecorator={<ChevronRight />}
-            disabled={!canContinue}
+            // disabled={!canContinue}
             onClick={nextFunction}>
             {currentStep >= steps - 1 ? 'Create' : 'Next'}
           </Button>
@@ -146,10 +153,36 @@ const CreatePrompt = ({
   );
 };
 
+//step 3: confirm card
+const ConfirmCard = ({
+  allImages,
+  imageState,
+  promptState,
+  confirmState,
+  canContinue,
+  currentStep,
+  nextFunction,
+  steps,
+}) => {
+  const [confirmedCard, setConfirmedCard] = confirmState;
+
+  return (
+    <div className='apple'>
+      Hello World
+      <Button
+        variant='soft'
+        endDecorator={<ChevronRight />}
+        disabled={!canContinue}
+        onClick={nextFunction}>
+        {currentStep >= steps - 1 ? 'Create' : 'Next'}
+      </Button>
+    </div>
+  );
+};
+
 // The main page component that will handle state for prompt and image generation and it will control whether the user can continue to the next step
 const CreateCard = () => {
-  const steps = [<CreateImg />, <CreatePrompt />];
-
+  const steps = [<CreateImg />, <CreatePrompt />, <ConfirmCard />];
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
@@ -158,6 +191,8 @@ const CreateCard = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [confirmedCard, setConfirmedCard] = useState(null);
+  const [allImages, setAllImages] = useState([]);
 
   const handleNext = () => {
     if (createCardState.currentStep >= steps.length - 1) {
@@ -180,12 +215,11 @@ const CreateCard = () => {
     });
   };
 
-  if ((selectedImage || selectedMessage) && !createCardState.canContinue)
+  if (
+    (selectedImage || selectedMessage || confirmedCard) &&
+    !createCardState.canContinue
+  )
     setCreateCardState({ ...createCardState, canContinue: true });
-
-  console.log(createCardState);
-  console.log(selectedMessage);
-  console.log(selectedImage);
 
   return (
     <div className='CreateCard'>
@@ -193,8 +227,10 @@ const CreateCard = () => {
       {/* Displays the current step */}
       <div className='StepDisplay'>
         {React.cloneElement(createCardState.stepDisplayed, {
+          allImages: [allImages, setAllImages],
           imageState: [selectedImage, setSelectedImage],
           promptState: [selectedMessage, setSelectedMessage],
+          confirmState: [confirmedCard, setConfirmedCard],
           currentStep: createCardState.currentStep,
           canContinue: createCardState.canContinue,
           nextFunction: handleNext,
