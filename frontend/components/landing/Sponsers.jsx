@@ -1,9 +1,9 @@
 import React from 'react';
-import BIT from '../images/PsudoLogos/BIT.png';
-import HQF from '../images/PsudoLogos/HQF.png';
-import JHU from '../images/PsudoLogos/JHU.png';
-import RSJ from '../images/PsudoLogos/RSJ.png';
-import CSZU from '../images/PsudoLogos/CSZU.png';
+import BIT from '../../images/PsudoLogos/BIT.png';
+import HQF from '../../images/PsudoLogos/HQF.png';
+import JHU from '../../images/PsudoLogos/JHU.png';
+import RSJ from '../../images/PsudoLogos/RSJ.png';
+import CSZU from '../../images/PsudoLogos/CSZU.png';
 
 const Sponsers = () => (
   <div className='sponsers noSelect'>

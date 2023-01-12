@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Link } from 'react-router-dom';
 
-import Logo from '../images/logo.png';
 import Background from '../images/bg.svg';
+import Logo from '../images/logo.png';
 
-const Login = () => {
+const SignUp = () => {
   return (
-    <div className='LoginPage'>
+    <div className='SignUpPage'>
       <Link className='logoContainer' to={'/'}>
         <img
           src={Logo}
@@ -24,19 +24,18 @@ const Login = () => {
           <label>Password:</label>
           <input type='password' name='password' />
           <br className='noSelect' />
+          <label>Confirm Password:</label>
+          <input type='password' name='password' />
+          <br className='noSelect' />
         </div>
 
         <div className='buttons noSelect'>
-          <button className='button'>Sign In</button>
-          <Link className='button' to='/signup'>
-            Sign Up
+          <button className='button'>Create</button>
+          <Link className='button' to='/login'>
+            Sign In
           </Link>
         </div>
         <br className='noSelect' />
-        <Link className='noSelect' to='findPw'>
-          {' '}
-          Forget password?
-        </Link>
         <div className='Icons'>
           <a className='icon' href='#'>
             <i class='fa-brands fa-google'></i>
@@ -53,4 +52,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
