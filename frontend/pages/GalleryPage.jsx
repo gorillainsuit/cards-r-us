@@ -26,6 +26,7 @@ import useIsMobile from '../hooks/isMobileHook';
 import Placeholder from '../images/placeholder.jpg';
 
 // TODO: have this data be fetched from backend
+// TODO: have the card data be fetched in the index.jsx
 let testData = [
   {
     id: '1',
@@ -53,29 +54,47 @@ let testData = [
   },
 ];
 
+let filterCardsByAuthor = false;
+
+// This will be used to hold the un-filtered cards
+let tmpCards = [];
+
 const GalleryPage = () => {
   const [displaySideBar, setDisplaySideBar] = useState(true);
-  const [filterCardsByAuthor, setFilterCardsByAuthor] = useState(false);
+  // const [filterCardsByAuthor, setFilterCardsByAuthor] = useState(false);
   const [cards, setCards] = useState(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
     // TODO: Replace this with a fetch to backend
     // TODO: fix bug where "fetch" occurs on every filter
-
+    if (cards) return;
     setTimeout(() => {
-      setCards(
-        testData.filter((card) => (filterCardsByAuthor ? card.authored : true))
-      );
+      // Create a copy of the cards.
+      tmpCards = [...testData];
+      // Set the card state
+      setCards(testData);
     }, 3000);
   });
 
   // This will be used to delete cards
   const handleCardDelete = (e, id) => {
     e.preventDefault();
+    console.log('delete ', id);
     // TODO: have delete card in database as well
-    testData = testData.filter((card) => card.id !== id);
-    setCards(testData);
+    setCards(cards.filter((card) => card.id !== id));
+  };
+
+  // This will handle card filtering
+  const doCardFilter = (e, filterState) => {
+    e.preventDefault();
+    filterCardsByAuthor = filterState;
+    // if (!tmpCards) tmpCards = [...cards];
+    if (filterCardsByAuthor) {
+      setCards(cards.filter((card) => card.authored));
+    } else {
+      setCards(tmpCards);
+    }
   };
 
   // TODO: Refactor the jank responsiveness
@@ -111,16 +130,14 @@ const GalleryPage = () => {
               <li>
                 {displaySideBar ? (
                   <Button
-                    onClick={() => setFilterCardsByAuthor(!filterCardsByAuthor)}
+                    onClick={(e) => doCardFilter(e, !filterCardsByAuthor)}
                     startDecorator={<FilterList />}
                     variant='soft'>
                     {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
                   </Button>
                 ) : (
                   <IconButton
-                    onClick={() =>
-                      setFilterCardsByAuthor(!filterCardsByAuthor)
-                    }>
+                    onClick={(e) => doCardFilter(e, !filterCardsByAuthor)}>
                     <FilterList />
                   </IconButton>
                 )}
@@ -170,7 +187,7 @@ const GalleryPage = () => {
                 {!displaySideBar ? (
                   <Button
                     onClick={() => {
-                      setFilterCardsByAuthor(!filterCardsByAuthor);
+                      doCardFilter(e, !filterCardsByAuthor);
                       setTimeout(() => setDisplaySideBar(!displaySideBar), 200);
                     }}
                     startDecorator={<FilterList />}
