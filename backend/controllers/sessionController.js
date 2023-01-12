@@ -9,16 +9,20 @@ const sessionController = {};
  */
 sessionController.isLoggedIn = (req, res, next) => {
   // write code here
-  const ssid = req.cookies['ssid'];
+  const ssid = req.cookies['SSID'];
   if (!ssid) {
     console.log('No SSID cookie, redirecting...');
-    return res.redirect('/signup');
+    return res.redirect('/login');
   }
-  Session.finOne({ cookieId: ssid }, async (err, records) => {
-    if (!records.length) {
-      console.log('No session in database, redirecting...');
-      return res.redirect('/signup');
-    }
+  Session.findOne({ _id: ssid }, async (err, records) => {
+    if (err)
+      return next({
+        log: `sessionController.isLoggedIn: ${e}`,
+        status: 500,
+        message: { err: 'An error occurred' },
+      });
+
+    if (!records) res.status(304).redirect('/login');
 
     res.locals.user = await User.findOne({ _id: records.userId });
     return next();
@@ -28,12 +32,17 @@ sessionController.isLoggedIn = (req, res, next) => {
 /**
  * startSession - create and save a new Session into the database.
  */
-sessionController.startSession = (req, res, next) => {
-  //write code here
-  const ssid = res.locals.user.id;
-  console.log('Creating session for ssid: ', ssid);
-  Session.create({ cookieId: ssid }, (err, document) => {
-    if (err) return next(err);
+sessionController.startSession = async (req, res, next) => {
+  if (res.cookies['SSID']) return next();
+  Session.create({ userId: res.locals.user.id }, (err, newSession) => {
+    if (err)
+      return next({
+        log: `sessionController.startSession: ${e}`,
+        status: 500,
+        message: { err: 'An error occurred' },
+      });
+
+    res.cookie('SSID', newSession._id);
     return next();
   });
 };
