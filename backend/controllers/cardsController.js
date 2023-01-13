@@ -57,9 +57,9 @@ const cardsController = {
       });
     }
     try {
-      await Card.findOneAndRemove({ _id: id });
-
-      res.status(204).json('Card deleted');
+      const removed = await Card.findOneAndRemove({ _id: id });
+      res.locals.removedCardID = removed._id;
+      // res.status(204).json('Card deleted');
     } catch (e) {
       return next({
         log: 'Error deleting card in cardController',
@@ -68,8 +68,8 @@ const cardsController = {
       });
     }
 
-    await Card.findByIdAndRemove(id);
-    res.json({ message: 'Deleted card' });
+    // await Card.findByIdAndRemove(id);
+    // res.json({ message: 'Deleted card' });
   },
 };
 
