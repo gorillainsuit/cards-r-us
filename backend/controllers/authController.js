@@ -4,10 +4,11 @@ const bcrypt = require('bcrypt');
 const authController = {
   async signUp(req, res, next) {
     try {
+      console.log('authController running')
       const { email, password } = req.body;
       const newUser = await User.create({ email, password });
       const { gallery, _id } = newUser;
-      res.locals.newUser = { email, id: _id, gallery };
+      res.locals.user = { email, id: _id, gallery };
       return next();
     } catch (e) {
       return next({
