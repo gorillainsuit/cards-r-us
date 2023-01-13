@@ -37,7 +37,7 @@ router.delete(
     console.log('DELETE REQUEST for cardsController.deleteCard');
     return res.status(200).json(res.locals.removedCardID);
   }
-);
+); 
 
 
 module.exports = router;
