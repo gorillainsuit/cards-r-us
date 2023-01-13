@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const sessionSchema = new Schema({
   userId: { type: String, required: true, unique: true },
-  createdAt: { type: Date, expires: 30, default: Date.now },
+  createdAt: { type: Date, expires: "30m", default: Date.now },
 });
 
 module.exports = mongoose.model('Session', sessionSchema);

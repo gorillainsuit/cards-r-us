@@ -13,15 +13,16 @@ router.post(
     res.status(200).json(res.locals.user);
   }
 );
-
+ 
 // '/signup' Endpoint
 router.post(
-  '/signup',
+  '/signup', 
   authController.signUp,
   sessionController.startSession,
   (req, res) => {
-    res.status(200).json(res.locals.newUser);
+    res.status(200).json(res.locals.user);
   }
 );
-
+  
 module.exports = router;
+  

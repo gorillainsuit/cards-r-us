@@ -28,25 +28,27 @@ const cardsController = {
 
   async createCard(req, res, next) {
     // res.send('Creating card...');
-    const { id: _id, author, image } = req.body;
-
-    const newCard = new Card({ id, author, image });
-
+    const { image } = req.body;
+    //const newCard = new Card({ author, image });
     try {
-      await newCard.save();
-
+      // await newCard.save();
+      const newCard = await Card.create({author: res.locals.user.id, image});
+      const {_id} = newCard;
+      res.locals.user.gallery.push(_id);
+      await User.findOneAndUpdate({_id: res.locals.user._id}, {gallery: res.locals.user.gallery});
       res.status(201).json(newCard);
     } catch (e) {
       return next({
         log: 'Error creating card in cardController',
         status: 409,
         message: { err: e.message },
-      });
-    }
+      }); 
+    } 
   },
 
   async deleteCard(req, res, next) {
     // res.send('Deleting card...');
+    //res.locals.user;
     const { id } = req.body;
 
     if (!id) {
@@ -57,20 +59,27 @@ const cardsController = {
       });
     }
     try {
-      await Card.findOneAndRemove({ _id: id });
-
-      res.status(204).json('Card deleted');
+      const newgallery = res.locals.user.gallery.filter((strID) => strID !== id);
+      console.log('newgallery: ', newgallery);
+      await User.findOneAndUpdate(
+        { _id: res.locals.user._id },
+        { gallery: newgallery }
+      );
+      res.locals.removedCardID = id;
+      return next();
+      // res.status(204).json('Card deleted');
     } catch (e) {
       return next({
         log: 'Error deleting card in cardController',
-        status: 500,
+        status: 500, 
         message: { err: e.message },
-      });
-    }
+      }); 
+    }  
 
-    await Card.findByIdAndRemove(id);
-    res.json({ message: 'Deleted card' });
+    // await Card.findByIdAndRemove(id);
+    // res.json({ message: 'Deleted card' });
   },
 };
 
 module.exports = cardsController;
+ 

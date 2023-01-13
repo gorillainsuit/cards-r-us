@@ -9,12 +9,15 @@ const sessionController = {};
  */
 sessionController.isLoggedIn = (req, res, next) => {
   // write code here
-  const { ssid } = req.cookies;
-  if (!ssid) {
+  const { SSID } = req.cookies;
+  if (!SSID) {
     console.log('No SSID cookie, redirecting...');
-    return res.redirect('/login');
+    // return res.redirect('/login');
+    return res.json({err: 'log in error'})
   }
-  Session.findOne({ _id: ssid }, async (err, records) => {
+  Session.findOne({ _id: SSID }, async (err, records) => {
+    console.log("records: ", records)
+    console.log('SSID: ', SSID)
     if (err)
       return next({
         log: `sessionController.isLoggedIn: ${e}`,
@@ -23,18 +26,18 @@ sessionController.isLoggedIn = (req, res, next) => {
       });
 
     if (!records) res.status(304).redirect('/login');
-
+    
     res.locals.user = await User.findOne({ _id: records.userId });
     return next();
   });
-};
-
+}; 
+ 
 /**
  * startSession - create and save a new Session into the database.
  */
 sessionController.startSession = (req, res, next) => {
   const { SSID } = req.cookies;
-  if (SSID) return next();
+  // if (SSID) return next();
   Session.create({ userId: res.locals.user.id }, (err, newSession) => {
     if (err)
       return next({
@@ -50,5 +53,5 @@ sessionController.startSession = (req, res, next) => {
     return next();
   });
 };
-
+ 
 module.exports = sessionController;
