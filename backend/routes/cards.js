@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const cardsController = require('../controllers/cardsController.js');
-const sessionController = require('../controllers/sessionController');
+const sessionController = require('../controllers/sessionController.js');
+// this logged using localhost:3000/cards
+// router.get('/', (req, res) => {
+//   console.log('cards router connected');
+// });
 
 //GET REQUEST
 router.get(
@@ -10,19 +14,18 @@ router.get(
   cardsController.getCards,
   (req, res) => {
     //respond to client with cards collection data retrieved from DB
+    console.log('GET REQUEST for cardsController.getCards');
     return res.status(200).json(res.locals.cards);
   }
 );
- 
-//DELETE
-router.delete(
-  '/',
+
+// CREATE
+router.post('/', 
   sessionController.isLoggedIn,
-  cardsController.deleteCard,
+  cardsController.createCard, 
   (req, res) => {
-    //respond to client with cards collection data retrieved from DB
-    return res.status(200).json(res.locals.cards);
-  }
-);
+  console.log('CREATE REQUEST for cardsController.createCard');
+  return res.status(200).json(res.locals.newCard);
+});
 
 module.exports = router;

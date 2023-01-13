@@ -9,7 +9,7 @@ const sessionController = {};
  */
 sessionController.isLoggedIn = (req, res, next) => {
   // write code here
-  const ssid = req.cookies['SSID'];
+  const { ssid } = req.cookies;
   if (!ssid) {
     console.log('No SSID cookie, redirecting...');
     return res.redirect('/login');
@@ -32,8 +32,9 @@ sessionController.isLoggedIn = (req, res, next) => {
 /**
  * startSession - create and save a new Session into the database.
  */
-sessionController.startSession = async (req, res, next) => {
-  if (res.cookies['SSID']) return next();
+sessionController.startSession = (req, res, next) => {
+  const { SSID } = req.cookies;
+  if (SSID) return next();
   Session.create({ userId: res.locals.user.id }, (err, newSession) => {
     if (err)
       return next({
@@ -42,7 +43,10 @@ sessionController.startSession = async (req, res, next) => {
         message: { err: 'An error occurred' },
       });
 
-    res.cookie('SSID', newSession._id);
+    res.cookie('SSID', newSession._id, {
+      maxAge: 1800000, // 30 mins
+      httpOnly: true,
+    });
     return next();
   });
 };
