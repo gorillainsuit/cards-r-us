@@ -33,9 +33,7 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiRouter);
 
-app.use((req, res) =>
-  res.status(404).send("This is not the page you're looking for...")
-);
+app.use((req, res) => res.status(404).redirect('/'));
 
 app.use((err, req, res, next) => {
   const defaultErr = {
