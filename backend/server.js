@@ -1,12 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const { DB_URI } = process.env;
 
 const PORT = 3000;
 const app = express();
 
+// api router
+const apiRouter = require('./routes/api.js');
 // LoginRouter
 const loginRouter = require('./routes/login');
 // signUpRouter
@@ -34,6 +37,8 @@ app.get('/', (req, res) => {
       }
     });
 });
+
+app.use('/api', apiRouter);
  
 //loginRoute
 app.use('/api/login', loginRouter);
