@@ -13,6 +13,7 @@ import NotFound from './pages/NotFoundPage';
 import Login from './pages/Login';
 import CreateCard from './pages/CreateCardPage';
 import SignUp from './pages/SignUp';
+import CardViewPage from './pages/CardViewPage';
 
 // Style import
 import './styles/index.scss';
@@ -29,8 +30,8 @@ const routes = [
     errorElement: <ErrorPage />,
   },
   {
-    path: '/card/:id',
-    element: <h1>Single card view</h1>,
+    path: '/card',
+    element: <CardViewPage />,
   },
   {
     path: '/login',
