@@ -11,9 +11,8 @@ const app = express();
 // api router
 const apiRouter = require('./routes/api.js');
 
-
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
 
 mongoose.set('strictQuery', false);
 
@@ -23,22 +22,18 @@ mongoose
   .catch(console.error);
 
 app.get('/', (req, res) => {
-    res.sendFile('../frontend/index.html', function (err) {
-      if (err) {
-        next(err);
-      } else {
-        console.log('Sent:', 'index.html');
-      }
-    });
+  res.sendFile('../frontend/index.html', function (err) {
+    if (err) {
+      next(err);
+    } else {
+      console.log('Sent:', 'index.html');
+    }
+  });
 });
 
 app.use('/api', apiRouter);
- 
 
-
-app.use((req, res) =>
-  res.status(404).send("This is not the page you're looking for...")
-);
+app.use((req, res) => res.status(404).redirect('/'));
 
 app.use((err, req, res, next) => {
   const defaultErr = {
