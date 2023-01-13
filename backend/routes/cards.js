@@ -28,4 +28,16 @@ router.post('/',
   return res.status(200).json(res.locals.newCard);
 });
 
+// DELETE
+router.delete(
+  '/',
+  sessionController.isLoggedIn,
+  cardsController.deleteCard,
+  (req, res) => {
+    console.log('DELETE REQUEST for cardsController.deleteCard');
+    return res.status(200).json(res.locals.removedCardID);
+  }
+); 
+
+
 module.exports = router;
