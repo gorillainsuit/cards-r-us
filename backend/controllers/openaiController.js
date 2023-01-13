@@ -12,7 +12,7 @@ const openaiController = {
     const response = await openai.createImage({
       prompt: prompt,
       n: 4,
-      size: '1024x1024',
+      size: '512x512',
     });
     res.locals.image = response;
   },
