@@ -20,7 +20,10 @@ router.get(
 );
 
 // CREATE
-router.post('/', cardsController.createCard, (req, res) => {
+router.post('/', 
+  sessionController.isLoggedIn,
+  cardsController.createCard, 
+  (req, res) => {
   console.log('CREATE REQUEST for cardsController.createCard');
   return res.status(200).json(res.locals.newCard);
 });
