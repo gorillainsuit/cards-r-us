@@ -44,29 +44,29 @@ const CreateImg = ({
 
   //--DALL-E API fetch request--
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const prompt = { imgPrompt, n: 4, size: '1024x1024' };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const prompt = { imgPrompt, n: 4, size: '1024x1024' };
 
-  //   fetch('#', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(prompt),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setImgList(data.data);
-  //     });
-  // };
+    fetch('/api/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(prompt),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setImgList(data.data);
+      });
+  };
 
   //--DUMMY DB Test--
-  useEffect(() => {
-    setTimeout(() => {
-      setImgList(testData.data);
-    }, 600);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setImgList(testData.data);
+  //   }, 600);
+  // });
 
   const ImgResult = imgList.map((el, i) => (
     <div

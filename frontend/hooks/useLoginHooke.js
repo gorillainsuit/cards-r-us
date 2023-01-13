@@ -34,5 +34,5 @@ export default function useLoginState() {
     isLoggedIn: loginInformation.isLoggedIn,
     user: loginInformation.user,
     updateLogin,
-  };
+  }
 }

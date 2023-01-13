@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt');
 const authController = {
   async signUp(req, res, next) {
     try {
-      const { username, password } = req.body;
-      const newUser = await User.create({ username, password });
+      const { email, password } = req.body;
+      const newUser = await User.create({ email, password });
       const { gallery, _id } = newUser;
-      res.locals.newUser = { username, id: _id, gallery };
+      res.locals.newUser = { email, id: _id, gallery };
       return next();
     } catch (e) {
       return next({
@@ -19,11 +19,11 @@ const authController = {
   },
 
   async verifyUser(req, res, next) {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     let hashedPassword;
     try {
       if (!password) throw new Error('empty password');
-      User.findOne({ username }, (err, userAccount) => {
+      User.findOne({ email }, (err, userAccount) => {
         if (err || !userAccount) {
           res.redirect('/signup');
         } else {
@@ -33,7 +33,7 @@ const authController = {
             if (result === true) {
               //after verification, pass user information to the next middleware
               const user = {
-                username: userAccount.username,
+                email: userAccount.email,
                 id: userAccount._id.toString(),
                 gallery: userAccount.gallery,
               };
