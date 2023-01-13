@@ -1,17 +1,25 @@
-// const { Configuration, OpenAIApi } = require('openai');
-// const openai = new OpenAIApi(configuration);
-// const configuration = new Configuration({
-//   apiKey: process.env.OPENAPI_KEY,
-// });
+const { Configuration, OpenAIApi } = require('openai');
 
-// const openaiController = {
-//   async createImage() {
-//     const response = await openai.createImage({
-//       prompt: 'A cute baby sea otter',
-//       n: 2,
-//       size: '1024x1024',
-//     });
-//   },
-// };
+const configuration = new Configuration({
+  organization: 'org-sLBOtaG4wkR7e9TyacrS1Dgx',
+  apiKey: process.env.OPENAPI_KEY,
+});
 
-// module.exports = openaiController;
+const openai = new OpenAIApi(configuration);
+
+const openaiController = {
+  async createImage(req,res,next) {
+    const {userPrompt} = req.body;
+    const response = await openai.createImage(
+      prompt= userPrompt,
+      n= 1,
+      size= '512x512',
+    );
+    res.locals.image = response;
+    return next();
+  },
+}; 
+ 
+
+
+module.exports = openaiController;

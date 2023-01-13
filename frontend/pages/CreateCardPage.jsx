@@ -87,6 +87,7 @@ const CreateImg = ({
     <div className='CreateImg'>
       <div className='search-part'>
         <form className='askAi-img'>
+          {/* <form className='askAi-img' onSubmit={handleSubmit}/> */}
           {/* is the type of this input box 'search'?? */}
           <input
             type='search'

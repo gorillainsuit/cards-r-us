@@ -5,6 +5,24 @@ import Logo from '../images/logo.png';
 import Background from '../images/bg.svg';
 
 const Login = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const info = { email, password};
+
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringfy(info),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      // 
+    });
+
+  };
+
   return (
     <div className='LoginPage'>
       <Link className='logoContainer' to={'/'}>
@@ -16,13 +34,13 @@ const Login = () => {
         />
       </Link>
       <Background className='background' />
-      <Form action='/' method='post'>
+      <Form action='/' method='post' onSubmit={handleLogin}>
         <div className='Inputs noSelect'>
           <label>Email:</label>
-          <input type='email' name='email' />
+          <input type='email' name='email' value={email} />
           <br />
           <label>Password:</label>
-          <input type='password' name='password' />
+          <input type='password' name='password' value={password} />
           <br className='noSelect' />
         </div>
 
