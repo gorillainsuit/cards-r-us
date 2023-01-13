@@ -1,34 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Axios from 'axios';
+
 import Button from '@mui/joy/Button';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 
 import { redirect } from 'react-router-dom';
-import img0 from '../images/testImg/img0.jpg';
-import img1 from '../images/testImg/img1.png';
-import img2 from '../images/testImg/img2.png';
-import img3 from '../images/testImg/img3.png';
+import Placeholder from '../images/testImg/img0.jpg';
+import loading from '../images/loading.gif';
 
 //import bg svg
 import BG from '../images/bg.svg';
 import useLoginState from '../hooks/useLoginHooke';
-
-let testData = {
-  data: [
-    {
-      url: img0,
-    },
-    {
-      url: img1,
-    },
-    {
-      url: img2,
-    },
-    {
-      url: img3,
-    },
-  ],
-};
 
 // Step 1
 const CreateImg = ({
@@ -40,16 +23,21 @@ const CreateImg = ({
   steps,
 }) => {
   const [selectedImage, setSelectedImage] = imageState;
-  const [imgPrompt, setImgPrompt] = useState('');
+  const [userPrompt, setUserPrompt] = useState('');
   const [imgList, setImgList] = allImages;
-
+  const [searching, setSearching] = useState(false);
   //--DALL-E API fetch request--
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const prompt = { imgPrompt, n: 4, size: '1024x1024' };
-
-    fetch('/api/create', {
+    setSearching(true);
+    const prompt = { userPrompt, n: 4, size: '1024x1024' };
+    fetch('/api/createImage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,6 +47,7 @@ const CreateImg = ({
       .then((res) => res.json())
       .then((data) => {
         setImgList(data.data);
+        setSearching(false);
       });
   };
 
@@ -70,12 +59,10 @@ const CreateImg = ({
   // });
 
   const ImgResult = imgList.map((el, i) => (
-    <div
-      className='image
+    <div className='images
     noSelect'
       key={i}>
-      <img
-        className='noDrag'
+      <img className='noDrag image'
         onClick={(e) => {
           setSelectedImage(e.target.src);
         }}
@@ -87,15 +74,14 @@ const CreateImg = ({
   return (
     <div className='CreateImg'>
       <div className='search-part'>
-        <form className='askAi-img'>
-          {/* <form className='askAi-img' onSubmit={handleSubmit}/> */}
+        <form className='askAi-img' onSubmit={handleSubmit}>
           {/* is the type of this input box 'search'?? */}
           <input
             type='search'
             id='ai-img-bar'
-            value={imgPrompt}
+            value={userPrompt}
             placeholder=' generate an image for your card... '
-            onChange={(e) => setImgPrompt(e.target.value)}
+            onChange={(e) => setUserPrompt(e.target.value)}
           />
           <button>
             <i className='fa-solid fa-magnifying-glass'></i>
@@ -103,7 +89,16 @@ const CreateImg = ({
         </form>
       </div>
       <div className='imgDisplay'>
-        <div className='img-result'>{ImgResult}</div>
+        <div className='img-result'>
+          {searching ? (
+            <div className='loading'>
+              <img src={loading} />
+              <h1>loading</h1>
+            </div>
+          ) : (
+            ImgResult
+          )}
+        </div>
       </div>
       <div className='Next'>
         {/* The button to continue */}
@@ -132,6 +127,8 @@ const CreatePrompt = ({
   const [imgList, setImgList] = allImages;
   const [selectedImage, setSelectedImage] = imageState;
   const [selectedMessage, setSelectedMessage] = promptState;
+  const [textColor, setTextColor] = useState('#eef0f2');
+
   const image = imageState[0];
 
   const ImgResult = imgList.map((el, i) => (
@@ -157,6 +154,15 @@ const CreatePrompt = ({
             onChange={(e) => setSelectedMessage(e.target.value)}
             value={selectedMessage ?? ''}
           />
+          <input
+            type='color'
+            name=''
+            id='color'
+            onChange={(e) => {
+              setTextColor(e.target.value);
+              console.log(textColor);
+            }}
+          />
         </div>
         <div
           className='Preview'
@@ -164,7 +170,12 @@ const CreatePrompt = ({
             backgroundImage: `url(${image ?? Placeholder})`,
             borderRadius: '1em',
           }}>
-          <h2>{selectedMessage || 'Say something nice...'}</h2>
+          <h2
+            style={{
+              color: `${textColor}`,
+            }}>
+            {selectedMessage || 'Say something nice...'}
+          </h2>
         </div>
         <div className='Next'>
           <Button
@@ -184,6 +195,7 @@ const CreatePrompt = ({
 // The main page component that will handle state for prompt and image generation and it will control whether the user can continue to the next step
 const CreateCard = () => {
   const steps = [<CreateImg />, <CreatePrompt />];
+
   const [createCardState, setCreateCardState] = useState({
     stepDisplayed: steps[0],
     currentStep: 0,
