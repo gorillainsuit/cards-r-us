@@ -2,10 +2,35 @@
 @import '../components/CardComponent.scss';
 @import './login.scss';
 @import './ErrorPage.scss';
-@import './imgCreatePg.scss';
+@import './CreateCardPg.scss';
+@import './SignUp.scss';
+@import './Gallery.scss';
+@import './landingPage.scss';
 
 html,
 body {
+  // border: solid cyan 2px;
   margin: 0px;
   padding: 0px;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0); 
+  font-family: $main-font;
+}
+
+.noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+.noDrag {
+  user-drag: none; 
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }

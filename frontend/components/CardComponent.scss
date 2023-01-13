@@ -1,7 +1,8 @@
-// parent 
+// parent
 .Card {
-  width: 12em;
-  height: 15em;
+  z-index: 1;
+  width: 13em;
+  height: 18em;
   display: flex;
   flex-direction: column;
   background-color: $secondary;
@@ -11,7 +12,7 @@
   .Preview {
     // child of .Preview, parent of none
     img {
-      width: 12em;
+      width: 100%;
       border-radius: 4px;
     }
   }
@@ -21,7 +22,7 @@
     height: 100%;
     width: 100%;
     display: flex;
-// child of .Buttons, parent of svg
+    // child of .Buttons, parent of svg
     a {
       margin: auto;
       transition: 300ms ease-in-out;

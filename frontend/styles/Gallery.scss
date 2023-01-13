@@ -1,0 +1,227 @@
+.GalleryPage {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: fit-content;
+  min-height: 100vh;
+  background-color: #021220;
+
+  .background {
+    scale: 1.4;
+    position: fixed;
+    animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
+  }
+
+  .logoContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    .logo {
+      width: 6em;
+      padding: 1.5em;
+      aspect-ratio: 3/2;
+      object-fit: contain;
+      transition: 250ms;
+      cursor: pointer;
+    }
+  }
+  .logo:hover {
+    rotate: 15deg;
+    filter: drop-shadow(-2px -5px 20px #abe7ff);
+  }
+
+  .SideBar {
+    z-index: 4;
+    width: 18em;
+    height: 100vh;
+    border-right: solid #1a1a1a9e 3px;
+    border-radius: 4px;
+    background-color: #3a3a3ae1;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    transition: 300ms ease-in-out;
+
+    .User {
+      display: flex;
+      height: 5em;
+      width: 100%;
+      * {
+        color: $text-color;
+        font-family: $main-font;
+        margin: auto;
+      }
+    }
+    .SideBarContent {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+
+      .MainControls {
+        flex-grow: 1;
+        display: flex;
+        width: 100%;
+
+        ul,
+        li {
+          margin: 5px auto;
+          padding: 0px;
+          list-style: none;
+        }
+      }
+
+      .SecondaryControls {
+        display: flex;
+        position: relative;
+        padding: 8px 0px;
+        width: 100%;
+        margin-bottom: 2em;
+
+        * {
+          margin: auto;
+        }
+      }
+    }
+
+    .PopDown {
+      display: none;
+    }
+  }
+
+  .SideBarMobile {
+    width: 100vw;
+    height: 4em;
+    border-right: solid $secondary 1px;
+    border-radius: 4px;
+    background-color: $secondary;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    transition: 300ms ease-in-out;
+
+    .User {
+      display: flex;
+      height: 4em;
+      width: 100%;
+
+      * {
+        margin: auto;
+      }
+    }
+
+    .SideBarContent {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+
+      .MainControls {
+        flex-grow: 1;
+        display: flex;
+        width: 100%;
+
+        ul,
+        li {
+          margin: 5px auto;
+          padding: 0px;
+          list-style: none;
+        }
+      }
+
+      .SecondaryControls {
+        display: flex;
+        position: relative;
+        padding: 8px 0px;
+        width: 100%;
+
+        * {
+          margin: auto;
+        }
+      }
+    }
+
+    .PopDown {
+      display: none;
+    }
+  }
+
+  .Content {
+    height: fit-content;
+    width: 98%;
+
+    .Gallary {
+      display: flex;
+      flex-wrap: wrap;
+      margin: auto;
+      height: fit-content;
+      width: 100%;
+      margin-top: 7em;
+
+      * {
+        margin: auto;
+      }
+
+      .Card {
+        margin: 8px;
+        border: solid white 1px;
+      }
+
+      .Card:first-of-type {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    overflow: hidden;
+    .SideBarMobile {
+      z-index: 2;
+    }
+    .logo {
+      margin-top: 4em;
+    }
+
+    .SideBar {
+      width: 100%;
+
+      .SideBarContent {
+        border: 2px solid red;
+      }
+      ul:first-of-type {
+        display: none;
+      }
+
+      .PopDown {
+        display: flex;
+
+        svg {
+          width: 2em;
+        }
+
+        ul {
+          display: block;
+        }
+      }
+    }
+
+    .Content {
+      .Gallary {
+        flex-direction: column;
+
+        .Card:first-of-type {
+          margin-top: 16px;
+          margin-left: auto;
+        }
+
+        .Card {
+          margin: 8px auto;
+        }
+      }
+    }
+  }
+}

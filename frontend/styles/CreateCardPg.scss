@@ -1,0 +1,202 @@
+.CreateCard {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  .background {
+    z-index: -1;
+    scale: 1.2;
+    position: fixed;
+    animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
+  }
+  .Next {
+    display: flex;
+    margin-top: 20px;
+    * {
+      margin: auto;
+    }
+  }
+}
+
+.CreateImg {
+  width: 100%;
+  height: 100vh;
+
+  .search-part {
+    display: flex;
+    justify-content: center;
+    padding-top: 2%;
+    width: 40vw;
+    height: 10vh;
+    margin: auto;
+    z-index: 1;
+    .askAi-img {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.501);
+      width: 20vw;
+      height: 7vh;
+      border-radius: 4em;
+      border: 2px solid $secondary;
+
+      button {
+        .fa-magnifying-glass {
+          font-size: 2em;
+          color: $primary;
+        }
+      }
+
+      input {
+        all: unset;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+          sans-serif;
+        color: $primary;
+        animation: typewriter 4s steps(44) 1s 0.7 normal both;
+      }
+
+      @keyframes typewriter {
+        from {
+          width: 0;
+        }
+        to {
+          width: 24em;
+        }
+      }
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+    }
+  }
+  .imgDisplay {
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    .img-result {
+      display: inline-grid;
+      grid-template-columns: auto auto;
+      height: 35vw;
+      width: 35vw;
+      padding: 1.2%;
+      border: 4px solid $text-color;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.501);
+      img {
+        border-radius: 1em;
+        margin: 10px;
+        width: 95%;
+        transition: 1s ease;
+        &:hover {
+          -webkit-transform: scale(1.06);
+          -ms-transform: scale(1.06);
+          transform: scale(1.06);
+          transition: 1s ease;
+          cursor: pointer;
+        }
+
+        &:focus {
+          border-radius: 50%;
+          border: 3px solid blue;
+        }
+      }
+    }
+  }
+}
+
+.CreatePrompt {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .background {
+    z-index: -1;
+    scale: 1.2;
+    position: fixed;
+    animation: pan 5s infinite alternate ease-in-out;
+    bottom: 3em;
+  }
+
+  .funStuff {
+    height: fit-content;
+    width: 100%;
+    margin: auto;
+
+    .MessageInput {
+      margin: auto auto 10px;
+      width: 30em;
+      height: 10em;
+      display: flex;
+
+      input {
+        border: solid rgba(255, 255, 255, 0.6) 2px;
+        color: $text-color;
+        width: 100%;
+        height: 4em;
+        margin: auto;
+        border-radius: 40px;
+        background: none;
+        padding-left: 3.5em;
+      }
+
+      input::placeholder {
+        color: $text-color;
+        position: relative;
+        left: 10px;
+        opacity: 1;
+      }
+    }
+
+    .Preview {
+      height: 35vw;
+      width: 35vw;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: red;
+      display: flex;
+      border-radius: 5px;
+      margin: auto auto 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+      h2 {
+        font-size: 2vw;
+        text-align: center;
+        word-wrap: break-word;
+        width: 100%;
+        margin: auto;
+        color: $text-color;
+      }
+    }
+  }
+  .img-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background: rgba(49, 49, 49, 0.411);
+    position: absolute;
+    right: 0;
+    height: 100vh;
+    padding: 0 2em;
+    .image {
+      width: 10vw;
+      img {
+        width: inherit;
+        border-radius: 1em;
+        transition: 1s ease;
+
+        &:hover {
+          -webkit-transform: scale(1.06);
+          -ms-transform: scale(1.06);
+          transform: scale(1.06);
+          transition: 1s ease;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

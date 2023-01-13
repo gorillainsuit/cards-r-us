@@ -48,9 +48,9 @@ module.exports = {
       paths: ['./frontend/**/*'],
     },
     historyApiFallback: true,
-    // proxy: {
-    //   "/api": "http://localhost:3000",
-    // },
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
   },
 
   plugins: [

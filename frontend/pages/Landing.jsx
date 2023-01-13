@@ -1,9 +1,19 @@
 import React from 'react';
-import Card from '../components/CardDisplayComponent';
+
+import Sponsers from '../components/landing/Sponsers';
+import Head from '../components/landing/Head';
+import Body from '../components/landing/body';
+
+
+import Background from '../images/bg.svg';
+
 
 const Landing = () => (
   <div className='LandingPage'>
-    <h1>Landing</h1>
+    <Background className='background'/>
+    <Head />
+    <Body />
+    <Sponsers />
   </div>
 );
 
