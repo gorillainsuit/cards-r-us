@@ -28,6 +28,7 @@
     "@mui/joy": "^5.0.0-alpha.61",
     "@mui/material": "^5.11.3",
     "aws-sdk": "^2.1289.0",
+    "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
