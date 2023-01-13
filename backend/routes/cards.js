@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const cardsController = require('../controllers/cardController.js');
+const cardsController = require('../controllers/cardsController.js');
 const sessionController = require('../controllers/sessionController.js');
 // this logged using localhost:3000/cards
 // router.get('/', (req, res) => {
