@@ -8,7 +8,7 @@ const cardsRouter = require('./cards.js');
 //createImageRouter
 // const createImageRouter = require('./createImage.js');
 // oauth router
-const oauthRouter = require('./oauth');
+const oauthRouter = require('./oauth/oauth');
 
 // auth route
 router.use('/auth', authRouter);
