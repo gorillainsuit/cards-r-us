@@ -13,7 +13,8 @@ body {
   margin: 0px;
   padding: 0px;
   width: 100vw;
-  background-color: $primary;
+  background-color: rgba(0, 0, 0, 0); 
+  font-family: $main-font;
 }
 
 .noSelect {
@@ -23,4 +24,13 @@ body {
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
+}
+
+.noDrag {
+  user-drag: none; 
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
