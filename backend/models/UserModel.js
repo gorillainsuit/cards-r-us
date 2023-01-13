@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const { NextPlan } = require('@mui/icons-material');
 
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     require: true,
     unique: true,
