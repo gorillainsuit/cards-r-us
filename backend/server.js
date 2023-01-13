@@ -18,7 +18,10 @@ mongoose.set('strictQuery', false);
 
 mongoose
   .connect(DB_URI)
-  .then(() => console.log('connected to DB'))
+  .then(() => {
+    console.log('connected to DB ✅');
+    app.listen(PORT, console.log(`Listening at http://localhost:${PORT}/ ✅`));
+  })
   .catch(console.error);
 
 app.get('/', (req, res) => {
@@ -45,5 +48,3 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
-
-app.listen(PORT);
