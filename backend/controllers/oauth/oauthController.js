@@ -8,9 +8,9 @@ module.exports = {
 
   middleware: {
     addUser: (req, res, next) => {
-      const { username: login, email, name, avatar_url } = res.locals.GHUser;
+      const { login, email, name, avatar_url } = res.locals.GHUser;
       OauthUser.create(
-        { login, email, name, avatar: avatar_url },
+        { username: login, email, name, avatar: avatar_url },
         (err, user) => {
           if (err)
             return next({
