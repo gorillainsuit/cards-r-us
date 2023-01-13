@@ -13,9 +13,4 @@ router.post('/signup', authController.signUp, (req, res) => {
   res.status(200).json(res.locals.newUser);
 });
 
-// '/oauth' Endpoint
-router.post('/oauth', (req, res) => {
-  res.status(404).json({ error: 'This route is not working yet.' });
-});
-
 module.exports = router;
