@@ -26,7 +26,7 @@ export default function useLoginState() {
     };
     setLoginInformation({
       isLoggedIn: user?.userId !== null,
-      user: { ...defaultUser, user },
+      user: { ...defaultUser, user, userId: user.id },
     });
   };
 
