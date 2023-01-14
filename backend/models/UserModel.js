@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcrypt');
-const { NextPlan } = require('@mui/icons-material');
 
 const userSchema = new Schema({
   email: {
