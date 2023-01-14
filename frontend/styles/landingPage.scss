@@ -9,12 +9,31 @@
   }
 }
 
+@keyframes typing {
+  from {
+    filter: blur(2px);
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes glow {
+  0% {
+    color: $text-color;
+    border: 2px solid;
+  }
+  100% {
+  }
+}
+
 .LandingPage {
   position: relative;
   width: 100vw;
   height: 100vh;
   background: $primary;
-  
+
   .background {
     scale: 1.2;
     position: fixed;
@@ -91,24 +110,6 @@
     justify-content: center;
     align-items: center;
     height: 87%;
-    @keyframes typing {
-      from {
-        filter: blur(2px);
-        width: 0;
-      }
-      to {
-        width: 100%;
-      }
-    }
-
-    @keyframes glow {
-      0% {
-        color: $text-color;
-        border: 2px solid;
-      }
-      100% {
-      }
-    }
 
     .slogan {
       display: flex;
@@ -155,7 +156,6 @@
   }
 }
 
-
 @media screen and (max-width: 900px) {
   .LandingPage {
     overflow: hidden;
@@ -195,7 +195,7 @@
     }
   }
   .sponsers {
-    img{
+    img {
       opacity: 1;
     }
   }

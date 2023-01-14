@@ -50,17 +50,6 @@ const routes = [
     element: <NotFound />,
   },
   {
-    path: '/test',
-    element: (
-      <button
-        onClick={() =>
-          (window.location.href = 'http://localhost:8080/api/oauth/gh')
-        }>
-        GH oauth
-      </button>
-    ),
-  },
-  {
     path: '/*',
     element: <ErrorPage />,
   },
