@@ -36,11 +36,11 @@ const CreateImg = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearching(true);
-    const prompt = { userPrompt, n: 4, size: '1024x1024' };
+    const prompt = { userPrompt };
     fetch('/api/createImage', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
       },
       body: JSON.stringify(prompt),
     })
@@ -59,10 +59,12 @@ const CreateImg = ({
   // });
 
   const ImgResult = imgList.map((el, i) => (
-    <div className='images
+    <div
+      className='images
     noSelect'
       key={i}>
-      <img className='noDrag image'
+      <img
+        className='noDrag image'
         onClick={(e) => {
           setSelectedImage(e.target.src);
         }}
