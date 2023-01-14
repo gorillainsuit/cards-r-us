@@ -49,7 +49,7 @@ module.exports = {
     },
     historyApiFallback: true,
     proxy: {
-      "/api": "http://localhost:3000",
+      '/api': 'http://localhost:3000',
     },
   },
 
@@ -60,7 +60,7 @@ module.exports = {
   ],
 
   output: {
-    path: path.resolve('./frontend/dist'),
+    path: path.resolve('./dist'),
     filename: 'bundle.js',
   },
 };

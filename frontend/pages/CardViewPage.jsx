@@ -6,18 +6,30 @@ import Placeholder from '../images/testImg/img0.jpg';
 
 const CardViewPage = () => {
   const [cardInfo, setCardInfo] = useState(null);
+  const [err, setErr] = useState(false);
   const { cardId } = JSON.parse(
     `{"cardId":"${useLocation().search.replaceAll('?', '')}"}`
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      setCardInfo({
-        message: 'Placeholder text is great.\n-Love Mom',
-        imageUrl: Placeholder,
+    // Janky error handling!
+    if (err) return;
+    fetch(`/api/cards/card/${cardId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((d) => {
+        if (d.status !== 200) setErr(true);
+        return d.json();
+      })
+      .then((d) => setCardInfo(d))
+      .catch((e) => {
+        setErr(true);
+        console.log(`OOPSIE: ${e}`);
       });
-    }, 600);
   });
+
+  if (err) window.location.href = '/404';
 
   return (
     <div className='CardViewPage'>

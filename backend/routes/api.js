@@ -7,16 +7,17 @@ const authRouter = require('./auth.js');
 const cardsRouter = require('./cards.js');
 // oauth router
 const oauthRouter = require('./oauth/oauth');
-// createImageRouter
-const createImageRouter = require('./createImage.js');
+// Ai generation router
+const aiGeneration = require('./generation/generation');
 
 // auth route
 router.use('/auth', authRouter);
+
 //cardsRoute
 router.use('/cards', cardsRouter);
+
 //createRoute
-router.use('/createImage', createImageRouter);
-// app.use('api/createImage', createImageRouter);
+router.use('/generate', aiGeneration);
 
 // oauth
 router.use('/oauth', oauthRouter);
