@@ -8,24 +8,41 @@ const sessionController = {};
  * verify whether or not the session is still valid.
  */
 sessionController.isLoggedIn = (req, res, next) => {
-  // write code here
-  const { ssid } = req.cookies;
-  if (!ssid) {
-    console.log('No SSID cookie, redirecting...');
-    return res.redirect('/login');
+  const { SSID } = req.cookies;
+  if (!SSID) {
+    return next({
+      log: `sessionController.isLoggedIn: No session found.`,
+      status: 401,
+      message: { err: 'No SSID session found.' },
+    });
   }
-  Session.findOne({ _id: ssid }, async (err, records) => {
+
+  Session.findOne({ _id: SSID }, async (err, records) => {
     if (err)
       return next({
-        log: `sessionController.isLoggedIn: ${e}`,
+        log: `sessionController.isLoggedIn: ${err}`,
         status: 500,
         message: { err: 'An error occurred' },
       });
 
-    if (!records) res.status(304).redirect('/login');
+    if (records === null || records?.userId === null)
+      return next({
+        log: `sessionController.isLoggedIn: Records is null`,
+        status: 401,
+        message: { err: 'No session found.' },
+      });
 
-    res.locals.user = await User.findOne({ _id: records.userId });
-    return next();
+    User.findOne({ _id: records.userId }, (err, user) => {
+      if (err)
+        return next({
+          log: `sessionController.isLoggedIn: ${err}`,
+          status: 500,
+          message: { err: 'An error occurred' },
+        });
+
+      res.locals.user = user;
+      return next();
+    });
   });
 };
 
@@ -34,13 +51,23 @@ sessionController.isLoggedIn = (req, res, next) => {
  */
 sessionController.startSession = (req, res, next) => {
   const { SSID } = req.cookies;
-  if (SSID) return next();
+
+  // If there is already an SSID cookie, go ahead an authenticate it.
+  // if (SSID) return sessionController.isLoggedIn(req, res, next);
+
   Session.create({ userId: res.locals.user.id }, (err, newSession) => {
     if (err)
       return next({
-        log: `sessionController.startSession: ${e}`,
+        log: `sessionController.startSession: ${err}`,
         status: 500,
         message: { err: 'An error occurred' },
+      });
+
+    if (newSession === null)
+      return next({
+        log: `sessionController.isLoggedIn: New session is null`,
+        status: 500,
+        message: { err: 'An error occured.' },
       });
 
     res.cookie('SSID', newSession._id, {

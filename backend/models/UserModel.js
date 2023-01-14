@@ -3,17 +3,32 @@ const Schema = mongoose.Schema;
 
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcrypt');
-const { NextPlan } = require('@mui/icons-material');
 
 const userSchema = new Schema({
+  email: {
+    type: String,
+    require: false,
+    default: null,
+  },
+  password: {
+    type: String,
+    require: false,
+    default: null,
+  },
   username: {
     type: String,
     require: true,
     unique: true,
   },
-  password: {
+  avatar: {
     type: String,
-    require: true,
+    require: false,
+    default: '',
+  },
+  name: {
+    type: String,
+    require: false,
+    default: '',
   },
   gallery: {
     type: Array(String),
@@ -30,15 +45,6 @@ userSchema.pre('save', function (next) {
     next();
   });
 });
-
-// userSchema.methods.comparePassword = function (candidatePassword, callback) {
-// 	bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-//     console.log('this.password: ', this.password)
-//     console.log('candPass', candidatePassword)
-// 		if (err) return callback(err);
-// 		callback(null, isMatch);
-// 	});
-// };
 
 const User = mongoose.model('User', userSchema);
 

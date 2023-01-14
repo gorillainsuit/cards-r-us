@@ -11,7 +11,9 @@ const Card = ({ cardId, image, prompt, deleteFunction }) => {
 
   return (
     <div className='Card'>
-      <div className='Preview'>
+      <div
+        className='Preview'
+        onClick={() => (window.location.href = `/card?${cardId}`)}>
         <img className='noDrag' src={image} alt={prompt ?? 'Card Preview'} />
       </div>
       <div className='Buttons'>

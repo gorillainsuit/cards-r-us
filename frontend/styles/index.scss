@@ -6,6 +6,7 @@
 @import './SignUp.scss';
 @import './Gallery.scss';
 @import './landingPage.scss';
+@import './cardViewPage.scss';
 
 html,
 body {
@@ -13,7 +14,7 @@ body {
   margin: 0px;
   padding: 0px;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0); 
+  background-color: rgba(0, 0, 0, 0);
   font-family: $main-font;
 }
 
@@ -27,7 +28,7 @@ body {
 }
 
 .noDrag {
-  user-drag: none; 
+  user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
