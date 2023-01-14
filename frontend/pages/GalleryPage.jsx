@@ -138,9 +138,11 @@ const GalleryPage = () => {
           <Avatar
             style={{ display: displaySideBar ? '' : 'none' }}
             alt='Placeholder'
-            src={Placeholder}
+            src={user?.avatar ?? Placeholder}
           />
-          <h2 style={{ display: displaySideBar ? '' : 'none' }}>Placeholder</h2>
+          <h2 style={{ display: displaySideBar ? '' : 'none' }}>
+            {user?.username ?? 'Placeholder'}
+          </h2>
           <IconButton
             variant='plain'
             onClick={() => setDisplaySideBar(!displaySideBar)}>
@@ -171,12 +173,20 @@ const GalleryPage = () => {
           </div>
           <div className='SecondaryControls'>
             {displaySideBar ? (
-              <Button onClick={() => {}} variant='soft'>
+              <Button
+                onClick={() => {
+                  window.location.href = '/';
+                }}
+                variant='soft'>
                 Logout
               </Button>
             ) : (
               <IconButton variant='soft'>
-                <Logout />
+                <Logout
+                  onClick={() => {
+                    window.location.href = '/';
+                  }}
+                />
               </IconButton>
             )}
           </div>
@@ -192,8 +202,8 @@ const GalleryPage = () => {
         }}>
         {/* User/expand and minify sidebar */}
         <div className='User'>
-          <Avatar alt='Placeholder' src={Placeholder} />
-          <h2>Placeholder</h2>
+          <Avatar alt='Placeholder' src={user?.avatar ?? Placeholder} />
+          <h2>{user?.username ?? 'HidInKyu'}</h2>
           <IconButton
             variant='plain'
             onClick={() => setDisplaySideBar(!displaySideBar)}>
