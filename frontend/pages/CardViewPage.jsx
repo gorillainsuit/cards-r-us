@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { CircularProgress } from '@mui/joy';
 
 import Placeholder from '../images/testImg/img0.jpg';
+import BG from '../images/BG2.svg';
 
 const CardViewPage = () => {
   const [cardInfo, setCardInfo] = useState(null);
@@ -33,6 +34,7 @@ const CardViewPage = () => {
 
   return (
     <div className='CardViewPage'>
+      <BG className='background' />
       {cardInfo === null ? (
         // Loading
         <CircularProgress color='primary' value={25} variant='soft' />

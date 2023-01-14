@@ -7,28 +7,30 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const openaiController = {
-  async createImage(req,res,next) {
-    const {userPrompt} = req.body;
+  async createImage(req, res, next) {
+    const { userPrompt } = req.body;
     try {
-    const response = await openai.createImage({
-      prompt: userPrompt,
-      n: 4,
-      size: '512x512',
-    });
-      console.log('response object: ', response.data)
+      const response = await openai.createImage({
+        prompt: userPrompt,
+        n: 4,
+        size: '1024x1024',
+      });
+      console.log('response object: ', response.data);
       res.locals.image = response.data;
     } catch (error) {
       if (error.response) {
         console.log(error.response.status);
         console.log(error.response.data);
       } else {
-        console.log(error.message);
+        return next({
+          log: 'Express Error hanler caught middleware error at \'/backend/controller/openaiController',
+          message: {err: error.message}
+        })
       }
     }
+    console.log('complete');
     return next();
   },
-}; 
-  
- 
+};
 
 module.exports = openaiController;
