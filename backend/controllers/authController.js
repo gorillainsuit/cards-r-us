@@ -40,7 +40,7 @@ const authController = {
           //after verification, pass user information to the next middleware
           const user = {
             email: userAccount.email,
-            id: userAccount._id.toString(),
+            id: userAccount._id,
             gallery: userAccount.gallery,
           };
           res.locals.user = user;
