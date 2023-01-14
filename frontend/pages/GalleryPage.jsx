@@ -42,6 +42,7 @@ const GalleryPage = () => {
   const [cards, setCards] = useState(null);
   const isMobile = useIsMobile();
   const [error, setError] = useState(false);
+  const [user, setUser] = useState(null);
   // const { isLoggedIn, user } = useLoginState();
 
   // if (!isLoggedIn) window.location.href = '/login';
@@ -50,24 +51,43 @@ const GalleryPage = () => {
   useEffect(() => {
     // TODO: Replace this with a fetch to backend
     // TODO: fix bug where "fetch" occurs on every filter
-    if (cards) return;
-    fetch('/api/cards/', { method: 'GET' })
-      .then((d) => {
-        if (d.status !== 200) {
+    if (!cards) {
+      fetch('/api/cards/', { method: 'GET' })
+        .then((d) => {
+          if (d.status !== 200) {
+            setError(true);
+          }
+          return d.json();
+        })
+        .then((d) => {
+          // Create a copy of the cards.
+          tmpCards = [...d];
+          // Set the card state
+          setCards(d);
+        })
+        .catch((e) => {
           setError(true);
-        }
-        return d.json();
-      })
-      .then((d) => {
-        // Create a copy of the cards.
-        tmpCards = [...d];
-        // Set the card state
-        setCards(d);
-      })
-      .catch((e) => {
-        setError(true);
-        console.log('Error occured: ', e);
-      });
+          console.log('Error occured: ', e);
+        });
+    }
+
+    if (!user) {
+      fetch('/api/auth/user', { method: 'GET' })
+        .then((d) => {
+          if (d.status !== 200) {
+            setError(true);
+          }
+          return d.json();
+        })
+        .then((d) => {
+          // Set the card state
+          setUser(d);
+        })
+        .catch((e) => {
+          setError(true);
+          console.log('Error occured: ', e);
+        });
+    }
   });
 
   // This will be used to delete cards
