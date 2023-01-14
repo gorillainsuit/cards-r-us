@@ -17,7 +17,8 @@ const oauthController = {
             message: { err: 'An error occurred saving oauth user.' },
           });
 
-        if (user === null) oauthController.middleware.addUser(req, res, next);
+        if (user === null)
+          return oauthController.middleware.addUser(req, res, next);
 
         res.locals.user = { ...user, id: user._id };
         // console.log(res.locals.user);
