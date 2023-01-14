@@ -66,7 +66,7 @@ const Login = () => {
           <a className='icon' href='#'>
             <i className='fa-brands fa-google'></i>
           </a>
-          <a className='icon' href='#'>
+          <a className='icon' href='http://localhost:8080/api/oauth/gh'>
             <i className='fa-brands fa-github'></i>
           </a>
           <a className='icon' href='#'>
