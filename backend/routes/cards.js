@@ -19,7 +19,7 @@ router.get(
   }
 );
 
-router.get('/card', cardsController.getCard, (req, res) => {
+router.get('/card/:cardId', cardsController.getCard, (req, res) => {
   res.status(200).json(res.locals.card);
 });
 
