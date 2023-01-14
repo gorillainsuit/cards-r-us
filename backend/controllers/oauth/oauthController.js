@@ -1,12 +1,30 @@
 const github = require('./github');
 const User = require('../../models/UserModel');
 
-module.exports = {
+const oauthController = {
   providers: {
     github,
   },
 
   middleware: {
+    getUser: (req, res, next) => {
+      const { login, email, name, avatar_url } = res.locals.GHUser;
+      User.findOne({ login }, (err, user) => {
+        if (err)
+          return next({
+            log: `Error saving oauth user: ${err}`,
+            status: 500,
+            message: { err: 'An error occurred saving oauth user.' },
+          });
+
+        if (user === null) oauthController.middleware.addUser(req, res, next);
+
+        res.locals.user = { ...user, id: user._id };
+        // console.log(res.locals.user);
+        return next();
+      });
+    },
+
     addUser: (req, res, next) => {
       const { login, email, name, avatar_url } = res.locals.GHUser;
       User.create(
@@ -27,3 +45,4 @@ module.exports = {
     },
   },
 };
+module.exports = oauthController;
