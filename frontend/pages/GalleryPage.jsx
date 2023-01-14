@@ -30,35 +30,6 @@ import BG from '../images/BG2.svg';
 
 import useLoginState from '../hooks/useLoginHooke';
 
-// TODO: have this data be fetched from backend
-// TODO: have the card data be fetched in the index.jsx
-let testData = [
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-];
-
 let filterCardsByAuthor = false;
 // This will be used to hold the un-filtered cards
 let tmpCards = [];
@@ -97,12 +68,6 @@ const GalleryPage = () => {
         setError(true);
         console.log('Error occured: ', e);
       });
-    // setTimeout(() => {
-    //   // Create a copy of the cards.
-    //   tmpCards = [...testData];
-    //   // Set the card state
-    //   setCards(testData);
-    // }, 3000);
   });
 
   // This will be used to delete cards
@@ -112,6 +77,13 @@ const GalleryPage = () => {
     const filtered = cards.filter((card) => card.cardId !== id);
     tmpCards = filtered;
     // TODO: have delete card in database as well
+    fetch('/api/cards', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id }),
+    }).catch((e) => {
+      setError(true);
+    });
     setCards(filtered);
   };
 
