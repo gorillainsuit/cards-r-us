@@ -3,20 +3,22 @@ const Card = require('../models/CardModel');
 
 const cardsController = {
   async getCards(req, res, next) {
-    // res.send('Getting cards...');
     try {
-      // need to confirm we're quering gallery
-      const { _id, gallery } = req.locals.user;
-      // map through gallery
-      // each card is a string representing the card id?
-      // we want to return this, which is a cardSchema object
-      res.locals.cards = gallery.map(async (cardId) => {
-        const card = await Card.findOne({ _id: cardId });
-        return { ...card, author: _id === card.author };
-      });
+      const { _id, gallery } = res.locals.user;
 
-      console.log(cards);
-      res.status(200).json(cards);
+      res.locals.cards = await Promise.all(
+        gallery.map(async (cardId) => {
+          const card = await Card.findOne({ _id: cardId });
+          const { message, image, author } = card;
+          return {
+            message,
+            cardId: card._id,
+            author: _id === author,
+            imageUrl: image,
+          };
+        })
+      );
+      return next();
     } catch (e) {
       return next({
         log: 'Error getting cards in cardController',
@@ -26,24 +28,68 @@ const cardsController = {
     }
   },
 
+  getCard: (req, res, next) => {
+    const { cardId } = req.params;
+
+    if (!cardId)
+      return next({
+        log: 'Error getting card in cardController',
+        status: 400,
+        message: { err: 'No card ID specified.' },
+      });
+
+    Card.findOne({ _id: cardId }, (err, card) => {
+      if (err)
+        return next({
+          log: `Error getting card in cardController: ${err}`,
+          status: 400,
+          message: { err: 'An error occured.' },
+        });
+
+      if (card === null)
+        return next({
+          log: 'Error getting card in cardController: No card found.',
+          status: 404,
+          message: { err: 'No card found.' },
+        });
+
+      const { message, image, _id, author } = card;
+      res.locals.card = {
+        message,
+        cardId: _id,
+        // TODO: this is temporarily hardcoded
+        author: false,
+        imageUrl: image,
+      };
+      return next();
+    });
+  },
+
   async createCard(req, res, next) {
-    // res.send('Creating card...');
-    const { image } = req.body;
-    //const newCard = new Card({ author, image });
+    const { imageUrl, message } = req.body;
+
     try {
-      // await newCard.save();
-      const newCard = await Card.create({author: res.locals.user.id, image});
-      const {_id} = newCard;
+      if (!imageUrl || !message)
+        return new Error('No image url or message provided');
+      const newCard = await Card.create({
+        author: res.locals.user.id,
+        image: imageUrl,
+        message,
+      });
+      const { _id } = newCard;
       res.locals.user.gallery.push(_id);
-      await User.findOneAndUpdate({_id: res.locals.user._id}, {gallery: res.locals.user.gallery});
-      res.status(201).json(newCard);
+      await User.findOneAndUpdate(
+        { _id: res.locals.user._id },
+        { gallery: res.locals.user.gallery }
+      );
+      return next();
     } catch (e) {
       return next({
         log: 'Error creating card in cardController',
         status: 409,
         message: { err: e.message },
-      }); 
-    } 
+      });
+    }
   },
 
   async deleteCard(req, res, next) {
@@ -54,32 +100,31 @@ const cardsController = {
     if (!id) {
       return next({
         log: 'Error deleting card in cardController',
-        status: 404,
-        message: { err: 'No card found with id' + id },
+        status: 401,
+        message: { err: 'No card id provided.' },
       });
     }
     try {
-      const newgallery = res.locals.user.gallery.filter((strID) => strID !== id);
-      console.log('newgallery: ', newgallery);
+      const newGallery = res.locals.user.gallery.filter(
+        (strID) => strID !== id
+      );
+
       await User.findOneAndUpdate(
         { _id: res.locals.user._id },
-        { gallery: newgallery }
+        { gallery: newGallery }
       );
+
       res.locals.removedCardID = id;
+
       return next();
-      // res.status(204).json('Card deleted');
     } catch (e) {
       return next({
         log: 'Error deleting card in cardController',
-        status: 500, 
+        status: 500,
         message: { err: e.message },
-      }); 
-    }  
-
-    // await Card.findByIdAndRemove(id);
-    // res.json({ message: 'Deleted card' });
+      });
+    }
   },
 };
 
 module.exports = cardsController;
- 
