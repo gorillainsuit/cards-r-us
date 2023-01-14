@@ -44,7 +44,9 @@ const CardViewPage = () => {
           className='Content'
           style={{ backgroundImage: `url(${cardInfo.imageUrl})` }}>
           <div className='CardPreview'>
-            <h2>{cardInfo.message}</h2>
+            <h2 style={{ color: `${cardInfo.messageColor}` }}>
+              {cardInfo.message}
+            </h2>
           </div>
         </div>
       )}
