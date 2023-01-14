@@ -46,6 +46,10 @@ const routes = [
     element: <CreateCard />,
   },
   {
+    path: '/404',
+    element: <NotFound />,
+  },
+  {
     path: '/test',
     element: (
       <button
