@@ -154,17 +154,21 @@ const CreatePrompt = ({
             placeholder='Say something nice...'
             id='message'
             onChange={(e) =>
-              setSelectedMessage({ message: e.target.value, color: textColor })
+              setSelectedMessage({ message: e.target.value, color: 'white' })
             }
-            value={selectedMessage ?? ''}
+            value={selectedMessage?.message ?? ''}
           />
           <input
             type='color'
             name=''
             id='color'
             onChange={(e) => {
-              setTextColor(e.target.value);
-              console.log(textColor);
+              // setselectedMessage?.color(e.target.value);
+              setSelectedMessage({
+                message: selectedMessage?.message,
+                color: e.target.value,
+              });
+              console.log(selectedMessage?.color);
             }}
           />
         </div>
@@ -176,9 +180,9 @@ const CreatePrompt = ({
           }}>
           <h2
             style={{
-              color: `${textColor}`,
+              color: `${selectedMessage?.color}`,
             }}>
-            {selectedMessage || 'Say something nice...'}
+            {selectedMessage?.message || 'Say something nice...'}
           </h2>
         </div>
         <div className='Next'>
@@ -213,6 +217,7 @@ const CreateCard = () => {
   const { isLoggedIn } = useLoginState();
 
   if (error) return new Error('Something went wrong.');
+  console.log(selectedMessage);
 
   const handleNext = () => {
     if (createCardState.currentStep >= steps.length - 1) {

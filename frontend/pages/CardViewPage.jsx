@@ -4,6 +4,7 @@ import { CircularProgress } from '@mui/joy';
 
 import Placeholder from '../images/testImg/img0.jpg';
 import BG from '../images/BG2.svg';
+import logo from '../images/logo.png';
 
 const CardViewPage = () => {
   const [cardInfo, setCardInfo] = useState(null);
@@ -34,6 +35,9 @@ const CardViewPage = () => {
 
   return (
     <div className='CardViewPage'>
+      <div className='logoContainer' onClick={() => window.location.href = '/cards'}>
+        <img className='logo noDrag' src={logo} alt='CardsRUs' />
+      </div>
       <BG className='background' />
       {cardInfo === null ? (
         // Loading
