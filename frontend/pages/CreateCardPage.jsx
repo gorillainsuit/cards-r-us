@@ -153,7 +153,9 @@ const CreatePrompt = ({
             type='text'
             placeholder='Say something nice...'
             id='message'
-            onChange={(e) => setSelectedMessage(e.target.value)}
+            onChange={(e) =>
+              setSelectedMessage({ message: e.target.value, color: textColor })
+            }
             value={selectedMessage ?? ''}
           />
           <input
@@ -220,7 +222,8 @@ const CreateCard = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           imageUrl: selectedImage,
-          message: selectedMessage,
+          message: selectedMessage.message,
+          messageColor: selectedMessage.color,
         }),
       })
         .then((d) => {
