@@ -210,8 +210,6 @@ const CreateCard = () => {
   const [error, setError] = useState(false);
   const { isLoggedIn } = useLoginState();
 
-  if (!isLoggedIn) return (window.location.href = '/login');
-
   if (error) return new Error('Something went wrong.');
 
   const handleNext = () => {
