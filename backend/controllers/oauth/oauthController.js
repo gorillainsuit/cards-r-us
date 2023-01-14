@@ -9,7 +9,7 @@ const oauthController = {
   middleware: {
     getUser: (req, res, next) => {
       const { login, email, name, avatar_url } = res.locals.GHUser;
-      User.findOne({ login }, (err, user) => {
+      User.findOne({ username: login }, (err, user) => {
         if (err)
           return next({
             log: `Error saving oauth user: ${err}`,
