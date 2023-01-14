@@ -11,6 +11,7 @@ import img3 from '../images/testImg/img3.png';
 
 //import bg svg
 import BG from '../images/bg.svg';
+import useLoginState from '../hooks/useLoginHooke';
 
 let testData = {
   data: [
@@ -193,6 +194,9 @@ const CreateCard = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allImages, setAllImages] = useState([]);
   const [error, setError] = useState(false);
+  const { isLoggedIn } = useLoginState();
+
+  if (!isLoggedIn) return (window.location.href = '/login');
 
   if (error) return new Error('Something went wrong.');
 
