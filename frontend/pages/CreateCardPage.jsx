@@ -37,10 +37,10 @@ const CreateImg = ({
     e.preventDefault();
     setSearching(true);
     const prompt = { userPrompt };
-    fetch('/api/createImage', {
+    fetch('/api/generate/image/create', {
       method: 'POST',
       headers: {
-        // 'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(prompt),
     })
