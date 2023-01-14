@@ -68,6 +68,7 @@ const cardsController = {
 
   async createCard(req, res, next) {
     const { imageUrl, message, messageColor } = req.body;
+    console.log(req.body);
 
     try {
       if ((!imageUrl || !message, !messageColor))
