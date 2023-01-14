@@ -1,5 +1,5 @@
 const github = require('./github');
-const OauthUser = require('../../models/OauthUserModel');
+const User = require('../../models/UserModel');
 
 module.exports = {
   providers: {
@@ -9,7 +9,7 @@ module.exports = {
   middleware: {
     addUser: (req, res, next) => {
       const { login, email, name, avatar_url } = res.locals.GHUser;
-      OauthUser.create(
+      User.create(
         { username: login, email, name, avatar: avatar_url },
         (err, user) => {
           if (err)

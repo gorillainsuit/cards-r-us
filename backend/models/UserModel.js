@@ -8,12 +8,28 @@ const { NextPlan } = require('@mui/icons-material');
 const userSchema = new Schema({
   email: {
     type: String,
-    require: true,
-    unique: true,
+    require: false,
+    default: null,
   },
   password: {
     type: String,
+    require: false,
+    default: null,
+  },
+  username: {
+    type: String,
     require: true,
+    unique: true,
+  },
+  avatar: {
+    type: String,
+    require: false,
+    default: '',
+  },
+  name: {
+    type: String,
+    require: false,
+    default: '',
   },
   gallery: {
     type: Array(String),
