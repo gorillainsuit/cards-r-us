@@ -19,25 +19,32 @@ router.get(
   }
 );
 
-// CREATE
-router.post('/', 
-  sessionController.isLoggedIn,
-  cardsController.createCard, 
-  (req, res) => {
-  console.log('CREATE REQUEST for cardsController.createCard');
-  return res.status(200).json(res.locals.newCard);
+router.get('/card', cardsController.getCard, (req, res) => {
+  res.status(200).json(res.locals.card);
 });
+
+// CREATE
+router.post(
+  '/',
+  sessionController.isLoggedIn,
+  cardsController.createCard,
+  cardsController.getCards,
+  (req, res) => {
+    console.log('CREATE REQUEST for cardsController.createCard');
+    return res.status(200).json(res.locals.cards);
+  }
+);
 
 // DELETE
 router.delete(
   '/',
   sessionController.isLoggedIn,
   cardsController.deleteCard,
+  cardsController.getCards,
   (req, res) => {
     console.log('DELETE REQUEST for cardsController.deleteCard');
-    return res.status(200).json(res.locals.removedCardID);
+    return res.status(200).json(res.locals.cards);
   }
-); 
-
+);
 
 module.exports = router;
