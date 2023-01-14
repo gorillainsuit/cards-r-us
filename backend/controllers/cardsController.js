@@ -67,15 +67,16 @@ const cardsController = {
   },
 
   async createCard(req, res, next) {
-    const { imageUrl, message } = req.body;
+    const { imageUrl, message, messageColor } = req.body;
 
     try {
-      if (!imageUrl || !message)
+      if ((!imageUrl || !message, !messageColor))
         return new Error('No image url or message provided');
       const newCard = await Card.create({
         author: res.locals.user.id,
         image: imageUrl,
         message,
+        messageColor,
       });
       const { _id } = newCard;
       res.locals.user.gallery.push(_id);
