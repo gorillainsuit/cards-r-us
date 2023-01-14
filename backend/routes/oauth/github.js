@@ -29,7 +29,7 @@ router.get(
   '/redirect',
   oauth.providers.github.getToken,
   oauth.providers.github.getUserInfo,
-  oauth.middleware.addUser,
+  oauth.middleware.getUser,
   sessionController.startSession,
   (req, res, next) => {
     res.status(304).redirect('/cards');
