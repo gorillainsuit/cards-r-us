@@ -4,12 +4,21 @@ const Card = require('../models/CardModel');
 const cardsController = {
   async getCards(req, res, next) {
     try {
-      const { _id, gallery } = req.locals.user;
+      const { _id, gallery } = res.locals.user;
 
-      res.locals.cards = gallery.map(async (cardId) => {
-        const card = await Card.findOne({ _id: cardId });
-        return { ...card, author: _id === card.author };
-      });
+      res.locals.cards = await Promise.all(
+        gallery.map(async (cardId) => {
+          const card = await Card.findOne({ _id: cardId });
+          const { message, image, author } = card;
+          return {
+            message,
+            cardId: card._id,
+            author: _id === author,
+            imageUrl: image,
+          };
+        })
+      );
+      return next();
     } catch (e) {
       return next({
         log: 'Error getting cards in cardController',
@@ -30,7 +39,7 @@ const cardsController = {
       });
 
     Card.findOne({ _id: cardId }, (err, card) => {
-      if (!err)
+      if (err)
         return next({
           log: `Error getting card in cardController: ${err}`,
           status: 400,
@@ -44,22 +53,36 @@ const cardsController = {
           message: { err: 'No card found.' },
         });
 
-      res.locals.card = card;
+      const { message, image, _id, author } = card;
+      res.locals.card = {
+        message,
+        cardId: _id,
+        // TODO: this is temporarily hardcoded
+        author: false,
+        imageUrl: image,
+      };
       return next();
     });
   },
 
   async createCard(req, res, next) {
-    const { image } = req.body;
+    const { imageUrl, message } = req.body;
 
     try {
-      const newCard = await Card.create({ author: res.locals.user.id, image });
+      if (!imageUrl || !message)
+        return new Error('No image url or message provided');
+      const newCard = await Card.create({
+        author: res.locals.user.id,
+        image: imageUrl,
+        message,
+      });
       const { _id } = newCard;
       res.locals.user.gallery.push(_id);
       await User.findOneAndUpdate(
         { _id: res.locals.user._id },
         { gallery: res.locals.user.gallery }
       );
+      return next();
     } catch (e) {
       return next({
         log: 'Error creating card in cardController',
