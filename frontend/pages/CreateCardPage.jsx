@@ -11,6 +11,7 @@ import img3 from '../images/testImg/img3.png';
 
 //import bg svg
 import BG from '../images/bg.svg';
+import useLoginState from '../hooks/useLoginHooke';
 
 let testData = {
   data: [
@@ -192,13 +193,37 @@ const CreateCard = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [allImages, setAllImages] = useState([]);
+  const [error, setError] = useState(false);
+  const { isLoggedIn } = useLoginState();
+
+  if (!isLoggedIn) return (window.location.href = '/login');
+
+  if (error) return new Error('Something went wrong.');
 
   const handleNext = () => {
     if (createCardState.currentStep >= steps.length - 1) {
       // TODO: POST to backend with the data
+      fetch('/api/cards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          imageUrl: selectedImage,
+          message: selectedMessage,
+        }),
+      })
+        .then((d) => {
+          if (d.status === 401) window.location.href = '/login';
+          if (d.status !== 200) {
+            setError(true);
+          }
+          window.location.href = '/cards';
+        })
+        .catch((e) => {
+          setError(true);
+        });
 
       // post to backend then reedirect to the cards gallery
-      setTimeout(() => (window.location.href = '/cards'), 600);
+      // setTimeout(() => (window.location.href = '/cards'), 600);
     }
 
     setCreateCardState({
