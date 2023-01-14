@@ -28,7 +28,10 @@ import Placeholder from '../images/testImg/img0.jpg';
 import logo from '../images/logo.png';
 import BG from '../images/BG2.svg';
 
+import useLoginState from '../hooks/useLoginHooke';
+
 // TODO: have this data be fetched from backend
+// TODO: have the card data be fetched in the index.jsx
 let testData = [
   {
     id: '1',
@@ -54,427 +57,74 @@ let testData = [
     prompt: 'Gorilla in suit4',
     authored: false,
   },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '1',
-    image: Placeholder,
-    prompt: 'Gorilla in suit1',
-    authored: true,
-  },
-  {
-    id: '2',
-    image: Placeholder,
-    prompt: 'Gorilla in suit2',
-    authored: false,
-  },
-  {
-    id: '3',
-    image: Placeholder,
-    prompt: 'Gorilla in suit3',
-    authored: true,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
-  {
-    id: '4',
-    image: Placeholder,
-    prompt: 'Gorilla in suit4',
-    authored: false,
-  },
 ];
 
+let filterCardsByAuthor = false;
+// This will be used to hold the un-filtered cards
+let tmpCards = [];
+
+let isError = false;
+
 const GalleryPage = () => {
-  const [displaySideBar, setDisplaySideBar] = useState(false);
-  const [filterCardsByAuthor, setFilterCardsByAuthor] = useState(false);
+  const [displaySideBar, setDisplaySideBar] = useState(true);
+  // const [filterCardsByAuthor, setFilterCardsByAuthor] = useState(false);
   const [cards, setCards] = useState(null);
   const isMobile = useIsMobile();
+  const [error, setError] = useState(false);
+  // const { isLoggedIn, user } = useLoginState();
+
+  // if (!isLoggedIn) window.location.href = '/login';
+  if (error) return new Error('An error occured.');
 
   useEffect(() => {
     // TODO: Replace this with a fetch to backend
     // TODO: fix bug where "fetch" occurs on every filter
-
-    setTimeout(() => {
-      setCards(
-        testData.filter((card) => (filterCardsByAuthor ? card.authored : true))
-      );
-    }, 600);
+    if (cards) return;
+    fetch('/api/cards/', { method: 'GET' })
+      .then((d) => {
+        if (d.status !== 200) {
+          setError(true);
+        }
+        return d.json();
+      })
+      .then((d) => {
+        // Create a copy of the cards.
+        tmpCards = [...d];
+        // Set the card state
+        setCards(d);
+      })
+      .catch((e) => {
+        setError(true);
+        console.log('Error occured: ', e);
+      });
+    // setTimeout(() => {
+    //   // Create a copy of the cards.
+    //   tmpCards = [...testData];
+    //   // Set the card state
+    //   setCards(testData);
+    // }, 3000);
   });
 
   // This will be used to delete cards
   const handleCardDelete = (e, id) => {
     e.preventDefault();
+    console.log('delete ', id);
+    const filtered = cards.filter((card) => card.cardId !== id);
+    tmpCards = filtered;
     // TODO: have delete card in database as well
-    testData = testData.filter((card) => card.id !== id);
-    setCards(testData);
+    setCards(filtered);
+  };
+
+  // This will handle card filtering
+  const doCardFilter = (e) => {
+    e.preventDefault();
+    filterCardsByAuthor = !filterCardsByAuthor;
+    // if (!tmpCards) tmpCards = [...cards];
+    if (filterCardsByAuthor) {
+      setCards(cards.filter((card) => card.author));
+    } else {
+      setCards(tmpCards);
+    }
   };
 
   // TODO: Refactor the jank responsiveness
@@ -514,16 +164,13 @@ const GalleryPage = () => {
               <li>
                 {displaySideBar ? (
                   <Button
-                    onClick={() => setFilterCardsByAuthor(!filterCardsByAuthor)}
+                    onClick={doCardFilter}
                     startDecorator={<FilterList />}
                     variant='soft'>
                     {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
                   </Button>
                 ) : (
-                  <IconButton
-                    onClick={() =>
-                      setFilterCardsByAuthor(!filterCardsByAuthor)
-                    }>
+                  <IconButton onClick={doCardFilter}>
                     <FilterList />
                   </IconButton>
                 )}
@@ -543,12 +190,13 @@ const GalleryPage = () => {
           </div>
         </div>
       </div>
+
       {/* Mobile sidebar */}
       <div
         className='SideBarMobile'
         style={{
           display: isMobile ? '' : 'none',
-          height: !displaySideBar ? 'fit-content' : '',
+          height: !displaySideBar ? '100vh' : '',
         }}>
         {/* User/expand and minify sidebar */}
         <div className='User'>
@@ -572,7 +220,7 @@ const GalleryPage = () => {
                 {!displaySideBar ? (
                   <Button
                     onClick={() => {
-                      setFilterCardsByAuthor(!filterCardsByAuthor);
+                      doCardFilter(e, !filterCardsByAuthor);
                       setTimeout(() => setDisplaySideBar(!displaySideBar), 200);
                     }}
                     startDecorator={<FilterList />}
@@ -592,6 +240,7 @@ const GalleryPage = () => {
           </div>
         </div>
       </div>
+
       {/* Gallary view */}
       <div className='Content'>
         <div className='Gallary'>
@@ -599,9 +248,9 @@ const GalleryPage = () => {
             cards.map((card, i) => (
               <Card
                 key={i}
-                cardId={card.id}
-                image={card.image}
-                prompt={card.prompt}
+                cardId={card.cardId}
+                image={card.imageUrl}
+                message={card.message}
                 deleteFunction={handleCardDelete}
               />
             ))
@@ -610,7 +259,7 @@ const GalleryPage = () => {
           ) : (
             <h1>No Cards.</h1>
           )}
-        </div>{' '}
+        </div>
       </div>
     </div>
   );
