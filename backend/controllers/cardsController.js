@@ -53,12 +53,13 @@ const cardsController = {
           message: { err: 'No card found.' },
         });
 
-      const { message, image, _id, author } = card;
+      const { message, image, _id, author, messageColor } = card;
       res.locals.card = {
         message,
+        messageColor,
         cardId: _id,
         // TODO: this is temporarily hardcoded
-        author: false,
+        author: true,
         imageUrl: image,
       };
       return next();
