@@ -32,8 +32,17 @@ sessionController.isLoggedIn = (req, res, next) => {
         message: { err: 'No session found.' },
       });
 
-    res.locals.user = await User.findOne({ _id: records.userId });
-    return next();
+    User.findOne({ _id: records.userId }, (err, user) => {
+      if (err)
+        return next({
+          log: `sessionController.isLoggedIn: ${err}`,
+          status: 500,
+          message: { err: 'An error occurred' },
+        });
+
+      res.locals.user = user;
+      return next();
+    });
   });
 };
 
@@ -44,7 +53,7 @@ sessionController.startSession = (req, res, next) => {
   const { SSID } = req.cookies;
 
   // If there is already an SSID cookie, go ahead an authenticate it.
-  if (SSID) return sessionController.isLoggedIn(req, res, next);
+  // if (SSID) return sessionController.isLoggedIn(req, res, next);
 
   Session.create({ userId: res.locals.user.id }, (err, newSession) => {
     if (err)
