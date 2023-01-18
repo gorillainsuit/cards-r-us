@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Body = () => (
+const LandingBody = () => (
   <div className='landingBody'>
     <div className='slogan noSelect'>
       <h1>Make Cards That Pop</h1>
@@ -8,4 +8,4 @@ const Body = () => (
   </div>
 );
 
-export default Body;
+export default LandingBody;
