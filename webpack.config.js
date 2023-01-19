@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env.TARGET,
-  entry: path.resolve('./frontend/index.jsx'),
+  entry: path.resolve('./client/index.jsx'),
 
   module: {
     rules: [
@@ -45,7 +45,7 @@ module.exports = {
     port: 8080,
     static: { directory: './dist' },
     watchFiles: {
-      paths: ['./frontend/**/*'],
+      paths: ['./client/**/*'],
     },
     historyApiFallback: true,
     proxy: {
@@ -55,7 +55,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve('./frontend/index.html'),
+      template: path.resolve('./client/index.html'),
     }),
   ],
 
