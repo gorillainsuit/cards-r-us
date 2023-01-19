@@ -6,12 +6,19 @@ import Placeholder from '../images/testImg/img0.jpg';
 import BG from '../images/BG2.svg';
 import logo from '../images/logo.png';
 
+interface CardInfo {
+  messageColor: string;
+  message: string;
+  imageUrl: string;
+}
+
 const CardViewPage = () => {
-  const [cardInfo, setCardInfo] = useState(null);
+  const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
   const [err, setErr] = useState(false);
-  const { cardId } = JSON.parse(
-    `{"cardId":"${useLocation().search.replaceAll('?', '')}"}`
-  );
+  // const { cardId } = JSON.parse(
+  //   `{"cardId":"${useLocation().search.replaceAll('?', '')}"}` 
+  // );
+  const cardId = useLocation().search.slice(1);
 
   useEffect(() => {
     // Janky error handling!

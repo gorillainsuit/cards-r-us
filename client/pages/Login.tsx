@@ -1,19 +1,20 @@
 import React from 'react';
 import { Form, Link } from 'react-router-dom';
 
-import Logo from '../images/logo.png';
+import logo from '../images/logo.png';
 import Background from '../images/bg.svg';
-import useLoginState from '../hooks/useLoginHooke';
+import useLoginState from '../hooks/useLoginState';
 
 const Login = () => {
   const { updateLogin } = useLoginState();
 
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = e.target.querySelector('#email').value;
-    const password = e.target.querySelector('#password').value;
-    const info = { email, password};
+    if (e.target === null) return;
+    const info = { email, password };
 
     fetch('/api/auth/login', {
       method: 'POST',
@@ -34,7 +35,7 @@ const Login = () => {
     <div className='LoginPage'>
       <Link className='logoContainer' to={'/'}>
         <img
-          src={Logo}
+          src={logo}
           className='logo noSelect'
           alt='logo'
           draggable='false'
@@ -44,10 +45,10 @@ const Login = () => {
       <Form onSubmit={handleLogin}>
         <div className='Inputs noSelect'>
           <label>Email:</label>
-          <input type='email' name='email' id='email'/>
+          <input type='email' name='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} />
           <br />
           <label>Password:</label>
-          <input type='password' name='password' id='password' />
+          <input type='password' name='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
           <br className='noSelect' />
         </div>
 

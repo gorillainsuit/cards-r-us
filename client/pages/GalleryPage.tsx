@@ -20,7 +20,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import Logout from '@mui/icons-material/Logout';
 
 // Hook imports
-import useIsMobile from '../hooks/isMobileHook';
+import useIsMobile from '../hooks/useIsMobile';
 
 // TODO: add preview image based on S3 url instead of img0
 import Placeholder from '../images/testImg/img0.jpg';
@@ -28,25 +28,39 @@ import Placeholder from '../images/testImg/img0.jpg';
 import logo from '../images/logo.png';
 import BG from '../images/BG2.svg';
 
-import useLoginState from '../hooks/useLoginHooke';
+import useLoginState from '../hooks/useLoginState';
 
 let filterCardsByAuthor = false;
 // This will be used to hold the un-filtered cards
-let tmpCards = [];
+
+let tmpCards: Card[] = []; //needs a type
 
 let isError = false;
 
-const GalleryPage = () => {
+interface Card {
+  message: string;
+  imageUrl: string;
+  cardId: string;
+  author: string;
+}
+
+interface User {
+  avatar: string;
+  username: string;
+}
+
+
+const GalleryPage: React.FC = () => {
   const [displaySideBar, setDisplaySideBar] = useState(true);
   // const [filterCardsByAuthor, setFilterCardsByAuthor] = useState(false);
-  const [cards, setCards] = useState(null);
+  const [cards, setCards] = useState<Card[]>([]);
   const isMobile = useIsMobile();
   const [error, setError] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   // const { isLoggedIn, user } = useLoginState();
 
   // if (!isLoggedIn) window.location.href = '/login';
-  if (error) return new Error('An error occured.');
+  // if (error) throw new Error('An error occured.');
 
   useEffect(() => {
     // TODO: Replace this with a fetch to backend
@@ -91,7 +105,7 @@ const GalleryPage = () => {
   });
 
   // This will be used to delete cards
-  const handleCardDelete = (e, id) => {
+  const handleCardDelete = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => {
     e.preventDefault();
     console.log('delete ', id);
     const filtered = cards.filter((card) => card.cardId !== id);
@@ -108,7 +122,7 @@ const GalleryPage = () => {
   };
 
   // This will handle card filtering
-  const doCardFilter = (e) => {
+  const doCardFilter = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     filterCardsByAuthor = !filterCardsByAuthor;
     // if (!tmpCards) tmpCards = [...cards];
@@ -221,8 +235,8 @@ const GalleryPage = () => {
               <li>
                 {!displaySideBar ? (
                   <Button
-                    onClick={() => {
-                      doCardFilter(e, !filterCardsByAuthor);
+                    onClick={(e) => {
+                      doCardFilter(e);
                       setTimeout(() => setDisplaySideBar(!displaySideBar), 200);
                     }}
                     startDecorator={<FilterList />}

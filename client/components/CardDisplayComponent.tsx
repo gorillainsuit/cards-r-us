@@ -4,8 +4,15 @@ import DeleteIcon from '../images/icons/trash.svg';
 import ShareIcon from '../images/icons/box-arrow-up.svg';
 import CopyIcon from '../images/icons/clipboard.svg';
 import CopiedIcon from '../images/icons/clipboard-check.svg';
+interface CardProps {
+  cardId: string ;
+  message: string ;
+  deleteFunction:  (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, cardId: string) => void ;
+  image: string;
+  
+}
 
-const Card = ({ cardId, image, prompt, deleteFunction }) => {
+const Card: React.FC <CardProps> = ({ cardId, image, message, deleteFunction }) => {
   const [shouldDisplayShare, setDisplayShare] = useState(false);
   const [isCardUrlCopied, setCardUrlCopied] = useState(false);
 
@@ -14,7 +21,7 @@ const Card = ({ cardId, image, prompt, deleteFunction }) => {
       <div
         className='Preview'
         onClick={() => (window.location.href = `/card?${cardId}`)}>
-        <img className='noDrag' src={image} alt={prompt ?? 'Card Preview'} />
+        <img className='noDrag' src={image} alt={message ?? 'Card Preview'} />
       </div>
       <div className='Buttons'>
         <a onClick={(e) => deleteFunction(e, cardId)}>

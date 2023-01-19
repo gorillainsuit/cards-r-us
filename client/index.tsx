@@ -55,7 +55,11 @@ const routes = [
   },
 ];
 
-createRoot(document.querySelector('#App')).render(
+const element = document.querySelector('#App');
+if (element === null) throw new Error('Root element not found');
+const root = createRoot(element);
+
+root.render(
   <React.StrictMode>
     <CssVarsProvider>
       <RouterProvider router={createBrowserRouter(routes)} />

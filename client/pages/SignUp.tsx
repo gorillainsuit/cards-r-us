@@ -6,11 +6,11 @@ import Logo from '../images/logo.png';
 
 const SignUp = () => {
 
-  const handleSubmit = (e) => {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    const email = e.target.querySelector('#email').value;
-    const password = e.target.querySelector('#password').value;
 
     const info = { email, password};
 
@@ -19,7 +19,7 @@ const SignUp = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringfy(info),
+      body: JSON.stringify(info),
     })
     .then((res) => res.json())
     .then((data) => {
@@ -41,10 +41,10 @@ const SignUp = () => {
       <Form action='/' method='post' onSubmit={handleSubmit}>
         <div className='Inputs noSelect'>
           <label>Email:</label>
-          <input type='email' name='email' id='email' />
+          <input type='email' name='email' id='email' value={email} onChange={e=> setEmail(e.target.value)} />
           <br />
           <label>Password:</label>
-          <input type='password' name='password' />
+          <input type='password' name='password' value={password} onChange={e=> setPassword(e.target.value)}/>
           <br className='noSelect' />
           <label>Confirm Password:</label>
           <input type='password' name='password' id='password'/>

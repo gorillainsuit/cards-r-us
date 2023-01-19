@@ -11,10 +11,31 @@ import loading from '../images/loading.gif';
 
 //import bg svg
 import BG from '../images/bg.svg';
-import useLoginState from '../hooks/useLoginHooke';
+import useLoginState from '../hooks/useLoginState';
+
+interface CreateProps {
+  allImages: [
+    { url: string }[],
+    React.Dispatch<React.SetStateAction<{ url: string }[]>>
+  ];
+  imageState: [
+    string | null,
+    React.Dispatch<React.SetStateAction<string | null>>
+  ];
+  canContinue: boolean;
+  currentStep: number;
+  nextFunction: (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => void;
+  steps: number;
+  promptState?: [
+    MessagePrompt | null,
+    React.Dispatch<React.SetStateAction<MessagePrompt | null>>
+  ];
+}
 
 // Step 1
-const CreateImg = ({
+const CreateImg: React.FC<CreateProps> = ({
   allImages,
   imageState,
   canContinue,
@@ -33,7 +54,7 @@ const CreateImg = ({
   //   const
   // }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearching(true);
     const prompt = { userPrompt };
@@ -65,8 +86,8 @@ const CreateImg = ({
       key={i}>
       <img
         className='noDrag image'
-        onClick={(e) => {
-          setSelectedImage(e.target.src);
+        onClick={() => {
+          setSelectedImage(el.url);
         }}
         src={el.url}
       />
@@ -116,10 +137,15 @@ const CreateImg = ({
   );
 };
 
+type MessagePrompt = {
+  message: string;
+  color: string;
+};
+
 // Step 2  create prompt and confirm card
-const CreatePrompt = ({
+const CreatePrompt: React.FC<CreateProps> = ({
   allImages,
-  promptState,
+  promptState = [{ message: '', color: '' }, () => {}],
   imageState,
   canContinue,
   currentStep,
@@ -138,7 +164,7 @@ const CreatePrompt = ({
       <img
         className='noDrag'
         onClick={(e) => {
-          setSelectedImage(e.target.src);
+          setSelectedImage(el.url);
         }}
         src={el.url}
       />
@@ -163,9 +189,10 @@ const CreatePrompt = ({
             name=''
             id='color'
             onChange={(e) => {
-              // setselectedMessage?.color(e.target.value);
+              // setselectedMessage?.color(e.target.value);)
+              if (!selectedMessage) return;
               setSelectedMessage({
-                message: selectedMessage?.message,
+                message: selectedMessage.message,
                 color: e.target.value,
               });
               console.log(selectedMessage?.color);
@@ -200,27 +227,36 @@ const CreatePrompt = ({
   );
 };
 
+interface CardState {
+  stepDisplayed: React.FC<CreateProps>;
+  currentStep: number;
+  canContinue: boolean;
+}
+
 // The main page component that will handle state for prompt and image generation and it will control whether the user can continue to the next step
 const CreateCard = () => {
-  const steps = [<CreateImg />, <CreatePrompt />];
+  const steps: React.FC<CreateProps>[] = [CreateImg, CreatePrompt];
 
-  const [createCardState, setCreateCardState] = useState({
+  const [createCardState, setCreateCardState] = useState<CardState>({
     stepDisplayed: steps[0],
     currentStep: 0,
     canContinue: false,
   });
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedMessage, setSelectedMessage] = useState(null);
-  const [allImages, setAllImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedMessage, setSelectedMessage] = useState<MessagePrompt | null>(
+    null
+  );
+  const [allImages, setAllImages] = useState<{ url: string }[]>([]);
   const [error, setError] = useState(false);
   const { isLoggedIn } = useLoginState();
 
-  if (error) return new Error('Something went wrong.');
-  console.log(selectedMessage);
+  // if (error) return new Error('Something went wrong.');
+  // console.log(selectedMessage);
 
   const handleNext = () => {
     if (createCardState.currentStep >= steps.length - 1) {
+      if (selectedMessage === null) return;
       // TODO: POST to backend with the data
       fetch('/api/cards', {
         method: 'POST',
@@ -267,7 +303,7 @@ const CreateCard = () => {
       <BG className='background' />
       {/* Displays the current step */}
       <div className='StepDisplay'>
-        {React.cloneElement(createCardState.stepDisplayed, {
+        {React.createElement(createCardState.stepDisplayed, {
           allImages: [allImages, setAllImages],
           imageState: [selectedImage, setSelectedImage],
           promptState: [selectedMessage, setSelectedMessage],
