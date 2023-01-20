@@ -55,42 +55,42 @@
       display: flex;
       height: 100%;
       align-items: center;
-      a {
-        position: relative;
-        color: $text-color;
-        width: 5em;
-        margin-right: 2em;
-        font-size: 1.7em;
-        text-decoration: none;
-        font-family: 'Kalam', cursive;
-        border-radius: 5em;
-        text-align: center;
-        transition: 200ms;
-        svg {
-          height: 2.5em;
-          position: absolute;
-          left: 0;
-          bottom: -0.25em;
-          fill: none;
-          stroke: var(--stroke);
-          stroke-linecap: round;
-          stroke-width: 1px;
-          stroke-dasharray: var(--offset, 69px) 278px;
-          stroke-dashoffset: 361px;
-          transition: stroke 0.25s ease var(--stroke-delay, 200ms),
-            stroke-dasharray 0.35s;
-          &:hover {
-            filter: drop-shadow(0px 0px 9px #944dff);
-            --spacing: 4px;
-            --stroke: #d7bdff;
-            --stroke-delay: 0.1s;
-            --offset: 180px;
-          }
-        }
-      }
-      a:hover {
-        filter: drop-shadow(0px 0px 9px #b4ffffd0);
-      }
+      // a {
+      //   position: relative;
+      //   color: $text-color;
+      //   width: 5em;
+      //   margin-right: 2em;
+      //   font-size: 1.7em;
+      //   text-decoration: none;
+      //   font-family: 'Kalam', cursive;
+      //   border-radius: 5em;
+      //   text-align: center;
+      //   transition: 200ms;
+      //   svg {
+      //     height: 2.5em;
+      //     position: absolute;
+      //     left: 0;
+      //     bottom: -0.25em;
+      //     fill: none;
+      //     stroke: var(--stroke);
+      //     stroke-linecap: round;
+      //     stroke-width: 1px;
+      //     stroke-dasharray: var(--offset, 69px) 278px;
+      //     stroke-dashoffset: 361px;
+      //     transition: stroke 0.25s ease var(--stroke-delay, 200ms),
+      //       stroke-dasharray 0.35s;
+      //     &:hover {
+      //       filter: drop-shadow(0px 0px 9px #944dff);
+      //       --spacing: 4px;
+      //       --stroke: #d7bdff;
+      //       --stroke-delay: 0.1s;
+      //       --offset: 180px;
+      //     }
+      //   }
+      // }
+      // a:hover {
+      //   filter: drop-shadow(0px 0px 9px #b4ffffd0);
+      // }
     }
     img {
       width: 6em;
@@ -173,15 +173,15 @@
         width: 100%;
         justify-content: space-between;
 
-        a {
-          margin: 0;
-          svg {
-            &:hover {
-              filter: drop-shadow(0px 0px 9px #944dff00);
-              --stroke: #d7bdff00;
-            }
-          }
-        }
+        // a {
+        //   margin: 0;
+        //   svg {
+        //     &:hover {
+        //       filter: drop-shadow(0px 0px 9px #944dff00);
+        //       --stroke: #d7bdff00;
+        //     }
+        //   }
+        // }
       }
     }
     .landingBody {

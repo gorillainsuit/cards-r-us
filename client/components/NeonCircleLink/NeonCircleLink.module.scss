@@ -1,0 +1,58 @@
+@use '/client/styles/colors' as vars;
+
+.link {
+  position: relative;
+  color: vars.$text-color;
+  width: 5em;
+  margin-right: 2em;
+  font-size: 1.7em;
+  text-decoration: none;
+  font-family: vars.$main-font;
+  border-radius: 5em;
+  text-align: center;
+  transition: 200ms;
+  cursor: pointer;
+  a:hover {
+    filter: drop-shadow(0px 0px 9px #b4ffffd0);
+  }
+  @media screen and (max-width: 900px) {
+    margin: 0;
+  }
+}
+
+.svg {
+  height: 2.5em;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: -0.85em;
+  fill: none;
+  stroke: var(--stroke);
+  stroke-linecap: round;
+  stroke-width: 1px;
+  stroke-dasharray: var(--offset, 69px) 278px;
+  stroke-dashoffset: 361px;
+  transition: stroke 0.25s ease var(--stroke-delay, 200ms),
+    stroke-dasharray 0.35s;
+  overflow: hidden;
+  color: vars.$text-color;
+  font-size: 1.7em;
+  font-family: vars.$main-font;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    filter: drop-shadow(0px 0px 9px #944dff);
+    --spacing: 4px;
+    --stroke: #d7bdff;
+    --stroke-delay: 0.1s;
+    --offset: 180px;
+  }
+  @media screen and (max-width: 900px) {
+    &:hover {
+      filter: drop-shadow(0px 0px 9px #944dff00);
+      --stroke: #d7bdff00;
+    }
+  }
+}

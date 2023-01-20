@@ -20,3 +20,7 @@ declare module '*.gif' {
 }
 
 // telling typescript everything is cool with the file types above
+declare module '*.module.scss' {
+  const classes: any;
+  export default classes;
+}

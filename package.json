@@ -64,6 +64,7 @@
     "concurrently": "^7.6.0",
     "css-loader": "^6.7.3",
     "cypress": "^12.3.0",
+    "cypress-real-events": "^1.7.6",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.20",

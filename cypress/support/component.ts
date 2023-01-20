@@ -1,26 +1,15 @@
-// ***********************************************************
-// This example support/component.ts is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
-// Import commands.js using ES2015 syntax:
 import './commands';
 import '../../client/styles/index.scss';
+import React from 'react';
+import { MountOptions, MountReturn } from 'cypress/react';
+import { MemoryRouter, MemoryRouterProps } from 'react-router-dom';
+import 'cypress-real-events';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
 import { mount } from 'cypress/react18';
+import { CssVarsProvider } from '@mui/joy';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -29,12 +18,22 @@ import { mount } from 'cypress/react18';
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount;
+      mount(
+        component: React.ReactNode,
+        options?: MountOptions & { routerProps?: MemoryRouterProps }
+      ): Cypress.Chainable<MountReturn>;
     }
   }
 }
 
-Cypress.Commands.add('mount', mount);
+Cypress.Commands.add('mount', (component: React.ReactNode, options = {}) => {
+  const { routerProps = { initialEntries: ['/'] }, ...mountOptions } = options;
+  const routerWrap = React.createElement(MemoryRouter, routerProps, component);
+  const varsWrap = React.createElement(CssVarsProvider, {}, routerWrap);
+  return mount(varsWrap, mountOptions);
+});
+
+// Cypress.Commands.add('mount', mount);
 
 // Example use:
 // cy.mount(<MyComponent />)
