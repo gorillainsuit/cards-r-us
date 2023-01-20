@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "concurrently \"ts-node ./server/server.ts\" \"webpack serve\"",
     "start": "npm run build && node ./dist/server/server.js",
-    "build": "tsc && webpack"
+    "build": "tsc && webpack",
+    "cy:run": "cypress run"
   },
   "repository": {
     "type": "git",

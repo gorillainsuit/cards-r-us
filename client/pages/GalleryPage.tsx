@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 // Card import
-import Card from '../components/CardDisplayComponent';
+import Card from '../components/CardDisplay/CardDisplay';
 
 // mui component imports
 import Avatar from '@mui/joy/Avatar';
@@ -48,7 +48,6 @@ interface User {
   avatar: string;
   username: string;
 }
-
 
 const GalleryPage: React.FC = () => {
   const [displaySideBar, setDisplaySideBar] = useState(true);
@@ -105,7 +104,10 @@ const GalleryPage: React.FC = () => {
   });
 
   // This will be used to delete cards
-  const handleCardDelete = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => {
+  const handleCardDelete = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    id: string
+  ) => {
     e.preventDefault();
     console.log('delete ', id);
     const filtered = cards.filter((card) => card.cardId !== id);
