@@ -1,9 +1,14 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 const githubController = {
   getToken: (req: Request, res: Response, next: NextFunction) => {
+    console.log('starting...');
     const { code } = req.query;
-    const { clientId, secret } = res.locals.GH;
+    console.log('CODE : ', code);
+    // const { clientId, secret } = res.locals.GH;
+
+    const clientId = process.env.GITHUB_ID;
+    const secret = process.env.GITHUB_SECRET;
 
     // The github server should respond with this
     //     {
@@ -24,16 +29,17 @@ const githubController = {
     )
       .then((d) => d.json())
       .then((d) => {
+        console.log('d from getTOken : ', d);
         res.locals.token = d.access_token;
         return next();
       })
-      .catch((e) =>
-        next({
+      .catch((e) => {
+        return next({
           log: `Error with getting Github access token: ${e}`,
           status: 400,
           message: { err: 'An error occurred getting Github access token.' },
-        })
-      );
+        });
+      });
   },
 
   getUserInfo: (req: Request, res: Response, next: NextFunction) => {
@@ -47,6 +53,7 @@ const githubController = {
     })
       .then((d) => d.json())
       .then((d) => {
+        console.log('d from getUserInfo : ', d);
         const { login, email, name, avatar_url } = d;
         res.locals.GHUser = { login, email, name, avatar_url };
         return next();

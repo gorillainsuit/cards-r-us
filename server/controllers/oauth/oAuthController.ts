@@ -11,6 +11,7 @@ const oauthController = {
     getUser: (req: Request, res: Response, next: NextFunction) => {
       const { login, email, name, avatar_url } = res.locals.GHUser;
       User.findOne({ username: login }, (err: any, user: any) => {
+        console.log('getUser (findOne): ', user);
         if (err)
           return next({
             log: `Error saving oauth user: ${err}`,
@@ -22,6 +23,7 @@ const oauthController = {
           User.create(
             { username: login, email, name, avatar: avatar_url },
             (err, user) => {
+              console.log('getUser (create): ', user);
               if (err)
                 return next({
                   log: `Error saving oauth user: ${err}`,
@@ -47,6 +49,7 @@ const oauthController = {
       User.create(
         { username: login, email, name, avatar: avatar_url },
         (err, user) => {
+          console.log('addUser: ', user);
           if (err)
             return next({
               log: `Error saving oauth user: ${err}`,

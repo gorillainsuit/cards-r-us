@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import cardsController from '../controllers/cardsController.js';
-import sessionController from '../controllers/sessionController.js';
+import cardsController from '../controllers/cardsController';
+import sessionController from '../controllers/sessionController';
 // this logged using localhost:3000/cards
 // router.get('/', (req, res) => {
   //   console.log('cards router connected');

@@ -1,6 +1,6 @@
 import { Router, Response, Request } from 'express';
 const router = Router();
-const openaiController = require('../../controllers/openaiController.js');
+import openaiController from '../../controllers/openaiController';
 
 router.post(
   '/create',

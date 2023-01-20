@@ -2,7 +2,7 @@ import {NextFunction, Request, Response, Router} from 'express';
 const router = Router();
 
 // Image generation
-const createImage = require('./createImage.js');
+import createImage from "./createImage"
 router.use('/image', createImage);
 
 // Prompt generation

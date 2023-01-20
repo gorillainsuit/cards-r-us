@@ -1,4 +1,4 @@
-import UserModel from '../models/UserModel.js';
+import UserModel from '../models/UserModel';
 import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 const authController = {

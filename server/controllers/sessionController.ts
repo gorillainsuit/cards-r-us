@@ -57,7 +57,9 @@ const sessionController = {
    * startSession - create and save a new Session into the database.
    */
   startSession: (req: Request, res: Response, next: NextFunction) => {
+    console.log('starting Session: ');
     const { SSID } = req.cookies;
+    console.log('SSID: ', SSID);
 
     // If there is already an SSID cookie, go ahead an authenticate it.
     // if (SSID) return sessionController.isLoggedIn(req, res, next);
