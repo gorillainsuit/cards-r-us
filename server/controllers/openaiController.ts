@@ -1,0 +1,38 @@
+import { Configuration, OpenAIApi } from 'openai';
+import { Request, Response, NextFunction } from 'express';
+
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
+const openaiController = {
+  async createImage(req: Request, res: Response, next: NextFunction) {
+    const { userPrompt } = req.body;
+    try {
+      const response = await openai.createImage({
+        prompt: userPrompt,
+        n: 4,
+        size: '1024x1024',
+      });
+      console.log('response object: ', response.data);
+      res.locals.image = response.data;
+    } catch (error: any) {
+      if (error.response) {
+        console.log(error.response.status);
+        console.log(error.response.data);
+      } else {
+        return next({
+          log: 'Express Error handler caught middleware error at \'/backend/controller/openaiController',
+          message: {err: error.message}
+        })
+      }
+    }
+    console.log('complete');
+    return next();
+  },
+};
+
+export default openaiController;
