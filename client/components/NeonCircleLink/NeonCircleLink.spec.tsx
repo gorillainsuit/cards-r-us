@@ -7,9 +7,9 @@ describe('<NeonCircleLink />', () => {
   });
 
   it('animates svg dasharray on hover', () => {
+    cy.viewport(1000, 500).wait(500);
     cy.mount(<NeonCircleLink to='/login'>Login</NeonCircleLink>);
 
-    cy.viewport(1000, 500).wait(500);
 
     cy.get('svg').should('have.css', 'stroke-dasharray', '69px, 278px');
     cy.get('svg').realHover();
