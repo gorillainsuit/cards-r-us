@@ -1,17 +1,18 @@
 import React from 'react';
 import Logo from '../Logo/Logo';
 import NeonCircleLink from '../NeonCircleLink/NeonCircleLink';
+import styles from './LandingHeader.module.scss';
 
 // import Logo from '../../images/logo.png';
 
 const Head = () => (
-  <div className='head'>
+  <header className={styles.header}>
     <Logo />
-    <div className='LogNReg noSelect'>
+    <nav className={styles.navigation}>
       <NeonCircleLink to='/login'>Login</NeonCircleLink>
       <NeonCircleLink to='/signup'>Register</NeonCircleLink>
-    </div>
-  </div>
+    </nav>
+  </header>
 );
 
 export default Head;

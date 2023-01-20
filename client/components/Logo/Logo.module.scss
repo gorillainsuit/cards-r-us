@@ -1,7 +1,11 @@
 @use '/client/styles/colors' as vars;
 
 .image {
-  width: 3.25em;
+  width: 6em;
+  padding: 1.5em;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+  transition: 250ms;
   padding: 1.5em;
   aspect-ratio: 3/2;
   object-fit: contain;
@@ -9,9 +13,14 @@
   user-select: none;
   -webkit-user-drag: none;
   font-family: vars.$main-font;
+  cursor: pointer;
 
   &:hover {
     rotate: 15deg;
     filter: drop-shadow(-2px -5px 20px #abe7ff);
+  }
+
+  @media screen and (max-width: 900px) {
+    width: 3.25em;
   }
 }
