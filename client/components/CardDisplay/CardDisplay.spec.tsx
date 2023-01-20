@@ -1,11 +1,10 @@
 import React from 'react';
 import Card from './CardDisplay';
-import { mount } from 'cypress/react18';
 
 describe('<Card />', () => {
   const testImage = 'https://source.unsplash.com/random/?cat';
   it('renders', () => {
-    mount(
+    cy.mount(
       <Card
         image={testImage}
         cardId={'card-1'}
@@ -16,7 +15,7 @@ describe('<Card />', () => {
   });
 
   it('renders with image', () => {
-    mount(
+    cy.mount(
       <Card
         image={testImage}
         cardId={'card-1'}
@@ -30,7 +29,7 @@ describe('<Card />', () => {
 
   it('calls delete function when delete icon clicked', () => {
     const deleteFunction = cy.stub();
-    mount(
+    cy.mount(
       <Card
         image={testImage}
         cardId={'card-1'}
@@ -40,6 +39,5 @@ describe('<Card />', () => {
     );
     cy.get('*[aria-label="delete"]').click();
     cy.wrap(deleteFunction).should('have.been.called');
-  })
-
+  });
 });

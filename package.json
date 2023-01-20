@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "concurrently \"ts-node ./server/server.ts\" \"webpack serve\"",
     "start": "npm run build && node ./dist/server/server.js",
     "build": "tsc && webpack",
-    "cy:run": "cypress run"
+    "test": "cypress run --component",
+    "test:e2e": "cypress run",
+    "cy:open": "cypress open"
   },
   "repository": {
     "type": "git",

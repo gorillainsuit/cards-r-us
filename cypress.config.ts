@@ -6,6 +6,7 @@ export default defineConfig({
       framework: 'react',
       bundler: 'webpack',
     },
+    specPattern: 'client/**/*.{spec,test,cy}.{js,jsx,ts,tsx}',
   },
 
   e2e: {
