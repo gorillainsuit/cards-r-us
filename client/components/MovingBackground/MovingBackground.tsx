@@ -6,7 +6,9 @@ const MovingBackground: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <main className={styles.container}>
       <Background className={styles.background} />
-      {children}
+      <div className={styles.content}>
+        {children}
+        </div>
     </main>
   );
 };

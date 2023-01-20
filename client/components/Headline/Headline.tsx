@@ -24,11 +24,11 @@ const Headline: React.FC<HeadlineProps> = ({ children }) => {
 
 
   return (
-    <div className={styles.container}>
+    // <div className={styles.container}>
       <div className={styles.headline}>
         <h1>{children.slice(0, character)}</h1>
       </div>
-    </div>
+
   );
 };
 

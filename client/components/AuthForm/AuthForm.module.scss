@@ -1,0 +1,98 @@
+@use '../../styles/colors' as *;
+
+.form {
+  box-sizing: border-box;
+  width: 40vw;
+  // height: 55vh;
+  padding-block: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px #f0fbff60 solid;
+  border-radius: 10px;
+  background-color: rgba($secondary, 0.6);
+  box-shadow: 3px 5px 5px rgb(205, 199, 199), -1px -3px 5px rgb(205, 199, 199);
+  @media screen and (max-width: 930px) {
+    width: 97vw;
+    box-shadow: 3px 5px 5px rgba(205, 199, 199, 0);
+  }
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  user-select: none;
+
+  label {
+    color: $text-color;
+    margin-bottom: 1em;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+
+  input {
+    border: 1px lightgrey solid;
+    box-sizing: border-box;
+
+    border-radius: 5px;
+    height: 2.5rem;
+    padding: 0.25rem 0.5rem;
+    width: 100%;
+    font-family: $main-font;
+    font-size: 1rem;
+    // box-shadow: 1px 2px 3px rgb(205, 199, 199);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  }
+}
+
+.buttonContainer {
+  width: 50%;
+  margin-block: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.button {
+  background: linear-gradient(to bottom right, $text-color, #89cff0);
+  border: 0;
+  flex-grow: 1;
+  border-radius: 12px;
+  color: $primary;
+  cursor: pointer;
+  font-family: $main-font;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: 200ms;
+  &:hover {
+    box-shadow: 0 0 7px 4px white;
+  }
+}
+
+.link {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-decoration: none;
+  color: rgb(180, 179, 179);
+  transition: 200ms;
+
+  &:hover {
+    font-weight: bold;
+    color: rgb(46, 46, 46);
+    filter: drop-shadow(0px 0px 7px $primary);
+  }
+
+  @media screen and (max-width: 930px) {
+    color: rgba(54, 54, 54, 0.801);
+  }
+}

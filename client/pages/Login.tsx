@@ -4,6 +4,7 @@ import { Form, Link } from 'react-router-dom';
 import logo from '../images/logo.png';
 import Background from '../images/bg.svg';
 import useLoginState from '../hooks/useLoginState';
+import Logo from '../components/Logo/Logo';
 
 const Login = () => {
   const { updateLogin } = useLoginState();
@@ -33,14 +34,7 @@ const Login = () => {
 
   return (
     <div className='LoginPage'>
-      <Link className='logoContainer' to={'/'}>
-        <img
-          src={logo}
-          className='logo noSelect'
-          alt='logo'
-          draggable='false'
-        />
-      </Link>
+      <Logo />
       <Background className='background' />
       <Form onSubmit={handleLogin}>
         <div className='Inputs noSelect'>

@@ -1,7 +1,8 @@
 @use '../../styles/colors' as *;
 
 .container {
-  position: absolute;
+  position: fixed;
+  bottom: 0;
   display: flex;
   justify-content: space-evenly;
   bottom: 20px;

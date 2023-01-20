@@ -10,7 +10,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
-import Login from './pages/Login';
 import CreateCard from './pages/CreateCardPage';
 import SignUp from './pages/SignUp';
 import CardViewPage from './pages/CardViewPage';
@@ -19,6 +18,8 @@ import CardViewPage from './pages/CardViewPage';
 import './styles/index.scss';
 import GalleryPage from './pages/GalleryPage';
 import Headline from './components/Headline/Headline';
+import LoginForm from './components/LoginForm/LoginForm';
+import RegisterForm from './components/RegisterForm/RegisterForm';
 
 const routes = [
   {
@@ -29,6 +30,14 @@ const routes = [
         path: '/',
         element: <Headline>Make Cards That Pop</Headline>,
       },
+      {
+        path: '/login',
+        element: <LoginForm />,
+      },
+      {
+        path: '/signup',
+        element: <RegisterForm />,
+      }
     ],
   },
   {
@@ -39,14 +48,6 @@ const routes = [
   {
     path: '/card',
     element: <CardViewPage />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/signup',
-    element: <SignUp />,
   },
   {
     path: '/create',
