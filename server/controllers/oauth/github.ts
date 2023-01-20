@@ -1,5 +1,7 @@
-module.exports = {
-  getToken: (req, res, next) => {
+import {Request, Response, NextFunction} from 'express';
+
+const githubController = {
+  getToken: (req: Request, res: Response, next: NextFunction) => {
     const { code } = req.query;
     const { clientId, secret } = res.locals.GH;
 
@@ -34,7 +36,7 @@ module.exports = {
       );
   },
 
-  getUserInfo: (req, res, next) => {
+  getUserInfo: (req: Request, res: Response, next: NextFunction) => {
     const { token } = res.locals;
 
     fetch('https://api.github.com/user', {
@@ -58,3 +60,5 @@ module.exports = {
       );
   },
 };
+
+export default githubController;

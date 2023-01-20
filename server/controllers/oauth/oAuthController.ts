@@ -1,5 +1,6 @@
-const github = require('./github');
-const User = require('../../models/UserModel');
+import github from './github';
+import User from '../../models/UserModel';
+import { Request, Response, NextFunction } from 'express';
 
 const oauthController = {
   providers: {
@@ -7,9 +8,9 @@ const oauthController = {
   },
 
   middleware: {
-    getUser: (req, res, next) => {
+    getUser: (req: Request, res: Response, next: NextFunction) => {
       const { login, email, name, avatar_url } = res.locals.GHUser;
-      User.findOne({ username: login }, (err, user) => {
+      User.findOne({ username: login }, (err: any, user: any) => {
         if (err)
           return next({
             log: `Error saving oauth user: ${err}`,
@@ -28,7 +29,7 @@ const oauthController = {
                   message: { err: 'An error occurred saving oauth user.' },
                 });
 
-              res.locals.user = { ...user._doc, id: user._doc._id };
+              res.locals.user = { ...user, id: user._id };
               // console.log(res.locals.user);
               return next();
             }
@@ -41,7 +42,7 @@ const oauthController = {
       });
     },
 
-    addUser: (req, res, next) => {
+    addUser: (req: Request, res: Response, next: NextFunction) => {
       const { login, email, name, avatar_url } = res.locals.GHUser;
       User.create(
         { username: login, email, name, avatar: avatar_url },
@@ -53,7 +54,7 @@ const oauthController = {
               message: { err: 'An error occurred saving oauth user.' },
             });
 
-          res.locals.user = { ...user._doc, id: user._doc._id };
+          res.locals.user = { ...user, id: user._id };
           // console.log(res.locals.user);
           return next();
         }
@@ -61,4 +62,5 @@ const oauthController = {
     },
   },
 };
-module.exports = oauthController;
+
+export default oauthController;

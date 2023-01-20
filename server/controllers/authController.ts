@@ -1,17 +1,17 @@
-const User = require('../models/UserModel.js');
-const bcrypt = require('bcrypt');
-
+import UserModel from '../models/UserModel.js';
+import bcrypt from 'bcrypt';
+import { Request, Response, NextFunction } from 'express';
 const authController = {
-  async signUp(req, res, next) {
+  async signUp(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
       if (!email || !password)
         return new Error('No username or password provided.');
-      const newUser = await User.create({ email, password });
+      const newUser = await UserModel.create({ email, password });
       const { gallery, _id } = newUser;
       res.locals.user = { email, id: _id, gallery };
       return next();
-    } catch (e) {
+    } catch (e: any) {
       return next({
         log: 'Middleware error caught in authController - signUp failed',
         status: 500,
@@ -20,13 +20,13 @@ const authController = {
     }
   },
 
-  async verifyUser(req, res, next) {
+  async verifyUser(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
     let hashedPassword;
     try {
       if (!email || !password)
         throw new Error('No email or password provided.');
-      User.findOne({ email }, (err, userAccount) => {
+      UserModel.findOne({ email }, (err: any, userAccount: any) => {
         if (err) {
           return next({
             log: `Middleware error caught in authController - login failed: ${err}`,
@@ -56,4 +56,4 @@ const authController = {
   },
 };
 
-module.exports = authController;
+export default authController;

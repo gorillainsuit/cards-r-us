@@ -1,14 +1,18 @@
-const User = require('../models/UserModel');
-const Card = require('../models/CardModel');
+import UserModel from '../models/UserModel';
+import CardModel, { Card } from '../models/CardModel';
+import { Request, Response, NextFunction } from 'express';
 
 const cardsController = {
-  async getCards(req, res, next) {
+  async getCards(req: Request, res: Response, next: NextFunction) {
     try {
       const { _id, gallery } = res.locals.user;
 
       res.locals.cards = await Promise.all(
-        gallery.map(async (cardId) => {
-          const card = await Card.findOne({ _id: cardId });
+        gallery.map(async (cardId: string) => {
+          const card = await CardModel.findOne({ _id: cardId });
+          if (!card) {
+            return null;
+          }
           const { message, image, author } = card;
           return {
             message,
@@ -19,7 +23,7 @@ const cardsController = {
         })
       );
       return next();
-    } catch (e) {
+    } catch (e: any) {
       return next({
         log: 'Error getting cards in cardController',
         status: 500,
@@ -28,7 +32,7 @@ const cardsController = {
     }
   },
 
-  getCard: (req, res, next) => {
+  getCard: (req: Request, res: Response, next: NextFunction) => {
     const { cardId } = req.params;
 
     if (!cardId)
@@ -38,7 +42,7 @@ const cardsController = {
         message: { err: 'No card ID specified.' },
       });
 
-    Card.findOne({ _id: cardId }, (err, card) => {
+    CardModel.findOne({ _id: cardId }, (err: any, card: any) => {
       if (err)
         return next({
           log: `Error getting card in cardController: ${err}`,
@@ -66,27 +70,28 @@ const cardsController = {
     });
   },
 
-  async createCard(req, res, next) {
+  async createCard(req: Request, res: Response, next: NextFunction) {
     const { imageUrl, message, messageColor } = req.body;
     console.log(req.body);
 
     try {
-      if ((!imageUrl || !message, !messageColor))
+      if (!imageUrl || !message || !messageColor)
         return new Error('No image url or message provided');
-      const newCard = await Card.create({
+      const newCard = await CardModel.create({
         author: res.locals.user.id,
         image: imageUrl,
         message,
         messageColor,
       });
+
       const { _id } = newCard;
       res.locals.user.gallery.push(_id);
-      await User.findOneAndUpdate(
+      await UserModel.findOneAndUpdate(
         { _id: res.locals.user._id },
         { gallery: res.locals.user.gallery }
       );
       return next();
-    } catch (e) {
+    } catch (e: any) {
       return next({
         log: 'Error creating card in cardController',
         status: 409,
@@ -95,7 +100,7 @@ const cardsController = {
     }
   },
 
-  async deleteCard(req, res, next) {
+  async deleteCard(req: Request, res: Response, next: NextFunction) {
     // res.send('Deleting card...');
     //res.locals.user;
     const { id } = req.body;
@@ -109,10 +114,10 @@ const cardsController = {
     }
     try {
       const newGallery = res.locals.user.gallery.filter(
-        (strID) => strID !== id
+        (strID: string) => strID !== id
       );
 
-      await User.findOneAndUpdate(
+      await UserModel.findOneAndUpdate(
         { _id: res.locals.user._id },
         { gallery: newGallery }
       );
@@ -120,7 +125,7 @@ const cardsController = {
       res.locals.removedCardID = id;
 
       return next();
-    } catch (e) {
+    } catch (e: any) {
       return next({
         log: 'Error deleting card in cardController',
         status: 500,
@@ -130,4 +135,4 @@ const cardsController = {
   },
 };
 
-module.exports = cardsController;
+export default cardsController;

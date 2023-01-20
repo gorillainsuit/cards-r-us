@@ -1,10 +1,18 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
 const SALT_WORK_FACTOR = 10;
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
-const userSchema = new Schema({
+export interface User {
+  email: string;
+  password: string;
+  username: string;
+  avatar: string;
+  name: string;
+  gallery: string[];
+}
+
+const userSchema = new mongoose.Schema<User>({
   email: {
     type: String,
     require: false,
@@ -46,6 +54,8 @@ userSchema.pre('save', function (next) {
   });
 });
 
-const User = mongoose.model('User', userSchema);
+const UserModel =
+  (mongoose.models.User as mongoose.Model<User>) ||
+  mongoose.model('User', userSchema);
 
-module.exports = User;
+export default UserModel;

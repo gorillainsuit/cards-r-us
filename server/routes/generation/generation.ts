@@ -1,13 +1,13 @@
-const express = require('express');
-const router = express.Router();
+import {NextFunction, Request, Response, Router} from 'express';
+const router = Router();
 
 // Image generation
 const createImage = require('./createImage.js');
 router.use('/image', createImage);
 
 // Prompt generation
-router.use('/prompt', (req, res, next) =>
+router.use('/prompt', (req: Request, res: Response, next: NextFunction) =>
   res.status(400).json({ error: 'This route is in progress' })
 );
 
-module.exports = router;
+export default router;

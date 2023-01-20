@@ -1,4 +1,6 @@
-const { Configuration, OpenAIApi } = require('openai');
+import { Configuration, OpenAIApi } from 'openai';
+import { Request, Response, NextFunction } from 'express';
+
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -7,7 +9,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const openaiController = {
-  async createImage(req, res, next) {
+  async createImage(req: Request, res: Response, next: NextFunction) {
     const { userPrompt } = req.body;
     try {
       const response = await openai.createImage({
@@ -17,13 +19,13 @@ const openaiController = {
       });
       console.log('response object: ', response.data);
       res.locals.image = response.data;
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         console.log(error.response.status);
         console.log(error.response.data);
       } else {
         return next({
-          log: 'Express Error hanler caught middleware error at \'/backend/controller/openaiController',
+          log: 'Express Error handler caught middleware error at \'/backend/controller/openaiController',
           message: {err: error.message}
         })
       }
@@ -33,4 +35,4 @@ const openaiController = {
   },
 };
 
-module.exports = openaiController;
+export default openaiController;
