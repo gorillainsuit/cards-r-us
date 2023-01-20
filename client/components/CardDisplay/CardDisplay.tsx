@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import DeleteIcon from '../images/icons/trash.svg';
-import ShareIcon from '../images/icons/box-arrow-up.svg';
-import CopyIcon from '../images/icons/clipboard.svg';
-import CopiedIcon from '../images/icons/clipboard-check.svg';
+import DeleteIcon from '../../images/icons/trash.svg';
+import ShareIcon from '../../images/icons/box-arrow-up.svg';
+
 interface CardProps {
   cardId: string ;
   message: string ;
   deleteFunction:  (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, cardId: string) => void ;
   image: string;
-  
 }
 
 const Card: React.FC <CardProps> = ({ cardId, image, message, deleteFunction }) => {
   const [shouldDisplayShare, setDisplayShare] = useState(false);
-  const [isCardUrlCopied, setCardUrlCopied] = useState(false);
 
   return (
     <div className='Card'>
@@ -25,11 +21,11 @@ const Card: React.FC <CardProps> = ({ cardId, image, message, deleteFunction }) 
       </div>
       <div className='Buttons'>
         <a onClick={(e) => deleteFunction(e, cardId)}>
-          <DeleteIcon />
+          <DeleteIcon aria-label='delete' />
         </a>
 
         <a onClick={() => setDisplayShare(!shouldDisplayShare)}>
-          <ShareIcon />
+          <ShareIcon aria-label='share' />
         </a>
 
         <div className='ShareCardPopup' hidden={!shouldDisplayShare}></div>
