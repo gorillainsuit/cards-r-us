@@ -7,7 +7,7 @@ import { CssVarsProvider } from '@mui/joy/styles';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Page imports
-import Landing from './pages/Landing';
+import LandingPage from './pages/LandingPage';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
 import Login from './pages/Login';
@@ -18,11 +18,18 @@ import CardViewPage from './pages/CardViewPage';
 // Style import
 import './styles/index.scss';
 import GalleryPage from './pages/GalleryPage';
+import Headline from './components/Headline/Headline';
 
 const routes = [
   {
     path: '/',
-    element: <Landing />,
+    element: <LandingPage />,
+    children: [
+      {
+        path: '/',
+        element: <Headline>Make Cards That Pop</Headline>,
+      },
+    ],
   },
   {
     path: '/cards',

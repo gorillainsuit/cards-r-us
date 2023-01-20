@@ -1,0 +1,41 @@
+@use '../../styles/colors' as *;
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 87%;
+}
+
+.headline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  h1 {
+    color: #ffffff;
+    filter: drop-shadow(0px 0px 9px #b4ffffd0);
+    border-radius: 0.25em;
+    background: #2b44673e;
+    margin-bottom: 3em;
+    padding: 1em 1.5em 1em 1.5em;
+    border: 5px solid;
+    font-size: 4.25em;
+    font-weight: bold;
+    font-family: $main-font;
+    overflow: hidden;
+    white-space: nowrap;
+    box-shadow: -1px 1px 35px -2px rgba(0, 38, 87, 0.63);
+    -webkit-box-shadow: -1px 1px 35px -2px rgba(0, 38, 87, 0.63);
+    -moz-box-shadow: -1px 1px 35px -2px rgba(0, 38, 87, 0.63);
+  }
+
+  @media screen and (max-width: 900px) {
+    font-size: 5px;
+    h1 {
+      padding: 3px, 5px, 3px, 0;
+      animation: typing 1.5s forwards;
+    }
+  }
+}

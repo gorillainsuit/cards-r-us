@@ -1,0 +1,27 @@
+@use '../../styles/colors' as *;
+
+.container {
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  bottom: 20px;
+  user-select: none;
+  img {
+    opacity: 0.7;
+    width: 10%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    transition: 300ms ease-in-out;
+  }
+  img:hover {
+    filter: drop-shadow(0px 0px 9px #b4ffffd0);
+    opacity: 1;
+    width: 15%;
+  }
+
+  @media screen and (max-width: 900px) {
+    img {
+      opacity: 1;
+    }
+  }
+}

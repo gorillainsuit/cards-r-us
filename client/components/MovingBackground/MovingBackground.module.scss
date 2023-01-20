@@ -1,0 +1,37 @@
+@use '../../styles/colors' as *;
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: $primary;
+  overflow: hidden;
+
+  @media screen and (max-width: 900px) {
+    overflow: hidden;
+  }
+}
+
+.background {
+  scale: 1.2;
+  position: fixed;
+  animation: pan 5s infinite alternate ease-in-out;
+  bottom: 3em;
+
+  @media screen and (max-width: 900px) {
+    scale: 1.6;
+    overflow: hidden;
+    animation: pan 10s infinite alternate ease-in-out;
+  }
+}
+
+@keyframes pan {
+  0% {
+    transform: translate(1em, 3em);
+  }
+  50% {
+  }
+  100% {
+    transform: translate(3em, 1em);
+  }
+}

@@ -10,7 +10,6 @@ describe('<NeonCircleLink />', () => {
     cy.viewport(1000, 500).wait(500);
     cy.mount(<NeonCircleLink to='/login'>Login</NeonCircleLink>);
 
-
     cy.get('svg').should('have.css', 'stroke-dasharray', '69px, 278px');
     cy.get('svg').realHover();
     cy.get('svg').should('have.css', 'stroke-dasharray', '180px, 278px');
