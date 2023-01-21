@@ -6,12 +6,19 @@ describe('<NeonCircleLink />', () => {
     cy.mount(<NeonCircleLink to='/login'>Login</NeonCircleLink>);
   });
 
-  it('animates svg dasharray on hover', () => {
-    cy.viewport(1000, 500).wait(500);
-    cy.mount(<NeonCircleLink to='/login'>Login</NeonCircleLink>);
+  it('navigates to the provided link when clicked', () => {
 
-    cy.get('svg').should('have.css', 'stroke-dasharray', '69px, 278px');
-    cy.get('svg').realHover();
-    cy.get('svg').should('have.css', 'stroke-dasharray', '180px, 278px');
-  });
+    const additionalRoute = {
+      path: '/login',
+      element: <div>Login</div>,
+    };
+
+    cy.mount(<NeonCircleLink to='/login'>Login</NeonCircleLink>, {
+      additionalRoutes: [additionalRoute],
+    });
+
+    cy.get('a').click();
+    cy.get('div').contains('Login');
+
+  })
 });

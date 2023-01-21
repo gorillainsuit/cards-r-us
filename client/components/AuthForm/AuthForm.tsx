@@ -1,7 +1,5 @@
 import React from 'react';
 import { Form, Link } from 'react-router-dom';
-import useLoginState from '../../hooks/useLoginState';
-import AuthIcons from '../AuthIcons/AuthIcons';
 import styles from './AuthForm.module.scss';
 
 export interface AuthProperty {
@@ -9,6 +7,7 @@ export interface AuthProperty {
   type: string;
   name: string;
   value: string;
+  required?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,10 +15,9 @@ export interface AuthAction {
   text: string;
   to?: string;
   type: 'submit' | 'link';
-  
 }
 
-interface AuthFormProps {
+export interface AuthFormProps {
   properties: AuthProperty[];
   actions: AuthAction[];
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -29,8 +27,9 @@ const AuthForm: React.FC<React.PropsWithChildren<AuthFormProps>> = ({
   properties,
   actions,
   onSubmit,
-  children
+  children,
 }) => {
+
   return (
     <Form onSubmit={onSubmit} className={styles.form}>
       <div className={styles.inputs}>
@@ -43,6 +42,7 @@ const AuthForm: React.FC<React.PropsWithChildren<AuthFormProps>> = ({
               id={property.name}
               value={property.value}
               onChange={property.onChange}
+              required={Boolean(property.required)}
             />
             <br />
           </>
@@ -68,29 +68,6 @@ const AuthForm: React.FC<React.PropsWithChildren<AuthFormProps>> = ({
 
       <br />
       {children}
-      {/* <Link to='findPw' className={styles.link}>
-        {' '}
-        Forgot password?
-      </Link>
-      <AuthIcons
-        options={[
-          {
-            name: 'google',
-            href: '#',
-            className: 'fa-brands fa-google',
-          },
-          {
-            name: 'github',
-            href: 'http://localhost:8080/api/oauth/gh',
-            className: 'fa-brands fa-github',
-          },
-          {
-            name: 'apple',
-            href: '#',
-            className: 'fa-brands fa-apple',
-          },
-        ]}
-      /> */}
     </Form>
   );
 };

@@ -2,7 +2,14 @@ import './commands';
 import '../../client/styles/index.scss';
 import React from 'react';
 import { MountOptions, MountReturn } from 'cypress/react';
-import { MemoryRouter, MemoryRouterProps } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createMemoryRouter,
+  MemoryRouter,
+  MemoryRouterProps,
+  RouteObject,
+  RouterProvider,
+} from 'react-router-dom';
 import 'cypress-real-events';
 
 // Alternatively you can use CommonJS syntax:
@@ -20,17 +27,31 @@ declare global {
     interface Chainable {
       mount(
         component: React.ReactNode,
-        options?: MountOptions & { routerProps?: MemoryRouterProps }
+        options?: MountOptions & { additionalRoutes?: RouteObject[] }
       ): Cypress.Chainable<MountReturn>;
     }
   }
 }
 
+// Cypress.Commands.add('mount', (component: React.ReactNode, options = {}) => {
+//   const { routerProps = { initialEntries: ['/'] }, ...mountOptions } = options;
+//   const routerWrap = React.createElement(MemoryRouter, routerProps, component);
+//   const varsWrap = React.createElement(CssVarsProvider, {}, routerWrap);
+//   return mount(varsWrap, mountOptions);
+// });
+
 Cypress.Commands.add('mount', (component: React.ReactNode, options = {}) => {
-  const { routerProps = { initialEntries: ['/'] }, ...mountOptions } = options;
-  const routerWrap = React.createElement(MemoryRouter, routerProps, component);
-  const varsWrap = React.createElement(CssVarsProvider, {}, routerWrap);
-  return mount(varsWrap, mountOptions);
+  const { additionalRoutes = [], ...mountOptions } = options;
+
+  const router = createMemoryRouter([
+    { path: '/', element: component },
+    ...additionalRoutes,
+  ]);
+
+  const routerProvider = React.createElement(RouterProvider, { router });
+  const wrapped = React.createElement(CssVarsProvider, {}, routerProvider);
+
+  return mount(wrapped, mountOptions);
 });
 
 // Cypress.Commands.add('mount', mount);
