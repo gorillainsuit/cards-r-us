@@ -1,6 +1,13 @@
 import React from 'react';
 import styles from './Card.module.scss';
 
+import paperTexture from '/client/images/textures/paper.png';
+import cardboardTexture from '/client/images/textures/cardboard.png';
+import metalTexture from '/client/images/textures/aluminum.png';
+import leatherTexture from '/client/images/textures/leather.png';
+import woodTexture from '/client/images/textures/wood.png';
+import fabricTexture from '/client/images/textures/fabric.png';
+
 export interface CardData {
   image: {
     src: string;
@@ -8,9 +15,12 @@ export interface CardData {
   };
   color: {
     back: string;
-    front: string;
     banner?: string;
     texture?: string;
+  };
+  texture?: {
+    pattern: Texture;
+    intensity: number;
   };
   text: {
     front: {
@@ -25,12 +35,31 @@ export interface CardData {
   };
 }
 
+export type Texture = keyof typeof TEXTURES;
+
+const TEXTURES = {
+  paper: paperTexture,
+  cardboard: cardboardTexture,
+  metal: metalTexture,
+  leather: leatherTexture,
+  wood: woodTexture,
+  fabric: fabricTexture,
+} as const;
+
 interface CardProps {
   data: CardData;
+  flippable?: boolean;
+  initialPosition?: 'front' | 'back';
 }
 
-const Card: React.FC<CardProps> = ({ data }) => {
-  const [flipped, setFlipped] = React.useState(false);
+const Card: React.FC<CardProps> = ({
+  data,
+  flippable = true,
+  initialPosition = 'front',
+}) => {
+  const [flipped, setFlipped] = React.useState(
+    initialPosition === 'back' ? true : false
+  );
   const [pivotDisabled, setPivotDisabled] = React.useState(false);
   const [xPivot, setXPivot] = React.useState(0);
   const [yPivot, setYPivot] = React.useState(0);
@@ -53,6 +82,7 @@ const Card: React.FC<CardProps> = ({ data }) => {
   };
 
   const handleClick = () => {
+    if (!flippable) return;
     setFlipped((flipped) => !flipped);
     setXPivot(0);
     setYPivot(0);
@@ -85,6 +115,21 @@ const Card: React.FC<CardProps> = ({ data }) => {
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}>
         <div className={styles.front}>
+          {data.texture && (
+            <img
+              className={styles.texture}
+              src={TEXTURES[data.texture.pattern]}
+              style={{
+                opacity: data.texture.intensity,
+              }}
+              draggable={false}
+            />
+          )}
+          {/* <div
+            className={styles.texture}
+            style={{
+              backgroundImage: `linear-gradient(55deg, transparent, rgba(255 255 255 / 1) 0%, transparent)`,
+            }}></div> */}
           <div
             className={styles.banner}
             style={{
@@ -99,9 +144,24 @@ const Card: React.FC<CardProps> = ({ data }) => {
             src={data.image.src}
             alt={data.image.alt}
             className={styles.image}
+            draggable={false}
           />
         </div>
-        <div className={styles.back}>back</div>
+        <div
+          className={styles.back}
+          style={{ backgroundColor: data.color.back }}>
+          {data.texture && (
+            <img
+              className={styles.texture}
+              src={TEXTURES[data.texture.pattern]}
+              style={{
+                opacity: data.texture.intensity,
+              }}
+              draggable={false}
+            />
+          )}
+          <p style={{ color: data.text.back.color }}>{data.text.back.value}</p>
+        </div>
       </div>
     </div>
   );

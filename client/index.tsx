@@ -48,20 +48,24 @@ const routes = [
                 alt: 'random image',
               },
               color: {
-                back: 'red',
-                front: 'blue',
+                back: 'beige',
                 banner: 'white',
               },
               text: {
                 front: {
                   value: 'Front Text',
                   color: 'black',
-                  position: 'top',
+                  position: 'bottom',
                 },
                 back: {
-                  value: 'back',
-                  color: 'white',
+                  value:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus recusandae, sequi molestias earum dolore ex voluptatem eius minus quia ad. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus recusandae, sequi molestias earum dolore ex voluptatem eius minus quia ad.',
+                  color: 'black',
                 },
+              },
+              texture: {
+                pattern: 'leather',
+                intensity: 0.6,
               },
             }}
           />
@@ -69,6 +73,7 @@ const routes = [
       },
     ],
   },
+
   {
     path: '/cards',
     element: <GalleryPage />,

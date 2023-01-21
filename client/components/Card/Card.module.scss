@@ -1,16 +1,20 @@
+$card-width: 300px;
+$card-height: 400px;
+
 .outer {
-  width: 300px;
-  height: 400px;
+  width: $card-width;
+  height: $card-height;
   perspective: 1000px;
   & * {
     user-select: none;
+    box-sizing: border-box;
   }
 }
 
 .inner {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: $card-width;
+  height: $card-height;
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
@@ -19,39 +23,38 @@
 .front,
 .back {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: $card-width;
+  height: $card-height;
   overflow: hidden;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
-  border-radius: 8px;
+  border-radius: 7px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .front {
-  background-color: beige;
-  width: 100%;
-  height: 100%;
-  background-color: beige;
 }
 
 .back {
-  background-color: beige;
   color: white;
   transform: rotateY(180deg);
+  padding: 1rem;
+  p {
+    font-size: 1.15rem;
+  }
 }
 
 .image {
-  width: 100%;
-  height: 100%;
+  width: $card-width;
+  height: $card-height;
   object-fit: cover;
   pointer-events: none;
   user-select: none;
 }
 
 .banner {
-  width: 100%;
+  width: $card-width;
   height: 3rem;
   display: flex;
   justify-content: center;
@@ -59,4 +62,15 @@
   position: absolute;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.texture {
+  width: $card-width;
+  height: $card-height;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
 }
