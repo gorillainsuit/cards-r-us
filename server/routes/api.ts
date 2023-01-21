@@ -1,17 +1,16 @@
 import { Router } from 'express';
 // const router = express.Router(); //common js
- //es6
- // LoginRouter
- import authRouter from './auth';
- //cardsRouter
- import cardsRouter from './cards';
- // oauth router
- import oauthRouter from './oauth/oauth';
- // Ai generation router
- import aiGeneration from './generation/generation';
+//es6
+// LoginRouter
+import authRouter from './auth';
+//cardsRouter
+import cardsRouter from './cards';
+// oauth router
+import oauthRouter from './oauth/oauth';
+// Ai generation router
+import aiGeneration from './generation/generation';
 
 const router = Router();
-
 
 // auth route
 router.use('/auth', authRouter);

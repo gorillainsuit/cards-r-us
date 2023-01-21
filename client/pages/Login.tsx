@@ -23,13 +23,11 @@ const Login = () => {
       },
       body: JSON.stringify(info),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      updateLogin(data);
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        updateLogin(data);
+      });
   };
-
-
 
   return (
     <div className='LoginPage'>
@@ -45,10 +43,22 @@ const Login = () => {
       <Form onSubmit={handleLogin}>
         <div className='Inputs noSelect'>
           <label>Email:</label>
-          <input type='email' name='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type='email'
+            name='email'
+            id='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <br />
           <label>Password:</label>
-          <input type='password' name='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type='password'
+            name='password'
+            id='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <br className='noSelect' />
         </div>
 
@@ -64,10 +74,10 @@ const Login = () => {
           Forget password?
         </Link>
         <div className='Icons'>
-          <a className='icon' href='#'>
+          <a className='icon' href='/login/federated/google'>
             <i className='fa-brands fa-google'></i>
           </a>
-          <a className='icon' href='http://localhost:8080/api/oauth/gh'>
+          <a className='icon' href='/oauth/github'>
             <i className='fa-brands fa-github'></i>
           </a>
           <a className='icon' href='#'>
