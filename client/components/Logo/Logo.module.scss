@@ -1,5 +1,9 @@
 @use '/client/styles/colors' as vars;
 
+.link {
+  z-index: 1000;
+}
+
 .image {
   width: 6em;
   padding: 1.5em;

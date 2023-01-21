@@ -11,7 +11,6 @@ import LandingPage from './pages/LandingPage';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFoundPage';
 import CreateCard from './pages/CreateCardPage';
-import SignUp from './pages/SignUp';
 import CardViewPage from './pages/CardViewPage';
 
 // Style import
@@ -20,6 +19,7 @@ import GalleryPage from './pages/GalleryPage';
 import Headline from './components/Headline/Headline';
 import LoginForm from './components/LoginForm/LoginForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
+import Card from './components/Card/Card';
 
 const routes = [
   {
@@ -37,7 +37,36 @@ const routes = [
       {
         path: '/signup',
         element: <RegisterForm />,
-      }
+      },
+      {
+        path: '/testcard',
+        element: (
+          <Card
+            data={{
+              image: {
+                src: 'https://picsum.photos/200',
+                alt: 'random image',
+              },
+              color: {
+                back: 'red',
+                front: 'blue',
+                banner: 'white',
+              },
+              text: {
+                front: {
+                  value: 'Front Text',
+                  color: 'black',
+                  position: 'top',
+                },
+                back: {
+                  value: 'back',
+                  color: 'white',
+                },
+              },
+            }}
+          />
+        ),
+      },
     ],
   },
   {
