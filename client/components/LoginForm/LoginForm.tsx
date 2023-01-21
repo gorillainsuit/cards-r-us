@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useLoginState from '../../hooks/useLoginState';
 import AuthForm, { AuthAction, AuthProperty } from '../AuthForm/AuthForm';
 import AuthIcons from '../AuthIcons/AuthIcons';
@@ -11,21 +11,19 @@ const LoginForm = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if (e.target === null) return;
     const info = { email, password };
 
-    fetch('/api/auth/login', {
+    const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(info),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        updateLogin(data);
-      });
+    });
+    const data = await response.json();
+    updateLogin(data);
   };
 
   const formProperties: AuthProperty[] = [
