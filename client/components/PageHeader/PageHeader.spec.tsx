@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from './LandingHeader';
+import Head from './PageHeader';
 
 describe('<Head />', () => {
   it('renders', () => {

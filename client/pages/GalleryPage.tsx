@@ -29,6 +29,8 @@ import logo from '../images/logo.png';
 import BG from '../images/BG2.svg';
 
 import useLoginState from '../hooks/useLoginState';
+import Logo from '../components/Logo/Logo';
+import LandingHeader from '../components/PageHeader/PageHeader';
 
 let filterCardsByAuthor = false;
 // This will be used to hold the un-filtered cards
@@ -139,9 +141,7 @@ const GalleryPage: React.FC = () => {
   return (
     <div className='GalleryPage'>
       <BG className='background' />
-      <div className='logoContainer'>
-        <img className='logo noDrag' src={logo} alt='CardsRUs' />
-      </div>
+      <LandingHeader includeNav={false} />
       {/* Desktop Sidebar */}
       <div
         className='SideBar'

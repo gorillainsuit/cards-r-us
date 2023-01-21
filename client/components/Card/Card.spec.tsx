@@ -10,7 +10,6 @@ describe('Card', () => {
       },
       color: {
         back: 'red',
-        front: 'blue',
         banner: 'green',
       },
       text: {
