@@ -1,3 +1,4 @@
+import { Alert } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AuthForm, { AuthAction, AuthProperty } from '../AuthForm/AuthForm';
@@ -8,9 +9,15 @@ const RegisterForm = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setPasswordError(true);
+      return;
+    }
 
     const info = { email, password };
 
@@ -41,16 +48,20 @@ const RegisterForm = () => {
       type: 'password',
       name: 'password',
       value: password,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setPassword(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordError(false);
+        setPassword(e.target.value);
+      },
     },
     {
       label: 'Confirm Password',
       type: 'password',
       name: 'confirm-password',
       value: confirmPassword,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setConfirmPassword(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordError(false);
+        setConfirmPassword(e.target.value);
+      },
     },
   ];
 
@@ -67,30 +78,15 @@ const RegisterForm = () => {
       actions={formActions}
       onSubmit={handleSubmit}>
       <div className={styles.signin}>
+        {passwordError && (
+          <p className={styles.error}>Passwords do not match.</p>
+        )}
         <p>Already have an account? </p>
         <Link to='/login' className={styles.link}>
-          Sign in
+          Sign In
         </Link>
       </div>
-      <AuthIcons
-        options={[
-          {
-            name: 'google',
-            href: '#',
-            className: 'fa-brands fa-google',
-          },
-          {
-            name: 'github',
-            href: 'http://localhost:8080/api/oauth/gh',
-            className: 'fa-brands fa-github',
-          },
-          {
-            name: 'apple',
-            href: '#',
-            className: 'fa-brands fa-apple',
-          },
-        ]}
-      />
+      <AuthIcons />
     </AuthForm>
   );
 };

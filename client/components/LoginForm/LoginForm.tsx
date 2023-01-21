@@ -68,25 +68,7 @@ const LoginForm = () => {
         {' '}
         Forgot password?
       </Link>
-      <AuthIcons
-        options={[
-          {
-            name: 'google',
-            href: '#',
-            className: 'fa-brands fa-google',
-          },
-          {
-            name: 'github',
-            href: 'http://localhost:8080/api/oauth/gh',
-            className: 'fa-brands fa-github',
-          },
-          {
-            name: 'apple',
-            href: '#',
-            className: 'fa-brands fa-apple',
-          },
-        ]}
-      />
+      <AuthIcons />
     </AuthForm>
   );
 };

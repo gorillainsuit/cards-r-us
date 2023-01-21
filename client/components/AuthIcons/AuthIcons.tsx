@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './AuthIcons.module.scss';
 
 interface AuthOption {
@@ -7,15 +8,29 @@ interface AuthOption {
   href: string;
 }
 
-interface AuthIconsProps {
-  options: AuthOption[];
-}
+const authOptions: AuthOption[] = [
+  {
+    name: 'google',
+    href: '#',
+    className: 'fa-brands fa-google',
+  },
+  {
+    name: 'github',
+    href: 'http://localhost:8080/api/oauth/gh',
+    className: 'fa-brands fa-github',
+  },
+  {
+    name: 'apple',
+    href: '#',
+    className: 'fa-brands fa-apple',
+  },
+];
 
-const AuthIcons: React.FC<AuthIconsProps> = ({ options }) => {
+const AuthIcons: React.FC = () => {
   return (
     <div className={styles.iconContainer}>
-      {options.map((option) => (
-        <a className={styles.icon} href={option.href}>
+      {authOptions.map((option) => (
+        <a aria-label={option.name} className={styles.icon} href={option.href}>
           <i className={option.className}></i>
         </a>
       ))}
