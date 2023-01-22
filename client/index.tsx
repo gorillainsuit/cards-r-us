@@ -71,7 +71,10 @@ const routes = [
                 pattern: 'leather',
                 intensity: 0.6,
               },
+              id: '123',
               authorId: '123',
+              ownerId: '123',
+              createdAt: new Date(),
             }}
           />
         ),

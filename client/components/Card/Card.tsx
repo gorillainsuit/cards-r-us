@@ -7,34 +7,7 @@ import metalTexture from '/client/images/textures/aluminum.png';
 import leatherTexture from '/client/images/textures/leather.png';
 import woodTexture from '/client/images/textures/wood.png';
 import fabricTexture from '/client/images/textures/fabric.png';
-
-export interface CardData {
-  image: {
-    src: string;
-    alt: string;
-  };
-  color: {
-    back: string;
-    banner?: string;
-    texture?: string;
-  };
-  texture?: {
-    pattern: Texture;
-    intensity: number;
-  };
-  text: {
-    front: {
-      value: string;
-      color: string;
-      position: 'top' | 'middle' | 'bottom';
-    };
-    back: {
-      value: string;
-      color: string;
-    };
-  };
-  authorId: string;
-}
+import { CardData } from '../../../server/models/CardModel';
 
 export type Texture = keyof typeof TEXTURES;
 

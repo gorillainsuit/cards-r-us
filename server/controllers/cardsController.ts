@@ -1,27 +1,28 @@
 import UserModel from '../models/UserModel';
-import CardModel, { Card } from '../models/CardModel';
+import CardModel, { CardData } from '../models/CardModel';
 import { Request, Response, NextFunction } from 'express';
 
 const cardsController = {
   async getCards(req: Request, res: Response, next: NextFunction) {
     try {
-      const { _id, gallery } = res.locals.user;
+      // const { _id, gallery } = res.locals.user;
 
-      res.locals.cards = await Promise.all(
-        gallery.map(async (cardId: string) => {
-          const card = await CardModel.findOne({ _id: cardId });
-          if (!card) {
-            return null;
-          }
-          const { message, image, author } = card;
-          return {
-            message,
-            cardId: card._id,
-            author: _id === author,
-            imageUrl: image,
-          };
-        })
-      );
+      // res.locals.cards = await Promise.all(
+      //   gallery.map(async (cardId: string) => {
+      //     const card = await CardModel.findOne({ _id: cardId });
+      //     if (!card) {
+      //       return null;
+      //     }
+      //     const { message, image, author } = card;
+      //     return {
+      //       message,
+      //       cardId: card._id,
+      //       author: _id === author,
+      //       imageUrl: image,
+      //     };
+      //   })
+      // );
+
       return next();
     } catch (e: any) {
       return next({

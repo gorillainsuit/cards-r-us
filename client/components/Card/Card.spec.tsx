@@ -1,5 +1,6 @@
 import React from 'react';
-import Card, { CardData } from './Card';
+import { CardData } from '../../../server/models/CardModel';
+import Card from './Card';
 
 describe('Card', () => {
   it('should render', () => {
@@ -24,6 +25,9 @@ describe('Card', () => {
         },
       },
       authorId: '123',
+      id: '123',
+      ownerId: '123',
+      createdAt: new Date(),
     };
 
     cy.mount(<Card data={cardData} />);
