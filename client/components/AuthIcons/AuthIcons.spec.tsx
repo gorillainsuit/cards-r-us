@@ -10,6 +10,6 @@ describe('<AuthIcons />', () => {
     cy.mount(<AuthIcons />);
     cy.get('a[aria-label="github"]')
       .should('have.attr', 'href')
-      .should('include', '/api/oauth/gh');
+      .should('include', '/oauth/github');
   });
 });

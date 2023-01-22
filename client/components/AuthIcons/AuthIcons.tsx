@@ -16,7 +16,7 @@ const authOptions: AuthOption[] = [
   },
   {
     name: 'github',
-    href: 'http://localhost:8080/api/oauth/gh',
+    href: 'http://localhost:8080/oauth/github',
     className: 'fa-brands fa-github',
   },
   {
