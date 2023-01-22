@@ -1,0 +1,58 @@
+@use '../../styles/colors' as *;
+
+.sidebar {
+  z-index: 4;
+  width: 18em;
+  height: 100vh;
+  border-right: solid #1a1a1a9e 3px;
+  border-radius: 4px;
+  background-color: #3a3a3ae1;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 300ms ease-in-out;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 600px) {
+    left: 0;
+    top: 0;
+    width: 100vw;
+  }
+}
+
+.open {
+  transform: translateX(0);
+  @media screen and (max-width: 600px) {
+    transform: translateY(0);
+  }
+}
+
+$mobile-sidebar-closed: calc(100vh - 5em);
+
+.closed {
+  transform: translateX(-80%);
+  @media screen and (max-width: 600px) {
+    transform: translateY($mobile-sidebar-closed);
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  height: 5em;
+  width: 100%;
+  * {
+    color: $text-color;
+    font-family: $main-font;
+    font-size: 1rem;
+    margin: auto;
+  }
+  @media screen and (max-width: 600px) {
+    justify-content: space-between;
+  }
+}

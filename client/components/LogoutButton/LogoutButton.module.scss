@@ -1,0 +1,37 @@
+@use '../../styles/colors' as *;
+
+.container {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: $text-color;
+  }
+}
+
+.button {
+  background: linear-gradient(to bottom right, $text-color, #89cff0);
+  border: 0;
+  // flex-grow: 1;
+  border-radius: 12px;
+  color: $primary;
+  cursor: pointer;
+  font-family: $main-font;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: 200ms;
+  &:hover {
+    box-shadow: 0 0 7px 4px white;
+  }
+}

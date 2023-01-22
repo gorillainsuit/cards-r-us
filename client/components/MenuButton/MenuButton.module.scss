@@ -1,0 +1,43 @@
+.mobileIcon {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+  @media screen and (max-width: 600px) {
+    display: flex;
+  }
+}
+
+.desktopIcon {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+.button {
+  all: unset;
+  cursor: pointer;
+  color: gray;
+  width: 3rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: color 0.3s ease-in-out;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &:hover {
+    color: white;
+  }
+}

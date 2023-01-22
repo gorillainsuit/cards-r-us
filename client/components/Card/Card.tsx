@@ -33,6 +33,7 @@ export interface CardData {
       color: string;
     };
   };
+  authorId: string;
 }
 
 export type Texture = keyof typeof TEXTURES;

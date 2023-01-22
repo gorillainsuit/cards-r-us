@@ -67,6 +67,7 @@ const routes = [
                 pattern: 'leather',
                 intensity: 0.6,
               },
+              authorId: '123',
             }}
           />
         ),
@@ -77,7 +78,7 @@ const routes = [
   {
     path: '/cards',
     element: <GalleryPage />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
   },
   {
     path: '/card',
@@ -96,7 +97,6 @@ const routes = [
     element: <ErrorPage />,
   },
 ];
-
 const element = document.querySelector('#App');
 if (element === null) throw new Error('Root element not found');
 const root = createRoot(element);

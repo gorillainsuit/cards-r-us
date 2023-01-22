@@ -31,6 +31,7 @@ import BG from '../images/BG2.svg';
 import useLoginState from '../hooks/useLoginState';
 import Logo from '../components/Logo/Logo';
 import LandingHeader from '../components/PageHeader/PageHeader';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 let filterCardsByAuthor = false;
 // This will be used to hold the un-filtered cards
@@ -57,7 +58,7 @@ const GalleryPage: React.FC = () => {
   const [cards, setCards] = useState<Card[]>([]);
   const isMobile = useIsMobile();
   const [error, setError] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
   // const { isLoggedIn, user } = useLoginState();
 
   // if (!isLoggedIn) window.location.href = '/login';
@@ -66,43 +67,42 @@ const GalleryPage: React.FC = () => {
   useEffect(() => {
     // TODO: Replace this with a fetch to backend
     // TODO: fix bug where "fetch" occurs on every filter
-    if (!cards) {
-      fetch('/api/cards/', { method: 'GET' })
-        .then((d) => {
-          if (d.status !== 200) {
-            setError(true);
-          }
-          return d.json();
-        })
-        .then((d) => {
-          // Create a copy of the cards.
-          tmpCards = [...d];
-          // Set the card state
-          setCards(d);
-        })
-        .catch((e) => {
-          setError(true);
-          console.log('Error occured: ', e);
-        });
-    }
-
-    if (!user) {
-      fetch('/api/auth/user', { method: 'GET' })
-        .then((d) => {
-          if (d.status !== 200) {
-            setError(true);
-          }
-          return d.json();
-        })
-        .then((d) => {
-          // Set the card state
-          setUser(d);
-        })
-        .catch((e) => {
-          setError(true);
-          console.log('Error occured: ', e);
-        });
-    }
+    // if (!cards) {
+    //   fetch('/api/cards/', { method: 'GET' })
+    //     .then((d) => {
+    //       if (d.status !== 200) {
+    //         setError(true);
+    //       }
+    //       return d.json();
+    //     })
+    //     .then((d) => {
+    //       // Create a copy of the cards.
+    //       tmpCards = [...d];
+    //       // Set the card state
+    //       setCards(d);
+    //     })
+    //     .catch((e) => {
+    //       setError(true);
+    //       console.log('Error occured: ', e);
+    //     });
+    // }
+    // if (!user) {
+    //   // fetch('/api/auth/user', { method: 'GET' })
+    //   //   .then((d) => {
+    //   //     if (d.status !== 200) {
+    //   //       setError(true);
+    //   //     }
+    //   //     return d.json();
+    //   //   })
+    //   //   .then((d) => {
+    //   //     // Set the card state
+    //   //     setUser(d);
+    //   //   })
+    //   //   .catch((e) => {
+    //   //     setError(true);
+    //   //     console.log('Error occured: ', e);
+    //   //   });
+    // }
   });
 
   // This will be used to delete cards
@@ -143,122 +143,7 @@ const GalleryPage: React.FC = () => {
       <BG className='background' />
       <LandingHeader includeNav={false} />
       {/* Desktop Sidebar */}
-      <div
-        className='SideBar'
-        style={{
-          width: displaySideBar ? '' : '5em',
-          display: isMobile ? 'none' : '',
-        }}>
-        {/* User/expand and minify sidebar */}
-        <div className='User'>
-          <Avatar
-            style={{ display: displaySideBar ? '' : 'none' }}
-            alt='Placeholder'
-            src={user?.avatar ?? Placeholder}
-          />
-          <h2 style={{ display: displaySideBar ? '' : 'none' }}>
-            {user?.username ?? 'Placeholder'}
-          </h2>
-          <IconButton
-            variant='plain'
-            onClick={() => setDisplaySideBar(!displaySideBar)}>
-            {displaySideBar ? <ChevronLeft /> : <ChevronRight />}
-          </IconButton>
-        </div>
-
-        {/* Expanded sidebar view */}
-        <div className='SideBarContent'>
-          <Divider orientation='horizontal' />
-          <div className='MainControls'>
-            <ul>
-              <li>
-                {displaySideBar ? (
-                  <Button
-                    onClick={doCardFilter}
-                    startDecorator={<FilterList />}
-                    variant='soft'>
-                    {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
-                  </Button>
-                ) : (
-                  <IconButton onClick={doCardFilter}>
-                    <FilterList />
-                  </IconButton>
-                )}
-              </li>
-            </ul>
-          </div>
-          <div className='SecondaryControls'>
-            {displaySideBar ? (
-              <Button
-                onClick={() => {
-                  window.location.href = '/';
-                }}
-                variant='soft'>
-                Logout
-              </Button>
-            ) : (
-              <IconButton variant='soft'>
-                <Logout
-                  onClick={() => {
-                    window.location.href = '/';
-                  }}
-                />
-              </IconButton>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile sidebar */}
-      <div
-        className='SideBarMobile'
-        style={{
-          display: isMobile ? '' : 'none',
-          height: !displaySideBar ? '100vh' : '',
-        }}>
-        {/* User/expand and minify sidebar */}
-        <div className='User'>
-          <Avatar alt='Placeholder' src={user?.avatar ?? Placeholder} />
-          <h2>{user?.username ?? 'HidInKyu'}</h2>
-          <IconButton
-            variant='plain'
-            onClick={() => setDisplaySideBar(!displaySideBar)}>
-            {!displaySideBar ? <ExpandLess /> : <Menu />}
-          </IconButton>
-        </div>
-
-        {/* Expanded sidebar view */}
-        <div
-          className='SideBarContent'
-          style={{ display: !displaySideBar ? '' : 'none' }}>
-          <Divider orientation='horizontal' />
-          <div className='MainControls'>
-            <ul>
-              <li>
-                {!displaySideBar ? (
-                  <Button
-                    onClick={(e) => {
-                      doCardFilter(e);
-                      setTimeout(() => setDisplaySideBar(!displaySideBar), 200);
-                    }}
-                    startDecorator={<FilterList />}
-                    variant='soft'>
-                    {filterCardsByAuthor ? 'Show All' : 'Show Sent'}
-                  </Button>
-                ) : null}
-              </li>
-            </ul>
-          </div>
-          <div className='SecondaryControls'>
-            {!displaySideBar ? (
-              <Button onClick={() => {}} variant='soft'>
-                Logout
-              </Button>
-            ) : null}
-          </div>
-        </div>
-      </div>
-
+      <Sidebar />
       {/* Gallary view */}
       <div className='Content'>
         <div className='Gallary'>

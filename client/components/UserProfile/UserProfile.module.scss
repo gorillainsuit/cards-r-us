@@ -1,0 +1,30 @@
+@use '../../styles/colors' as *;
+
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5em;
+  width: 100%;
+  * {
+    color: $text-color;
+    font-family: $main-font;
+    margin: auto;
+  }
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    justify-content: flex-start;
+    height: 5em;
+    width: 10rem;
+    margin: 0;
+  }
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+  object-fit: cover;
+  background-color: $primary;
+}
