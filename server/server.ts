@@ -63,13 +63,12 @@ passport.deserializeUser(function (user: any, done) {
   done(null, user);
 });
 //static server dist folder
-
-app.use('/', express.static(path.resolve('./dist')));
-
 // Main page
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).sendFile(path.resolve('./dist/index.html'));
+  res.status(200).sendFile(path.resolve());
 });
+
+app.use(express.static(path.resolve('dist')));
 
 // All api routes
 app.use('/oauth', oauthRouter);
@@ -77,8 +76,8 @@ app.use('/api', apiRouter);
 
 // app.use('/google', googleRouter);
 // 404 redirect to index.html for react router
-app.use((req: Request, res: Response) =>
-  res.status(200).sendFile(path.resolve('./dist/index.html'))
+app.use('*', (req: Request, res: Response) =>
+  res.status(200).sendFile(path.join(__dirname, '../dist/index.html'))
 );
 
 export interface ExpressError {

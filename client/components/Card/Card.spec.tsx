@@ -23,6 +23,7 @@ describe('Card', () => {
           color: 'white',
         },
       },
+      authorId: '123',
     };
 
     cy.mount(<Card data={cardData} />);
