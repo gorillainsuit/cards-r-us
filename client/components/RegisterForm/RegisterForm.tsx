@@ -81,7 +81,7 @@ const RegisterForm = () => {
         {passwordError && (
           <p className={styles.error}>Passwords do not match.</p>
         )}
-        <p>Already have an account? </p>
+        <p>Already have an account?</p>
         <Link to='/login' className={styles.link}>
           Sign In
         </Link>

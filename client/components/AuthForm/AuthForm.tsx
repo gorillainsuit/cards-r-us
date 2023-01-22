@@ -29,7 +29,6 @@ const AuthForm: React.FC<React.PropsWithChildren<AuthFormProps>> = ({
   onSubmit,
   children,
 }) => {
-
   return (
     <Form onSubmit={onSubmit} className={styles.form}>
       <div className={styles.inputs}>
@@ -44,7 +43,6 @@ const AuthForm: React.FC<React.PropsWithChildren<AuthFormProps>> = ({
               onChange={property.onChange}
               required={Boolean(property.required)}
             />
-            <br />
           </>
         ))}
       </div>

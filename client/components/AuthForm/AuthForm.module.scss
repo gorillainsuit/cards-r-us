@@ -3,7 +3,7 @@
 .form {
   box-sizing: border-box;
   max-width: 90vw;
-  max-height: 75vh;
+  max-height: 70vh;
   overflow-y: scroll;
   // height: 55vh;
   padding: 2.5rem;
@@ -15,9 +15,9 @@
   border-radius: 10px;
   background-color: rgba($secondary, 0.8);
   box-shadow: 3px 5px 5px rgb(205, 199, 199), -1px -3px 5px rgb(205, 199, 199);
-  // @media screen and (max-width: 930px) {
-  //   box-shadow: 3px 5px 5px rgba(205, 199, 199, 0);
-  // }
+  @media screen and (max-width: 930px) {
+    max-height: 80vh;
+  }
   & * {
     box-sizing: border-box;
   }
@@ -45,6 +45,7 @@
     border-radius: 5px;
     height: 2.5rem;
     padding: 0.25rem 0.5rem;
+    margin-bottom: 0.5em;
     width: 100%;
     font-family: $main-font;
     font-size: 1rem;
