@@ -1,30 +1,22 @@
-// React imports
+import { CssVarsProvider } from '@mui/joy/styles';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { CssVarsProvider } from '@mui/joy/styles';
-
-// React router imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-// Page imports
-import LandingPage from './pages/LandingPage';
-import ErrorPage from './pages/ErrorPage';
-import NotFound from './pages/NotFoundPage';
-import CreateCard from './pages/CreateCardPage';
-import CardViewPage from './pages/CardViewPage';
-
-// Style import
-import './styles/index.scss';
-import GalleryPage from './pages/GalleryPage';
+import Card from './components/Card/Card';
 import Headline from './components/Headline/Headline';
 import LoginForm from './components/LoginForm/LoginForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
-import Card from './components/Card/Card';
+import CreateCard from './pages/CreateCardPage';
+import ErrorPage from './pages/ErrorPage';
+import GalleryPage from './pages/GalleryPage';
+import LandingPage from './pages/LandingPage';
+import './styles/index.scss';
 
 const routes = [
   {
     path: '/',
     element: <LandingPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
@@ -44,7 +36,7 @@ const routes = [
   {
     path: '/cards',
     element: <GalleryPage />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/cards',
@@ -93,14 +85,6 @@ const routes = [
   {
     path: '/create',
     element: <CreateCard />,
-  },
-  {
-    path: '/404',
-    element: <NotFound />,
-  },
-  {
-    path: '/*',
-    element: <ErrorPage />,
   },
 ];
 const element = document.querySelector('#App');

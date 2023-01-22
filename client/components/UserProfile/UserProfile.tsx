@@ -1,4 +1,4 @@
-import { Avatar, CircularProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import useUser from '../../hooks/useUser';

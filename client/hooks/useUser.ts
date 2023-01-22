@@ -20,7 +20,7 @@ const useUser = () => {
         setError(true);
         console.log('Error occured: ', data.message);
       }
-      setUser(data);
+      // setUser(data); //TODO: Uncomment this line after updating the API
     };
 
     getUser();

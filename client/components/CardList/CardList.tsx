@@ -15,7 +15,7 @@ const CardList = () => {
       const data = await response.json();
       setCards(data);
     };
-    getCards();
+    // getCards(); //TODO: Uncomment this after updating the API
   }, []);
 
   React.useEffect(() => {
@@ -33,7 +33,7 @@ const CardList = () => {
     });
   }, [filterIndex, cards]);
 
-  const handleFilter = () => {
+  const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
     setFilterIndex((filterIndex) => (filterIndex + 1) % FILTERS.length);
   };
 

@@ -1,5 +1,4 @@
-// React import
-import React, { useState } from 'react';
+import React from 'react';
 import Divider from '@mui/joy/Divider';
 import styles from './Sidebar.module.scss';
 import UserProfile from '../UserProfile/UserProfile';
@@ -8,7 +7,7 @@ import LogoutButton from '../LogoutButton/LogoutButton';
 import CardList from '../CardList/CardList';
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const containerStyles = `${styles.sidebar} ${
     open ? styles.open : styles.closed
