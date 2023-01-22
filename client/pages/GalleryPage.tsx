@@ -32,6 +32,8 @@ import useLoginState from '../hooks/useLoginState';
 import Logo from '../components/Logo/Logo';
 import LandingHeader from '../components/PageHeader/PageHeader';
 import Sidebar from '../components/Sidebar/Sidebar';
+import MovingBackground from '../components/MovingBackground/MovingBackground';
+import { Outlet } from 'react-router';
 
 let filterCardsByAuthor = false;
 // This will be used to hold the un-filtered cards
@@ -139,32 +141,11 @@ const GalleryPage: React.FC = () => {
 
   // TODO: Refactor the jank responsiveness
   return (
-    <div className='GalleryPage'>
-      <BG className='background' />
+    <MovingBackground night>
       <LandingHeader includeNav={false} />
-      {/* Desktop Sidebar */}
       <Sidebar />
-      {/* Gallary view */}
-      <div className='Content'>
-        <div className='Gallary'>
-          {(cards ?? false) && cards.length ? (
-            cards.map((card, i) => (
-              <Card
-                key={i}
-                cardId={card.cardId}
-                image={card.imageUrl}
-                message={card.message}
-                deleteFunction={handleCardDelete}
-              />
-            ))
-          ) : cards === null ? (
-            <CircularProgress color='primary' value={25} variant='soft' />
-          ) : (
-            <h1>No Cards.</h1>
-          )}
-        </div>
-      </div>
-    </div>
+      <Outlet />
+    </MovingBackground>
   );
 };
 

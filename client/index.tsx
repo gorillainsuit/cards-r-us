@@ -38,8 +38,20 @@ const routes = [
         path: '/signup',
         element: <RegisterForm />,
       },
+    ],
+  },
+
+  {
+    path: '/cards',
+    element: <GalleryPage />,
+    // errorElement: <ErrorPage />,
+    children: [
       {
-        path: '/testcard',
+        path: '/cards',
+        element: <Headline>Gallery</Headline>, //TODO: Add gallery element here
+      },
+      {
+        path: '/cards/1',
         element: (
           <Card
             data={{
@@ -74,16 +86,10 @@ const routes = [
       },
     ],
   },
-
-  {
-    path: '/cards',
-    element: <GalleryPage />,
-    // errorElement: <ErrorPage />,
-  },
-  {
-    path: '/card',
-    element: <CardViewPage />,
-  },
+  // {
+  //   path: '/card',
+  //   element: <CardViewPage />,
+  // },
   {
     path: '/create',
     element: <CreateCard />,
